@@ -3,6 +3,8 @@ target
 .idea
 .project
 .classpath
+.settings
+
 *.class
 
 # Package Files #
