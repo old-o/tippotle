@@ -2,3 +2,9 @@ target
 *.iml
 .idea
 .settings
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
