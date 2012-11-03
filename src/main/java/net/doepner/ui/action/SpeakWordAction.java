@@ -1,7 +1,5 @@
 package net.doepner.ui.action;
 
-import static net.doepner.ui.Icons.Category.MEDIA;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -20,7 +18,7 @@ public class SpeakWordAction extends AbstractAction {
 		this.textProvider = textProvider;
 		this.speaker = speaker;
 		putValue(Action.SHORT_DESCRIPTION, "Read current word");
-		Icons.setLargeIcon(this, MEDIA, "Volume");
+		Icons.setLargeIcon(this, "volume");
 	}
 
 	@Override

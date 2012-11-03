@@ -1,7 +1,5 @@
 package net.doepner.ui.action;
 
-import static net.doepner.ui.Icons.Category.GENERAL;
-
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,7 +16,7 @@ public class FontSizingAction extends AbstractAction {
 	public FontSizingAction(int step, Component component) {
 		this.step = step;
 		this.component = component;
-		Icons.setLargeIcon(this, GENERAL, "Zoom" + (step > 0 ? "In" : "Out"));
+		Icons.setLargeIcon(this, "zoom-" + (step > 0 ? "in" : "out"));
 	}
 
 	@Override

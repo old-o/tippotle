@@ -1,7 +1,5 @@
 package net.doepner.ui.action;
 
-import static net.doepner.ui.Icons.Category.FLAGS;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -26,6 +24,6 @@ public class SwitchLanguageAction extends AbstractAction {
 
 	private void update() {
 		final String langCode = langChanger.getLanguage().getCode();
-		Icons.setLargeIcon(this, FLAGS, langCode);
+		Icons.setLargeIcon(this, langCode);
 	}
 }
