@@ -51,8 +51,8 @@ public class FontChooser extends JComboBox<Font> {
 	private static class FontCellRenderer 
 			implements ListCellRenderer<Font> {
 		
-		protected DefaultListCellRenderer renderer = 
-				new DefaultListCellRenderer();
+	    private final ListCellRenderer<Object> renderer =
+                new DefaultListCellRenderer();
 		
 		public Component getListCellRendererComponent(
 				JList<? extends Font> list, Font font, int index, 

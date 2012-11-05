@@ -29,7 +29,7 @@ public class FileHelper {
 	}
 
 	public String load(int i) {
-		final StringBuffer result = new StringBuffer();
+		final StringBuilder result = new StringBuilder();
 		try {
 			for (String line : Files.readAllLines(getFilePath(i),
 					DEFAULT_CHARSET)) {

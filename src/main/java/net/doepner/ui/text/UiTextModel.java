@@ -7,7 +7,7 @@ import net.doepner.text.TextReceiver;
 
 public class UiTextModel implements TextModel, TextReceiver {
 
-	final JTextComponent comp;
+	private final JTextComponent comp;
 	
 	public UiTextModel(JTextComponent comp) {
 		this.comp = comp;

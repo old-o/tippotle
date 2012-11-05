@@ -9,7 +9,7 @@ import net.doepner.ui.text.TextStyler;
 
 public class DocUtil {
 	
-	public static DefaultStyledDocument prepareDocument(
+	static DefaultStyledDocument prepareDocument(
 			final Speaker speaker) {
 
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
@@ -28,6 +28,4 @@ public class DocUtil {
 		
 		return doc;
 	}
-
-
 }

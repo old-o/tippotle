@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
 import net.doepner.ui.text.FontChooser;
 
@@ -20,7 +21,7 @@ public class TypePad {
 	
 	private final JFrame frame = new JFrame("TypePad");
 	
-	public TypePad(final JTextPane pane, Action... actions) {
+	TypePad(final JTextPane pane, Action... actions) {
 
 		pane.setFont(new Font("Monospaced", Font.PLAIN, 40));
 		pane.setPreferredSize(new Dimension(800, 600));
@@ -29,7 +30,7 @@ public class TypePad {
 		addActions(pane, toolBar, actions);		
 		toolBar.add(new FontChooser(pane));
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.add(toolBar, BorderLayout.PAGE_START);
 		frame.add(pane, BorderLayout.CENTER);
 	}

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class PaintFrame extends JFrame {
 	
@@ -15,7 +16,7 @@ public class PaintFrame extends JFrame {
 
 	public PaintFrame() {
 		super("Paint");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
 
 		add(paintPanel);

@@ -4,10 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -18,12 +20,12 @@ import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public class PaintPanel extends JPanel {
 
-	private static final BasicStroke STROKE = new BasicStroke(4f,
+	private static final Stroke STROKE = new BasicStroke(4f,
 			BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
 	private final Deque<Point> points = new LinkedList<>();
 
-	public PaintPanel() {
+	PaintPanel() {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
 				addPoint(e);
@@ -88,7 +90,7 @@ public class PaintPanel extends JPanel {
 		}
 	}
 
-	public BufferedImage getImage() {
+	public RenderedImage getImage() {
 		final BufferedImage image = new BufferedImage(getWidth(), getHeight(),
 				BufferedImage.TYPE_INT_RGB);
 		paint(image.getGraphics());
