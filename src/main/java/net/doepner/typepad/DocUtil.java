@@ -20,7 +20,9 @@ public class DocUtil {
 		doc.addDocumentListener(new TextListener() {
 			@Override
 			public void process(DocumentEvent e, String text) {
-				speaker.speak(text);
+                if (!text.trim().isEmpty()) {
+				    speaker.speak(text);
+                }
 			}
 		});
 		

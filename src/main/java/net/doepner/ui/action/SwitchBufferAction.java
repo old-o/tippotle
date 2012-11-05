@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 
 import net.doepner.file.FileHelper;
 import net.doepner.text.TextModel;
+import net.doepner.ui.Icons;
 
 public class SwitchBufferAction extends AbstractAction {
 
@@ -19,6 +20,8 @@ public class SwitchBufferAction extends AbstractAction {
 	public SwitchBufferAction(int max, TextModel textModel) {
 		this.max = max;
 		this.textModel = textModel;
+        putValue(SHORT_DESCRIPTION, "Switch buffer");
+        Icons.setLargeIcon(this, "buffers");
 		loadText();
 	}
 

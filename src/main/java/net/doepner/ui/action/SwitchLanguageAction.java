@@ -2,7 +2,7 @@ package net.doepner.ui.action;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
+import javax.swing.*;
 
 import net.doepner.lang.LanguageChanger;
 import net.doepner.ui.Icons;
@@ -13,6 +13,7 @@ public class SwitchLanguageAction extends AbstractAction {
 	
 	public SwitchLanguageAction(LanguageChanger langChanger) {
 		this.langChanger = langChanger;
+        putValue(SHORT_DESCRIPTION, "Switch language");
 		update();
 	}
 
