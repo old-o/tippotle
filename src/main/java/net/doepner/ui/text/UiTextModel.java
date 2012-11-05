@@ -3,8 +3,9 @@ package net.doepner.ui.text;
 import javax.swing.text.JTextComponent;
 
 import net.doepner.text.TextModel;
+import net.doepner.text.TextReceiver;
 
-public class UiTextModel implements TextModel {
+public class UiTextModel implements TextModel, TextReceiver {
 
 	final JTextComponent comp;
 	
@@ -22,4 +23,9 @@ public class UiTextModel implements TextModel {
 	public String getText() {
 		return comp.getText();
 	}
+
+    @Override
+    public int getOffset() {
+        return comp.getCaretPosition();
+    }
 }

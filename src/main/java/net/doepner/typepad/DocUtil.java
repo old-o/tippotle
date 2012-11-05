@@ -15,7 +15,7 @@ public class DocUtil {
 		final DefaultStyledDocument doc = new DefaultStyledDocument();
 						
 		doc.addDocumentListener(new TextStyler(
-				new AlphaNumStyler()));	
+                new AlphaNumStyler()));
 
 		doc.addDocumentListener(new TextListener() {
 			@Override

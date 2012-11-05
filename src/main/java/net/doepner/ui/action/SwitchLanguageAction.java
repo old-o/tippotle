@@ -2,7 +2,7 @@ package net.doepner.ui.action;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
 
 import net.doepner.lang.LanguageChanger;
 import net.doepner.ui.Icons;

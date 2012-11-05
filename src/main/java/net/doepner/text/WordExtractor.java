@@ -5,50 +5,46 @@ import static net.doepner.text.CharCondition.IS_WORD_PART;
 
 public class WordExtractor implements TextProvider {
 
-	private final TextProvider textProvider;
-	private final TextCoordinates textCoords;
+	private final TextModel model;
 
-	public WordExtractor(TextProvider textProvider,
-                         TextCoordinates textCoords) {
-		this.textProvider = textProvider;
-		this.textCoords = textCoords;
+	public WordExtractor(TextModel model) {
+		this.model = model;
 	}
 
-	@Override
+    @Override
 	public String getText() {
-		final String text = textProvider.getText();
-		final int offset = textCoords.getOffset();
-
-		final String word = findSequence(text, offset, IS_WORD_PART);
+		final String word = findSequence(model, IS_WORD_PART);
 		if (word.length() > 0) {
 			return word;			
 		} else {
-			return findSequence(text, offset, IS_NUMBER_PART);
+			return findSequence(model, IS_NUMBER_PART);
 		}
 	}
 
-	private String findSequence(final String text, final int offset,
-			CharCondition cond) {
+	private String findSequence(final TextModel model, CharCondition cond) {
+		final int start = getStart(model, cond);
+		final int end = getEnd(model, cond);
 
-		final int start = getStart(text, offset, cond);
-		final int end = getEnd(text, offset, cond);
-
-		return text.substring(start, end);
+		return model.getText().substring(start, end);
 	}
 
-	private static int getStart(String text, int offset, CharCondition cond) {
-		int start = offset;
-		while (start > 0 && cond.matches(text.charAt(start - 1))) {
-			start--;
+	private static int getStart(TextModel model, CharCondition cond) {
+        final String text = model.getText();
+
+        int pos = model.getOffset();
+        while (pos > 0 && cond.matches(text.charAt(pos - 1))) {
+			pos--;
 		}
-		return start;
+		return pos;
 	}
 
-	private static int getEnd(String text, int offset, CharCondition cond) {
-		int end = offset;
-		while (end < text.length() && cond.matches(text.charAt(end))) {
-			end++;
+	private static int getEnd(TextModel model, CharCondition cond) {
+        final String text = model.getText();
+
+		int pos = model.getOffset();
+		while (pos < text.length() && cond.matches(text.charAt(pos))) {
+			pos++;
 		}
-		return end;
+		return pos;
 	}
 }

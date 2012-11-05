@@ -1,6 +1,6 @@
 package net.doepner.text;
 
-public interface TextModel extends TextProvider, TextReceiver {
+public interface TextModel extends TextProvider, TextCoordinates {
 
 	// no additional methods
 	

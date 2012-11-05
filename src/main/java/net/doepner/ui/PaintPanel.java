@@ -1,8 +1,5 @@
 package net.doepner.ui;
 
-import static java.awt.RenderingHints.KEY_ANTIALIASING;
-import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
-
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,6 +12,9 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
+
+import static java.awt.RenderingHints.KEY_ANTIALIASING;
+import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public class PaintPanel extends JPanel {
 

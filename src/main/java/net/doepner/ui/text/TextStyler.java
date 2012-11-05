@@ -21,13 +21,13 @@ public class TextStyler extends TextListener {
 		final int length = event.getLength();
 		
 		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				for (int i = 0; i < length; i++) {
-					final AttributeSet attribs = charStyler.getAttribs(text.charAt(i));
-					doc.setCharacterAttributes(offset + i, 1, attribs, true);
-				}
-			}
-		});		
+            @Override
+            public void run() {
+                for (int i = 0; i < length; i++) {
+                    final AttributeSet attribs = charStyler.getAttribs(text.charAt(i));
+                    doc.setCharacterAttributes(offset + i, 1, attribs, true);
+                }
+            }
+        });
 	}
 }
