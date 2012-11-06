@@ -1,6 +1,9 @@
 package net.doepner.lang;
 
-public interface LanguageChanger extends LanguageContext {
+
+import net.doepner.ChangeNotifier;
+
+public interface LanguageChanger extends LanguageContext, ChangeNotifier {
 
 	void changeLanguage();
 

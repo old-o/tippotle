@@ -6,19 +6,14 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import net.doepner.ui.Icons;
-
-public class FontSizingAction extends AbstractAction {
+public class ResizeFont extends AbstractAction implements Action {
 
 	private final int step;
 	private final Component component;
 
-	public FontSizingAction(int step, Component component) {
+	public ResizeFont(int step, Component component) {
 		this.step = step;
 		this.component = component;
-        boolean bigger = step > 0;
-        putValue(SHORT_DESCRIPTION, (bigger ? "In" : "De") + "crease font size");
-        Icons.setLargeIcon(this, "zoom-" + (bigger ? "in" : "out"));
     }
 
 	@Override
@@ -30,4 +25,8 @@ public class FontSizingAction extends AbstractAction {
 		}
 	}
 
+    @Override
+    public ActionId getId() {
+        return step > 0 ? ActionId.BIGGER_FONT : ActionId.SMALLER_FONT;
+    }
 }

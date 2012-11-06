@@ -5,15 +5,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import net.doepner.lang.LanguageChanger;
-import net.doepner.ui.Icons;
+import net.doepner.ui.icons.IconLoader;
 
-public class SwitchLanguageAction extends AbstractAction {
+public class SwitchLanguage extends AbstractAction implements Action {
 
 	private final LanguageChanger langChanger;
 	
-	public SwitchLanguageAction(LanguageChanger langChanger) {
+	public SwitchLanguage(LanguageChanger langChanger) {
 		this.langChanger = langChanger;
-        putValue(SHORT_DESCRIPTION, "Switch language");
 		update();
 	}
 
@@ -25,6 +24,11 @@ public class SwitchLanguageAction extends AbstractAction {
 
 	private void update() {
 		final String langCode = langChanger.getLanguage().getCode();
-		Icons.setLargeIcon(this, langCode);
+		putValue(Action.LARGE_ICON_KEY, IconLoader.load(langCode + ".png"));
 	}
+
+    @Override
+    public ActionId getId() {
+        return ActionId.SWITCH_LANGUAGE;
+    }
 }

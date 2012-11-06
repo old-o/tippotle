@@ -7,9 +7,8 @@ import javax.swing.AbstractAction;
 import net.doepner.file.FileHelper;
 import net.doepner.text.TextProvider;
 import net.doepner.text.TextReceiver;
-import net.doepner.ui.Icons;
 
-public class SwitchBufferAction extends AbstractAction {
+public class SwitchBuffer extends AbstractAction implements Action {
 
 	private final FileHelper helper = new FileHelper();
 	
@@ -20,14 +19,12 @@ public class SwitchBufferAction extends AbstractAction {
 	
 	private int i = 1;
 	
-	public SwitchBufferAction(int max,
-                              TextProvider textProvider,
-                              TextReceiver textReceiver) {
+	public SwitchBuffer(int max,
+                        TextProvider textProvider,
+                        TextReceiver textReceiver) {
 		this.max = max;
 		this.textProvider = textProvider;
         this.textReceiver = textReceiver;
-        putValue(SHORT_DESCRIPTION, "Switch buffer");
-        Icons.setLargeIcon(this, "buffers");
 		loadText();
 	}
 
@@ -41,4 +38,9 @@ public class SwitchBufferAction extends AbstractAction {
 	private void loadText() {
 		textReceiver.setText(helper.load(i));
 	}
+
+    @Override
+    public ActionId getId() {
+        return ActionId.SWITCH_BUFFER;
+    }
 }
