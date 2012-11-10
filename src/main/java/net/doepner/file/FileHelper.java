@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-public class FileHelper {
+public class FileHelper implements TextBuffers {
 
 	private static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
 
@@ -19,6 +19,7 @@ public class FileHelper {
 
 	private static final Path DIR = Paths.get(USER_HOME, ".typepad");
 
+    @Override
 	public void save(String text, int i) {
 		try {
 			Files.write(getFilePath(i), Arrays.asList(text), 
@@ -28,6 +29,7 @@ public class FileHelper {
 		}
 	}
 
+    @Override
 	public String load(int i) {
 		final StringBuilder result = new StringBuilder();
 		try {

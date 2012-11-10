@@ -9,5 +9,5 @@ public enum ActionId {
     SWITCH_LANGUAGE,
     BIGGER_FONT,
     SMALLER_FONT,
-    SPEAK_WORD;
+    SPEAK_WORD
 }

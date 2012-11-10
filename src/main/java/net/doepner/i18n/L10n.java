@@ -1,4 +1,4 @@
-package net.doepner.ui.l10n;
+package net.doepner.i18n;
 
 import net.doepner.lang.Language;
 

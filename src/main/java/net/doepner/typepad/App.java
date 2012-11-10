@@ -7,33 +7,38 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultStyledDocument;
 
-import net.doepner.ChangeListener;
+import net.doepner.event.ChangeListener;
 import net.doepner.lang.EnglishOrGerman;
 import net.doepner.lang.Language;
 import net.doepner.lang.LanguageChanger;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.Speaker;
 import net.doepner.text.WordExtractor;
+import net.doepner.ui.Showable;
 import net.doepner.ui.action.Action;
+import net.doepner.ui.action.ActionId;
 import net.doepner.ui.action.ResizeFont;
 import net.doepner.ui.action.SpeakWord;
 import net.doepner.ui.action.SwitchBuffer;
 import net.doepner.ui.action.SwitchLanguage;
-import net.doepner.ui.l10n.ActionDescriptions;
+import net.doepner.ui.i18n.ActionDescriptions;
+import net.doepner.i18n.L10n;
 import net.doepner.ui.text.UiTextModel;
 
 import static net.doepner.typepad.DocUtil.prepareDocument;
 
 public class App {
 
+    private static final int BUFFER_COUNT = 5;
+
     public static void main(String[] args) {
         new App().run();
     }
 
-    private final ActionDescriptions actionDescr =
+    private final L10n<ActionId> actionDescr =
             new ActionDescriptions();
 
-    private final TypePad typePad;
+    private final Showable typePad;
 
     public App() {
         final LanguageChanger languageChanger = new EnglishOrGerman();
@@ -50,9 +55,9 @@ public class App {
             @Override
             public void handleChange() {
                 for (Action action : actions) {
-                    final Language language = languageChanger.getLanguage();
-                    action.putValue(Action.SHORT_DESCRIPTION,
-                            actionDescr.get(language, action.getId()));
+                    final Language lang = languageChanger.getLanguage();
+                    final String descr = actionDescr.get(lang, action.getId());
+                    action.putValue(Action.SHORT_DESCRIPTION, descr);
                 }
             }
         });
@@ -60,7 +65,7 @@ public class App {
         typePad = new TypePad(pane, actions);
     }
 
-    private List<Action> getActions(LanguageChanger languageChanger,
+    private static List<Action> getActions(LanguageChanger languageChanger,
                                     Speaker speaker, JTextPane pane) {
 
         final Action switchLangAction = new SwitchLanguage(
@@ -74,11 +79,10 @@ public class App {
         final Action speakWordAction = new SpeakWord(
                 new WordExtractor(textModel), speaker);
 
-        final Action switchBufferAction = new SwitchBuffer(5,
-                textModel, textModel);
+        final Action switchBufferAction = new SwitchBuffer(
+                BUFFER_COUNT, textModel, textModel);
 
-        return Arrays.asList(
-                switchLangAction, speakWordAction,
+        return Arrays.asList(switchLangAction, speakWordAction,
                 smallerFontAction, biggerFontAction,
                 switchBufferAction);
     }

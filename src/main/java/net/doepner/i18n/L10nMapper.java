@@ -1,4 +1,4 @@
-package net.doepner.ui.l10n;
+package net.doepner.i18n;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,10 +8,11 @@ import net.doepner.lang.Language;
 /**
  * Localization map for objects of certain type
  */
-public class L10nMapper<T> implements L10n<T> {
+public class L10nMapper<T> implements L10n<T>, L10nRegistry<T> {
 
     private final Map<Language, Map<T, String>> map = new HashMap<>();
 
+    @Override
     public void put(Language language, T t, String s) {
         getMap(language).put(t, s);
     }

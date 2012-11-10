@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import net.doepner.file.FileHelper;
+import net.doepner.file.TextBuffers;
 import net.doepner.text.TextProvider;
 import net.doepner.text.TextReceiver;
 
 public class SwitchBuffer extends AbstractAction implements Action {
 
-	private final FileHelper helper = new FileHelper();
+	private final TextBuffers buffers = new FileHelper();
 	
 	private final int max;
 
@@ -30,13 +31,13 @@ public class SwitchBuffer extends AbstractAction implements Action {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		helper.save(textProvider.getText(), i);
+		buffers.save(textProvider.getText(), i);
 		i = i % max + 1;
 		loadText();
 	}
 	
 	private void loadText() {
-		textReceiver.setText(helper.load(i));
+		textReceiver.setText(buffers.load(i));
 	}
 
     @Override

@@ -10,10 +10,11 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
+import net.doepner.ui.Showable;
 import net.doepner.ui.action.Action;
 import net.doepner.ui.text.FontChooser;
 
-public class TypePad {
+public class TypePad implements Showable {
 	
 	private final JFrame frame = new JFrame("TypePad");
 	
@@ -36,6 +37,7 @@ public class TypePad {
 		frame.add(pane, BorderLayout.CENTER);
 	}
 
+    @Override
     public void show() {
 		frame.pack();
 		frame.setVisible(true);

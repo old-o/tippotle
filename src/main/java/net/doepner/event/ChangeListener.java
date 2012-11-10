@@ -1,4 +1,4 @@
-package net.doepner;
+package net.doepner.event;
 
 /**
  * Change listener

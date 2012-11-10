@@ -1,4 +1,4 @@
-package net.doepner;
+package net.doepner.event;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 /**
  * Helper class for change event propagation
  */
-public class ChangeSupport implements ChangeNotifier, ChangeListener {
+public class ChangeSupport implements ChangePropagator {
 
     private final Collection<ChangeListener> listeners = new LinkedList<>();
 

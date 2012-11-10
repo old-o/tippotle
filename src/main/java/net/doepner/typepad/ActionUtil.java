@@ -17,6 +17,19 @@ import net.doepner.ui.icons.IconLoader;
  */
 public class ActionUtil {
 
+    static void mapFunctionKeys(JTextPane pane, Iterable<Action> actions) {
+        final InputMap inputMap =
+                pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+        Integer i = 0;
+        for (Action action : actions) {
+            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F1 + i, 0), i);
+            action.putValue(Action.NAME, "F" + (i+1));
+            pane.getActionMap().put(i, action);
+            i++;
+        }
+    }
+
     static void setIcon(Action action) {
         final String fileName = getIconFileName(action.getId());
         final Icon icon = IconLoader.load(fileName);
@@ -40,16 +53,4 @@ public class ActionUtil {
         }
         throw new IllegalArgumentException("Unknown action id: " + id);
     }
-
-    static void mapFunctionKeys(JTextPane pane, Iterable<Action> actions) {
-		final InputMap inputMap = pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-        Integer i = 0;
-		for (Action action : actions) {
-			inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F1 + i, 0), i);
-			action.putValue(Action.NAME, "F" + (i+1));
-			pane.getActionMap().put(i, action);
-            i++;
-		}
-	}
 }

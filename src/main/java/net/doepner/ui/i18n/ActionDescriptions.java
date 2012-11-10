@@ -1,5 +1,6 @@
-package net.doepner.ui.l10n;
+package net.doepner.ui.i18n;
 
+import net.doepner.i18n.L10nMapper;
 import net.doepner.ui.action.ActionId;
 
 import static net.doepner.lang.Language.DEUTSCH;
