@@ -5,14 +5,17 @@ import java.util.List;
 
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
 import javax.swing.text.DefaultStyledDocument;
 
 import net.doepner.event.ChangeListener;
+import net.doepner.i18n.L10n;
 import net.doepner.lang.EnglishOrGerman;
 import net.doepner.lang.Language;
 import net.doepner.lang.LanguageChanger;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.Speaker;
+import net.doepner.ui.text.TextChangeHandler;
 import net.doepner.text.WordExtractor;
 import net.doepner.ui.Showable;
 import net.doepner.ui.action.Action;
@@ -22,7 +25,7 @@ import net.doepner.ui.action.SpeakWord;
 import net.doepner.ui.action.SwitchBuffer;
 import net.doepner.ui.action.SwitchLanguage;
 import net.doepner.ui.i18n.ActionDescriptions;
-import net.doepner.i18n.L10n;
+import net.doepner.ui.text.TextChangeListener;
 import net.doepner.ui.text.UiTextModel;
 
 import static net.doepner.typepad.DocUtil.prepareDocument;
@@ -48,8 +51,28 @@ public class App {
 
         final JTextPane pane = new JTextPane(doc);
 
-        final List<Action> actions = getActions(
-                languageChanger, speaker, pane);
+        final UiTextModel textModel = new UiTextModel(pane);
+        final WordExtractor wordExtractor = new WordExtractor(textModel);
+
+        doc.addDocumentListener(new TextChangeListener(
+                new TextChangeHandler() {
+                    @Override
+                    public void handleChange(DocumentEvent e) {
+                        System.out.println("caret: " + textModel.getOffset());
+                        System.out.println("text: " + textModel.getText());
+                        System.out.println("offset: " + e.getOffset());
+                        System.out.println("word: " + wordExtractor.getText());
+                        // Show matching image if any
+                    }
+                })
+        );
+
+        final List<? extends Action> actions = Arrays.asList(
+                new SwitchLanguage(languageChanger),
+                new SpeakWord(wordExtractor, speaker),
+                new ResizeFont(-1, pane),
+                new ResizeFont(+1, pane),
+                new SwitchBuffer(BUFFER_COUNT, textModel, textModel));
 
         languageChanger.addListener(new ChangeListener() {
             @Override
@@ -65,28 +88,6 @@ public class App {
         typePad = new TypePad(pane, actions);
     }
 
-    private static List<Action> getActions(LanguageChanger languageChanger,
-                                    Speaker speaker, JTextPane pane) {
-
-        final Action switchLangAction = new SwitchLanguage(
-                languageChanger);
-
-        final Action biggerFontAction = new ResizeFont(+1, pane);
-        final Action smallerFontAction = new ResizeFont(-1, pane);
-
-        final UiTextModel textModel = new UiTextModel(pane);
-
-        final Action speakWordAction = new SpeakWord(
-                new WordExtractor(textModel), speaker);
-
-        final Action switchBufferAction = new SwitchBuffer(
-                BUFFER_COUNT, textModel, textModel);
-
-        return Arrays.asList(switchLangAction, speakWordAction,
-                smallerFontAction, biggerFontAction,
-                switchBufferAction);
-    }
-
     private void run() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -95,5 +96,4 @@ public class App {
             }
         });
     }
-
 }

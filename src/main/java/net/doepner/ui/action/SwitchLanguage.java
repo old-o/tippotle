@@ -24,7 +24,7 @@ public class SwitchLanguage extends AbstractAction implements Action {
 
 	private void update() {
 		final String langCode = langChanger.getLanguage().getCode();
-		putValue(Action.LARGE_ICON_KEY, IconLoader.load(langCode + ".png"));
+		IconLoader.setIcon(this, langCode + ".png");
 	}
 
     @Override
