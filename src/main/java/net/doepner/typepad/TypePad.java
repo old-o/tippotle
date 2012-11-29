@@ -11,6 +11,7 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
@@ -40,7 +41,7 @@ public class TypePad implements Showable {
 		frame.add(toolBar, BorderLayout.PAGE_START);
 
         final JPanel wrapper = new JPanel(new BorderLayout());
-        wrapper.add(pane, BorderLayout.CENTER);
+        wrapper.add(new JScrollPane(pane), BorderLayout.CENTER);
         final JPanel statusBar = new JPanel();
         wrapper.add(statusBar, BorderLayout.SOUTH);
         statusBar.add(new JTextField("blah"));
