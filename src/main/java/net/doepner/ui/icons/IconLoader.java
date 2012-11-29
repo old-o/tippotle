@@ -5,7 +5,6 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import net.doepner.ui.action.Action;
 import net.doepner.ui.action.ActionId;
 
 /**
@@ -13,18 +12,11 @@ import net.doepner.ui.action.ActionId;
  */
 public class IconLoader {
 
-    public static void setIcon(Action action) {
-        setIcon(action, getIconFileName(action.getId()));
+    public static Icon getIcon(ActionId actionId) {
+        return getIcon(getIconFileName(actionId));
     }
 
-    public static void setIcon(javax.swing.Action action, String fileName) {
-        final Icon icon = IconLoader.load(fileName);
-        if (icon != null) {
-            action.putValue(Action.LARGE_ICON_KEY, icon);
-        }
-    }
-
-    public static Icon load(String fileName) {
+    public static Icon getIcon(String fileName) {
         final URL resource = IconLoader.class.getResource(fileName);
         return resource != null ? new ImageIcon(resource) : null;
     }

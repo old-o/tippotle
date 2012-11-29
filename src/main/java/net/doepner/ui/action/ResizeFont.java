@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-public class ResizeFont extends AbstractAction implements Action {
+public class ResizeFont extends AbstractAction implements IdAction {
 
 	private final int step;
 	private final Component component;

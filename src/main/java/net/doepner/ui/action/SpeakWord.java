@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 import net.doepner.speech.Speaker;
 import net.doepner.text.TextProvider;
 
-public class SpeakWord extends AbstractAction implements Action {
+public class SpeakWord extends AbstractAction implements IdAction {
 
 	private final TextProvider textProvider;
 	private final Speaker speaker;

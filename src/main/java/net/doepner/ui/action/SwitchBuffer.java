@@ -9,7 +9,7 @@ import net.doepner.file.TextBuffers;
 import net.doepner.text.TextProvider;
 import net.doepner.text.TextReceiver;
 
-public class SwitchBuffer extends AbstractAction implements Action {
+public class SwitchBuffer extends AbstractAction implements IdAction {
 
 	private final TextBuffers buffers = new FileHelper();
 	

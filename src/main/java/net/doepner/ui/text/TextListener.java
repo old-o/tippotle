@@ -21,8 +21,8 @@ public abstract class TextListener implements DocumentListener {
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// nothing to do yet
-	}	
-	
+	}
+
 	private static String getText(DocumentEvent e) {
 		try {
 			return e.getDocument().getText(e.getOffset(), e.getLength());

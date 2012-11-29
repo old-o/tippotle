@@ -1,5 +1,10 @@
 package net.doepner.text;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
+import static java.lang.Math.min;
 import static net.doepner.text.CharCondition.IS_NUMBER_PART;
 import static net.doepner.text.CharCondition.IS_WORD_PART;
 
@@ -10,6 +15,25 @@ public class WordExtractor implements TextProvider {
 	public WordExtractor(TextModel model) {
 		this.model = model;
 	}
+
+    public WordExtractor(final DocumentEvent e) {
+        this(new TextModel() {
+            @Override
+            public int getOffset() {
+                return min(e.getOffset(), getText().length());
+            }
+
+            @Override
+            public String getText() {
+                try {
+                    final Document doc = e.getDocument();
+                    return doc.getText(0, doc.getLength());
+                } catch (BadLocationException ble) {
+                    return "";
+                }
+            }
+        });
+    }
 
     @Override
 	public String getText() {
@@ -22,26 +46,26 @@ public class WordExtractor implements TextProvider {
 	}
 
 	private String findSequence(CharCondition cond) {
-		final int start = getStart(model, cond);
-		final int end = getEnd(model, cond);
+		final int start = getStart(cond);
+		final int end = getEnd(cond);
 
 		return model.getText().substring(start, end);
 	}
 
-	private static int getStart(TextModel tm, CharCondition cond) {
-        final String text = tm.getText();
+	private int getStart(CharCondition cond) {
+        final String text = model.getText();
 
-        int pos = tm.getOffset();
+        int pos = model.getOffset();
         while (pos > 0 && cond.matches(text.charAt(pos - 1))) {
 			pos--;
 		}
 		return pos;
 	}
 
-	private static int getEnd(TextModel tm, CharCondition cond) {
-        final String text = tm.getText();
+	private int getEnd(CharCondition cond) {
+        final String text = model.getText();
 
-		int pos = tm.getOffset();
+		int pos = model.getOffset();
 		while (pos < text.length() && cond.matches(text.charAt(pos))) {
 			pos++;
 		}

@@ -2,7 +2,6 @@ package net.doepner.ui.text;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.StyledDocument;
 
 public class TextStyler extends TextListener {
@@ -24,8 +23,8 @@ public class TextStyler extends TextListener {
             @Override
             public void run() {
                 for (int i = 0; i < length; i++) {
-                    final AttributeSet attribs = charStyler.getAttribs(text.charAt(i));
-                    doc.setCharacterAttributes(offset + i, 1, attribs, true);
+                    doc.setCharacterAttributes(offset + i, 1,
+                            charStyler.getAttribs(text.charAt(i)), true);
                 }
             }
         });
