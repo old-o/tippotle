@@ -15,7 +15,8 @@ Simplistic text editor with
 Technology
 ----------
 
-- The app uses Java Swing, mainly the JTextPane.
+- Requires Java 7 (uses NIO.2 for file storage)
+- Uses Java Swing, mainly the JTextPane.
 - Requires [espeak](http://sourceforge.net/projects/espeak/) command in the PATH.
 
 Planned features
