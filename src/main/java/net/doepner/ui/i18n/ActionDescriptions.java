@@ -18,7 +18,7 @@ public class ActionDescriptions extends L10nMapper<ActionId> {
         put(DEUTSCH, ActionId.BIGGER_FONT, "Schrift vergrößern");
         put(DEUTSCH, ActionId.SPEAK_WORD, "Wort vorlesen");
 
-        put(ENGLISH.ENGLISH, ActionId.SWITCH_BUFFER, "Switch buffer");
+        put(ENGLISH, ActionId.SWITCH_BUFFER, "Switch buffer");
         put(ENGLISH, ActionId.SWITCH_LANGUAGE, "Switch language");
         put(ENGLISH, ActionId.SMALLER_FONT, "Decrease font size");
         put(ENGLISH, ActionId.BIGGER_FONT, "Increase font size");
