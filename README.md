@@ -12,10 +12,11 @@ Simplistic text editor with
 - Selectable font (via font preview combobox)
 - All actions are available via toolbar and function keys
 
-The app uses Java Swing, mainly the JTextPane.
+Technology
+----------
 
-It requires the [espeak](http://sourceforge.net/projects/espeak/)
-command in the PATH.
+- The app uses Java Swing, mainly the JTextPane.
+- Requires [espeak](http://sourceforge.net/projects/espeak/) command in the PATH.
 
 Planned features
 ----------------
