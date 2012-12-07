@@ -18,7 +18,7 @@ public class ESpeaker implements Speaker {
     public void speak(String text) {
         try {
             Runtime.getRuntime().exec(new String[]{
-                    "espeak", text, "-v", getVoice(text)
+                    "espeak", "-v", getVoice(text), text
             });
         } catch (IOException e) {
             e.printStackTrace();
