@@ -12,12 +12,20 @@ Simplistic text editor with
 - Selectable font (via font preview combobox)
 - All actions are available via toolbar and function keys
 
+
+Download
+--------
+
+[From BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
+
+
 Technology
 ----------
 
 - Requires Java 7 (uses NIO.2 for file storage)
 - Uses Java Swing, mainly the JTextPane.
 - Requires [espeak](http://sourceforge.net/projects/espeak/) command in the PATH.
+
 
 Planned features
 ----------------
