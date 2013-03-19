@@ -8,7 +8,8 @@ import java.util.LinkedList;
  */
 public class ChangeSupport implements ChangePropagator {
 
-    private final Collection<ChangeListener> listeners = new LinkedList<>();
+    private final Collection<ChangeListener> listeners =
+            new LinkedList<>();
 
     @Override
     public void addListener(ChangeListener listener) {

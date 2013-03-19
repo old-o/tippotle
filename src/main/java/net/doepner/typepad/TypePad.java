@@ -3,6 +3,7 @@ package net.doepner.typepad;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 
 import javax.swing.Action;
@@ -12,11 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
+import net.doepner.ui.ImagePanel;
 import net.doepner.ui.Showable;
 import net.doepner.ui.text.FontChooser;
 
@@ -26,8 +27,9 @@ import static javax.swing.KeyStroke.getKeyStroke;
 public class TypePad implements Showable {
 	
 	private final JFrame frame = new JFrame("TypePad");
-	
-	TypePad(final JTextPane pane, Iterable<Action> actions) {
+    private final ImagePanel imageContainer = new ImagePanel();
+
+    TypePad(final JTextPane pane, Iterable<Action> actions) {
 
 		pane.setFont(new Font("Monospaced", Font.PLAIN, 40));
 		pane.setPreferredSize(new Dimension(800, 600));
@@ -44,7 +46,9 @@ public class TypePad implements Showable {
         wrapper.add(new JScrollPane(pane), BorderLayout.CENTER);
         final JPanel statusBar = new JPanel();
         wrapper.add(statusBar, BorderLayout.SOUTH);
-        statusBar.add(new JTextField("blah"));
+        statusBar.add(imageContainer);
+
+        imageContainer.setPreferredSize(new Dimension(120, 120));
 
         frame.add(wrapper, BorderLayout.CENTER);
 	}
@@ -70,4 +74,9 @@ public class TypePad implements Showable {
 		frame.pack();
 		frame.setVisible(true);
 	}
+
+    @Override
+    public void showImage(Image image) {
+        imageContainer.setImage(image);
+    }
 }

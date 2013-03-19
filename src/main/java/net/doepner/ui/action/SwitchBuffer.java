@@ -4,14 +4,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import net.doepner.file.FileHelper;
 import net.doepner.file.TextBuffers;
 import net.doepner.text.TextProvider;
 import net.doepner.text.TextReceiver;
 
 public class SwitchBuffer extends AbstractAction implements IdAction {
 
-	private final TextBuffers buffers = new FileHelper();
+	private final TextBuffers textBuffers;
 	
 	private final int max;
 
@@ -22,22 +21,24 @@ public class SwitchBuffer extends AbstractAction implements IdAction {
 	
 	public SwitchBuffer(int max,
                         TextProvider textProvider,
-                        TextReceiver textReceiver) {
+                        TextReceiver textReceiver,
+                        TextBuffers textBuffers) {
 		this.max = max;
 		this.textProvider = textProvider;
         this.textReceiver = textReceiver;
+        this.textBuffers = textBuffers;
 		loadText();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		buffers.save(textProvider.getText(), i);
+		textBuffers.save(textProvider.getText(), i);
 		i = i % max + 1;
 		loadText();
 	}
 	
 	private void loadText() {
-		textReceiver.setText(buffers.load(i));
+		textReceiver.setText(textBuffers.load(i));
 	}
 
     @Override
