@@ -27,9 +27,17 @@ public class FileHelper  {
         }
     }
 
-    public Path getAppDirPath(String name)
+    public Path getAppSubDirPath(String dirName)
             throws IOException {
-        final Path path = resolveFile(name);
+        final Path dir = resolveAppPath(dirName);
+        createDirIfNecessary(dir);
+        return dir;
+    }
+
+
+    public Path getAppFilePath(String fileName)
+            throws IOException {
+        final Path path = resolveAppPath(fileName);
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
@@ -38,17 +46,17 @@ public class FileHelper  {
 
     public Path resolveFile(Path dir, String baseName, String extension)
             throws IOException {
-        ensureExists(dir);
+        createDirIfNecessary(dir);
         return dir.resolve(baseName + '.' + extension);
     }
 
-    public Path resolveFile(String name)
+    public Path resolveAppPath(String name)
             throws IOException {
-        ensureExists(appDir);
+        createDirIfNecessary(appDir);
         return appDir.resolve(name);
     }
 
-    private void ensureExists(Path dir) throws IOException {
+    private void createDirIfNecessary(Path dir) throws IOException {
         if (!Files.exists(dir)) {
             Files.createDirectory(dir);
         }

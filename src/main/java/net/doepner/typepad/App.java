@@ -57,7 +57,6 @@ public class App {
     private final ImageHelper imageHelper =
             new ImageHelper(new ImageFiles(fileHelper));
 
-
     public static void main(String[] args) {
         new App().run();
     }
@@ -122,11 +121,8 @@ public class App {
 
     private void handleWord(String word) {
         typePad.showImage(imageHelper.getImage(word));
-        // TODO: Show an image if one matches the word
         System.out.println("word: " + word);
     }
-
-
 
     private void run() {
         SwingUtilities.invokeLater(new Runnable() {

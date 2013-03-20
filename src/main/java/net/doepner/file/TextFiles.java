@@ -47,6 +47,6 @@ public class TextFiles implements TextBuffers {
     }
 
     private Path getBuffer(int i) throws IOException {
-        return fileHelper.getAppDirPath(i + ".txt");
+        return fileHelper.getAppFilePath(i + ".txt");
     }
 }

@@ -16,7 +16,7 @@ public class ImageFiles {
     public ImageFiles(FileHelper fileHelper) {
         this.fileHelper = fileHelper;
         try {
-            this.imgDir = fileHelper.getAppDirPath("images");
+            this.imgDir = fileHelper.getAppSubDirPath("images");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
