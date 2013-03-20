@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import net.doepner.file.ImageFiles;
 
 /**
- * TODO: Document this
+ * Helps with loading images
  */
 public class ImageHelper {
 

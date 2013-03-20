@@ -3,7 +3,7 @@ package net.doepner.ui;
 import java.awt.Image;
 
 /**
- * TODO: Document this
+ * Image container
  */
 public interface ImageContainer {
 

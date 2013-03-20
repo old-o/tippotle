@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * TODO: Document this
+ * Helps with finding images
  */
 public class ImageFiles {
 
@@ -22,7 +22,6 @@ public class ImageFiles {
         }
     }
 
-
     public File findImageFile(String name) {
         final File png = fileHelper.findFile(imgDir, name, "png");
         if (png != null) {
@@ -34,5 +33,4 @@ public class ImageFiles {
         }
         return null;
     }
-
 }
