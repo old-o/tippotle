@@ -1,3 +1,5 @@
+[![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
+
 typepad
 =======
 
