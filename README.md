@@ -1,5 +1,3 @@
-[![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
-
 typepad
 =======
 
@@ -16,11 +14,11 @@ Simplistic text editor with
 - Can automatically show images depicting current word
 
 
-Download
---------
+Download latest build
+---------------------
 
+[![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
 [From BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
-
 
 Technology
 ----------
