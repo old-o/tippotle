@@ -13,10 +13,6 @@ Simplistic text editor with
 - All actions are available via toolbar and function keys
 - Can automatically show images depicting current word
 
-
-Latest build
----------------------
-
 [![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
 
 [Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
