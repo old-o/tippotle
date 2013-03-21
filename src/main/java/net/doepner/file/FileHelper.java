@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileHelper  {
 
+    private static final String USER_HOME = System.getProperty("user.home");
+
     private final Path appDir;
 
-    public FileHelper(Path appDir) {
-        this.appDir = appDir;
+    public FileHelper(String appName) {
+        appDir = Paths.get(USER_HOME, "." + appName);
     }
 
     public File findFile(Path dir, String name, String extension) {

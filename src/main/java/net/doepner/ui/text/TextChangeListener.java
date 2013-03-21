@@ -2,31 +2,36 @@ package net.doepner.ui.text;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 
 /**
  * Adapter between document events and text change
  * events
  */
-public class TextChangeListener implements DocumentListener {
+public abstract class TextChangeListener implements DocumentListener {
 
-    private final TextChangeHandler handler;
-
-    public TextChangeListener(TextChangeHandler handler) {
-        this.handler = handler;
-    }
+    protected abstract void handleChange(DocumentEvent e);
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        handler.handleChange(e);
+        handleChange(e);
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        handler.handleChange(e);
+        handleChange(e);
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
         // nothing to do
+    }
+
+    protected String getText(DocumentEvent e) {
+        try {
+            return e.getDocument().getText(e.getOffset(), e.getLength());
+        } catch (BadLocationException ble) {
+            return "";
+        }
     }
 }

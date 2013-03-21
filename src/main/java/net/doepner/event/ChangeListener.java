@@ -3,7 +3,7 @@ package net.doepner.event;
 /**
  * Change listener
  */
-public interface ChangeListener {
+public interface ChangeListener<T> {
 
-    void handleChange();
+    void handleChange(T before, T after);
 }

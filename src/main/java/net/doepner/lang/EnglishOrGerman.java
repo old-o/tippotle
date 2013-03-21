@@ -7,7 +7,8 @@ import net.doepner.event.ChangeSupport;
 
 public class EnglishOrGerman implements LanguageChanger {
 
-    private final ChangePropagator propagator = new ChangeSupport();
+    private final ChangePropagator<Language> propagator =
+            new ChangeSupport<>();
 
 	private boolean english;
 
@@ -18,12 +19,14 @@ public class EnglishOrGerman implements LanguageChanger {
 
 	@Override
 	public void changeLanguage() {
-		english = !english;
-        propagator.handleChange();
+        final Language before = getLanguage();
+        english = !english;
+        final Language after = getLanguage();
+        propagator.handleChange(before, after);
 	}
 
     @Override
-    public void addListener(ChangeListener listener) {
+    public void addListener(ChangeListener<Language> listener) {
         propagator.addListener(listener);
     }
 }

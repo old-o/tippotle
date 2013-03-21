@@ -4,8 +4,8 @@ package net.doepner.event;
 /**
  * Change notifier
  */
-public interface ChangeNotifier {
+public interface ChangeNotifier<T> {
 
-    void addListener(ChangeListener listener);
+    void addListener(ChangeListener<T> listener);
 
 }

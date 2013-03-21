@@ -1,4 +1,4 @@
-package net.doepner.ui;
+package net.doepner.ui.images;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -19,8 +19,8 @@ public class ImagePanel extends JPanel implements ImageContainer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (image != null) {
-            final Image img = image.getScaledInstance(getWidth(), getHeight(),
-                    Image.SCALE_SMOOTH);
+            final Image img = image.getScaledInstance(
+                    getWidth(), getHeight(), Image.SCALE_SMOOTH);
             g.drawImage(img, 0, 0, null);
         }
     }

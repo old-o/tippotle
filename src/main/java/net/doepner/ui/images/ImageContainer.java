@@ -1,4 +1,4 @@
-package net.doepner.ui;
+package net.doepner.ui.images;
 
 import java.awt.Image;
 
