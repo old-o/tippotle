@@ -14,11 +14,12 @@ Simplistic text editor with
 - Can automatically show images depicting current word
 
 
-Download latest build
+Latest build
 ---------------------
 
 [![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
-[From BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
+
+[Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
 
 Technology
 ----------
