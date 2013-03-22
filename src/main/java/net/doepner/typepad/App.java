@@ -15,6 +15,7 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
 
 import net.doepner.file.FileHelper;
+import net.doepner.file.IFileHelper;
 import net.doepner.file.ImageFiles;
 import net.doepner.file.TextFiles;
 import net.doepner.lang.EnglishOrGerman;
@@ -40,7 +41,7 @@ public class App {
 
     private static final int BUFFER_COUNT = 5;
 
-    private final FileHelper fileHelper = new FileHelper("typepad");
+    private final IFileHelper fileHelper = new FileHelper("typepad");
 
     private final ImageHelper imageHelper =
             new ImageHelper(new ImageFiles(fileHelper));
@@ -75,8 +76,8 @@ public class App {
                 new SwitchLanguage(languageChanger),
                 new SpeakWord(wordExtractor, speaker),
                 new ResizeFont(-1, pane), new ResizeFont(+1, pane),
-                new SwitchBuffer(BUFFER_COUNT, textModel, textModel,
-                        new TextFiles(fileHelper))));
+                new SwitchBuffer(BUFFER_COUNT, textModel,
+                                 new TextFiles(fileHelper))));
 
         for (IdAction action : actions) {
             final Icon icon = IconLoader.getIcon(action.getId());

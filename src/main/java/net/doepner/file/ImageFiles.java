@@ -11,9 +11,9 @@ public class ImageFiles {
 
     private final Path imgDir;
 
-    private final FileHelper fileHelper;
+    private final IFileHelper fileHelper;
 
-    public ImageFiles(FileHelper fileHelper) {
+    public ImageFiles(IFileHelper fileHelper) {
         this.fileHelper = fileHelper;
         try {
             this.imgDir = fileHelper.getAppSubDirPath("images");

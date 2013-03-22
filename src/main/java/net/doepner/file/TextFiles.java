@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 /**
- * TODO: Document this
+ * Implements text buffers using file system storage
  */
 public class TextFiles implements TextBuffers {
 
@@ -16,9 +16,9 @@ public class TextFiles implements TextBuffers {
     private static final String LINE_SEPARATOR =
             System.getProperty("line.separator");
 
-    private final FileHelper fileHelper;
+    private final IFileHelper fileHelper;
 
-    public TextFiles(FileHelper fileHelper) {
+    public TextFiles(IFileHelper fileHelper) {
         this.fileHelper = fileHelper;
     }
 

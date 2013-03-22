@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileHelper  {
+public final class FileHelper implements IFileHelper {
 
     private static final String USER_HOME = System.getProperty("user.home");
 
@@ -16,6 +16,7 @@ public class FileHelper  {
         appDir = Paths.get(USER_HOME, "." + appName);
     }
 
+    @Override
     public File findFile(Path dir, String name, String extension) {
         final Path path;
         try {
@@ -30,6 +31,7 @@ public class FileHelper  {
         }
     }
 
+    @Override
     public Path getAppSubDirPath(String dirName)
             throws IOException {
         final Path dir = resolveAppPath(dirName);
@@ -38,6 +40,7 @@ public class FileHelper  {
     }
 
 
+    @Override
     public Path getAppFilePath(String fileName)
             throws IOException {
         final Path path = resolveAppPath(fileName);
@@ -47,12 +50,14 @@ public class FileHelper  {
         return path;
     }
 
+    @Override
     public Path resolveFile(Path dir, String baseName, String extension)
             throws IOException {
         createDirIfNecessary(dir);
         return dir.resolve(baseName + '.' + extension);
     }
 
+    @Override
     public Path resolveAppPath(String name)
             throws IOException {
         createDirIfNecessary(appDir);
