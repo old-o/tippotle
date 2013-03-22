@@ -11,13 +11,11 @@ Simplistic text editor with
 - Unlimited font zooming in/out
 - Selectable font (via font preview combobox)
 - All actions are available via toolbar and function keys
+- Can automatically show images depicting current word
 
+[![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
 
-Download
---------
-
-[From BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
-
+[Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
 
 Technology
 ----------
@@ -31,7 +29,6 @@ Planned features
 ----------------
 
 - Let computer read the current sentence or line
-- Dynamically show images to depict current word
 - Hand writing recognition (of single letters)
 - Make computer voice more "interactive"
 - Mute button for pure typing mode

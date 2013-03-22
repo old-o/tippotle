@@ -80,8 +80,10 @@ public class App {
                                  new TextFiles(fileHelper))));
 
         for (IdAction action : actions) {
-            final Icon icon = IconLoader.getIcon(action.getId());
-            action.putValue(Action.LARGE_ICON_KEY, icon);
+            if (action.getValue(Action.LARGE_ICON_KEY) == null) {
+                final Icon icon = IconLoader.getIcon(action.getId());
+                action.putValue(Action.LARGE_ICON_KEY, icon);
+            }
         }
 
         typePad = new TypePad(pane, new LinkedList<Action>(actions));
