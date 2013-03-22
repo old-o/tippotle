@@ -7,7 +7,7 @@ import java.nio.file.Path;
 /**
  * Helps with finding images
  */
-public class ImageFiles {
+public class ImageFiles implements ImageStore {
 
     private final Path imgDir;
 
@@ -22,6 +22,7 @@ public class ImageFiles {
         }
     }
 
+    @Override
     public File findImageFile(String name) {
         final File png = fileHelper.findFile(imgDir, name, "png");
         if (png != null) {

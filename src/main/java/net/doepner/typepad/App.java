@@ -33,6 +33,7 @@ import net.doepner.ui.action.SwitchBuffer;
 import net.doepner.ui.action.SwitchLanguage;
 import net.doepner.ui.icons.IconLoader;
 import net.doepner.ui.images.ImageHelper;
+import net.doepner.ui.images.ImageMap;
 import net.doepner.ui.text.DocTextModel;
 import net.doepner.ui.text.TextChangeListener;
 import net.doepner.ui.text.TextStyler;
@@ -43,7 +44,7 @@ public class App {
 
     private final IFileHelper fileHelper = new FileHelper("typepad");
 
-    private final ImageHelper imageHelper =
+    private final ImageMap imageMap =
             new ImageHelper(new ImageFiles(fileHelper));
 
     public static void main(String[] args) {
@@ -77,7 +78,7 @@ public class App {
                 new SpeakWord(wordExtractor, speaker),
                 new ResizeFont(-1, pane), new ResizeFont(+1, pane),
                 new SwitchBuffer(BUFFER_COUNT, textModel,
-                                 new TextFiles(fileHelper))));
+                        new TextFiles(fileHelper))));
 
         for (IdAction action : actions) {
             if (action.getValue(Action.LARGE_ICON_KEY) == null) {
@@ -105,7 +106,7 @@ public class App {
     }
 
     private void showImage(String word) {
-        typePad.showImage(imageHelper.getImage(word));
+        typePad.showImage(imageMap.getImage(word));
     }
 
     private void run() {

@@ -6,19 +6,20 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import net.doepner.file.ImageFiles;
+import net.doepner.file.ImageStore;
 
 /**
  * Helps with loading images
  */
-public class ImageHelper {
+public class ImageHelper implements ImageMap {
 
-    private final ImageFiles files;
+    private final ImageStore files;
 
-    public ImageHelper(ImageFiles files) {
+    public ImageHelper(ImageStore files) {
         this.files = files;
     }
 
+    @Override
     public Image getImage(String word) {
         if (word == null) {
             return null;
