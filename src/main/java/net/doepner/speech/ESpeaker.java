@@ -21,7 +21,7 @@ public class ESpeaker implements Speaker {
                     "espeak", "-v", getVoice(text), text
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

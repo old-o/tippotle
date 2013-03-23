@@ -16,9 +16,11 @@ public class AlphaNumStyler implements CharStyler {
 	private static final AttributeSet DIGIT = attribs(Color.GREEN);
 	private static final AttributeSet LETTER = attribs(Color.BLUE);
 	private static final AttributeSet VOWEL = attribs(Color.RED);
-	private static final AttributeSet OTHER = attribs(Color.GRAY);
+
     private static final AttributeSet ASPIRATED_PLOSIVE = attribs(Color.GREEN);
     private static final AttributeSet VOICED_PLOSIVE = attribs(LIGHT_GREEN);
+
+    private static final AttributeSet OTHER = attribs(Color.DARK_GRAY);
 
 	@Override
 	public AttributeSet getAttribs(char c) {

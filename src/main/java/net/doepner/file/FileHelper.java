@@ -2,9 +2,12 @@ package net.doepner.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static net.doepner.file.PathType.DIRECTORY;
 
 public final class FileHelper implements IFileHelper {
 
@@ -17,56 +20,29 @@ public final class FileHelper implements IFileHelper {
     }
 
     @Override
-    public File findFile(Path dir, String name, String extension) {
-        final Path path;
-        try {
-            path = resolveFile(dir, name, extension);
-        } catch (IOException e) {
-            return null;
-        }
+    public File findInDir(Path dir, String name, String extension) {
+        createIfNecessary(dir, DIRECTORY);
+        final Path path = dir.resolve(name + '.' + extension);
+        return Files.exists(path) ? path.toFile() : null;
+    }
+
+    @Override
+    public Path findOrCreate(String name, PathType type) {
+        return createIfNecessary(appDir.resolve(name), type);
+    }
+
+    private static Path createIfNecessary(Path path,PathCreator creator) {
         if (Files.exists(path)) {
-            return path.toFile();
-        } else {
-            return null;
+            return path;
         }
-    }
+        try {
+            return creator.create(path);
+        } catch (FileAlreadyExistsException e) {
+            // must have been a race condition
+            return path;
 
-    @Override
-    public Path getAppSubDirPath(String dirName)
-            throws IOException {
-        final Path dir = resolveAppPath(dirName);
-        createDirIfNecessary(dir);
-        return dir;
-    }
-
-
-    @Override
-    public Path getAppFilePath(String fileName)
-            throws IOException {
-        final Path path = resolveAppPath(fileName);
-        if (!Files.exists(path)) {
-            Files.createFile(path);
-        }
-        return path;
-    }
-
-    @Override
-    public Path resolveFile(Path dir, String baseName, String extension)
-            throws IOException {
-        createDirIfNecessary(dir);
-        return dir.resolve(baseName + '.' + extension);
-    }
-
-    @Override
-    public Path resolveAppPath(String name)
-            throws IOException {
-        createDirIfNecessary(appDir);
-        return appDir.resolve(name);
-    }
-
-    private void createDirIfNecessary(Path dir) throws IOException {
-        if (!Files.exists(dir)) {
-            Files.createDirectory(dir);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

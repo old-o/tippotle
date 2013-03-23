@@ -23,7 +23,9 @@ import net.doepner.lang.LanguageChanger;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.Speaker;
 import net.doepner.text.TextCoordinates;
+import net.doepner.text.TextModel;
 import net.doepner.text.WordExtractor;
+import net.doepner.text.WordProvider;
 import net.doepner.ui.IconL10nUpdater;
 import net.doepner.ui.Showable;
 import net.doepner.ui.action.IdAction;
@@ -51,22 +53,21 @@ public class App {
     private final ImageMap imageMap =
             new ImageHelper(new ImageFiles(fileHelper));
 
-    private final Speaker speaker;
     private final Showable typePad;
 
     public App() {
         final LanguageChanger languageChanger = new EnglishOrGerman();
-        speaker = new ESpeaker(languageChanger);
+        final Speaker speaker = new ESpeaker(languageChanger);
 
         final StyledDocument doc = new DefaultStyledDocument();
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
 
         final JTextPane pane = new JTextPane(doc);
-        final DocTextModel textModel = new DocTextModel(doc);
-        final WordExtractor wordExtractor = new WordExtractor(textModel);
+        final TextModel textModel = new DocTextModel(doc);
+        final WordProvider wordProvider = new WordExtractor(textModel);
 
-        final List<IdAction> actions = getActions(languageChanger,
-                pane, textModel, wordExtractor);
+        final List<IdAction> actions = getActions(languageChanger, speaker,
+                pane, textModel, wordProvider);
 
         typePad = new TypePad(pane, new LinkedList<Action>(actions));
 
@@ -77,7 +78,7 @@ public class App {
             public void caretUpdate(CaretEvent e) {
                 int position = e.getDot();
                 System.out.println(position);
-                showImage(wordExtractor.getText(position));
+                showImage(wordProvider.getText(position));
             }
         });
 
@@ -90,13 +91,14 @@ public class App {
     }
 
     private List<IdAction> getActions(final LanguageChanger languageChanger,
+                                      final Speaker speaker,
                                       final JTextPane pane,
-                                      final DocTextModel textModel,
-                                      final WordExtractor wordExtractor) {
+                                      final TextModel textModel,
+                                      final WordProvider wordProvider) {
 
         final List<IdAction> actions = new LinkedList<IdAction>(Arrays.asList(
                 new SwitchLanguage(languageChanger),
-                new SpeakWord(wordExtractor, speaker, new TextCoordinates() {
+                new SpeakWord(wordProvider, speaker, new TextCoordinates() {
                     @Override
                     public int getPosition() {
                         return pane.getCaretPosition();

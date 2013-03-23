@@ -1,8 +1,9 @@
 package net.doepner.file;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
+
+import static net.doepner.file.PathType.DIRECTORY;
 
 /**
  * Helps with finding images
@@ -15,16 +16,16 @@ public class ImageFiles implements ImageStore {
 
     public ImageFiles(IFileHelper fileHelper) {
         this.fileHelper = fileHelper;
-        try {
-            this.imgDir = fileHelper.getAppSubDirPath("images");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.imgDir = fileHelper.findOrCreate("images", DIRECTORY);
     }
 
     @Override
     public File findImageFile(String name) {
-        final File png = fileHelper.findFile(imgDir, name, "png");
-        return png != null ? png :  fileHelper.findFile(imgDir, name, "jpg");
+        final File png = findInDir(name, "png");
+        return png != null ? png : findInDir(name, "jpg");
+    }
+
+    private File findInDir(String name, String extension) {
+        return fileHelper.findInDir(imgDir, name, extension);
     }
 }

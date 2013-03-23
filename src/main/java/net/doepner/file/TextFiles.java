@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 
+import static net.doepner.file.PathType.FILE;
+
 /**
  * Implements text buffers using file system storage
  */
@@ -47,6 +49,6 @@ public class TextFiles implements TextBuffers {
     }
 
     private Path getBuffer(int i) throws IOException {
-        return fileHelper.getAppFilePath(i + ".txt");
+        return fileHelper.findOrCreate(i + ".txt", FILE);
     }
 }
