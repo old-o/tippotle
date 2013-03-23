@@ -40,16 +40,16 @@ import net.doepner.ui.text.TextStyler;
 
 public class App {
 
+    public static void main(String[] args) {
+        new App().run();
+    }
+
     private static final int BUFFER_COUNT = 5;
 
     private final IFileHelper fileHelper = new FileHelper("typepad");
 
     private final ImageMap imageMap =
             new ImageHelper(new ImageFiles(fileHelper));
-
-    public static void main(String[] args) {
-        new App().run();
-    }
 
     private final Speaker speaker;
     private final Showable typePad;
@@ -62,20 +62,46 @@ public class App {
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
 
         final JTextPane pane = new JTextPane(doc);
-
         final DocTextModel textModel = new DocTextModel(doc);
+        final WordExtractor wordExtractor = new WordExtractor(textModel);
 
-        final WordExtractor wordExtractor = new WordExtractor(textModel,
-                new TextCoordinates() {
-                    @Override
-                    public int getOffset() {
-                        return pane.getCaretPosition();
-                    }
-                });
+        final List<IdAction> actions = getActions(languageChanger,
+                pane, textModel, wordExtractor);
+
+        typePad = new TypePad(pane, new LinkedList<Action>(actions));
+
+        languageChanger.addListener(new IconL10nUpdater(actions));
+
+        pane.addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                int position = e.getDot();
+                System.out.println(position);
+                showImage(wordExtractor.getText(position));
+            }
+        });
+
+        doc.addDocumentListener(new TextChangeListener() {
+            @Override
+            public void handleChange(DocumentEvent e) {
+                speaker.speak(getText(e));
+            }
+        });
+    }
+
+    private List<IdAction> getActions(final LanguageChanger languageChanger,
+                                      final JTextPane pane,
+                                      final DocTextModel textModel,
+                                      final WordExtractor wordExtractor) {
 
         final List<IdAction> actions = new LinkedList<IdAction>(Arrays.asList(
                 new SwitchLanguage(languageChanger),
-                new SpeakWord(wordExtractor, speaker),
+                new SpeakWord(wordExtractor, speaker, new TextCoordinates() {
+                    @Override
+                    public int getPosition() {
+                        return pane.getCaretPosition();
+                    }
+                }),
                 new ResizeFont(-1, pane), new ResizeFont(+1, pane),
                 new SwitchBuffer(BUFFER_COUNT, textModel,
                         new TextFiles(fileHelper))));
@@ -86,23 +112,7 @@ public class App {
                 action.putValue(Action.LARGE_ICON_KEY, icon);
             }
         }
-
-        typePad = new TypePad(pane, new LinkedList<Action>(actions));
-
-        languageChanger.addListener(new IconL10nUpdater(actions));
-
-        pane.addCaretListener(new CaretListener() {
-            @Override
-            public void caretUpdate(CaretEvent e) {
-                showImage(wordExtractor.getText());
-            }
-        });
-        doc.addDocumentListener(new TextChangeListener() {
-            @Override
-            public void handleChange(DocumentEvent e) {
-                speaker.speak(getText(e));
-            }
-        });
+        return actions;
     }
 
     private void showImage(String word) {

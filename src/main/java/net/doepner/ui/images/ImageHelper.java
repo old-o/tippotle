@@ -33,7 +33,7 @@ public class ImageHelper implements ImageMap {
         try {
             return ImageIO.read(imageFile);
         } catch (IOException e) {
-            return null;
+            throw new IllegalStateException(e);
         }
     }
 }

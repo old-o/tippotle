@@ -19,7 +19,7 @@ public abstract class TextChangeListener implements DocumentListener {
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        handleChange(e);
+        // nothing to do
     }
 
     @Override

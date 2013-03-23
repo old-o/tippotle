@@ -11,13 +11,16 @@ public class ImagePanel extends JPanel implements ImageContainer {
 
     @Override
     public void setImage(Image image) {
-        this.image = image;
-        repaint();
+        if (this.image != image) {
+            this.image = image;
+            repaint();
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (image != null) {
             final Image img = image.getScaledInstance(
                     getWidth(), getHeight(), Image.SCALE_SMOOTH);

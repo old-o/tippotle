@@ -17,8 +17,8 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
-import net.doepner.ui.images.ImagePanel;
 import net.doepner.ui.Showable;
+import net.doepner.ui.images.ImagePanel;
 import net.doepner.ui.text.FontChooser;
 
 import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;

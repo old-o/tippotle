@@ -5,21 +5,25 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import net.doepner.speech.Speaker;
-import net.doepner.text.TextProvider;
+import net.doepner.text.TextCoordinates;
+import net.doepner.text.WordProvider;
 
 public class SpeakWord extends AbstractAction implements IdAction {
 
-	private final TextProvider textProvider;
+	private final WordProvider wordProvider;
 	private final Speaker speaker;
+    private final TextCoordinates coords;
 	
-	public SpeakWord(TextProvider textProvider, Speaker speaker) {
-		this.textProvider = textProvider;
+	public SpeakWord(WordProvider wordProvider, Speaker speaker,
+                     TextCoordinates coords) {
+		this.wordProvider = wordProvider;
 		this.speaker = speaker;
+        this.coords = coords;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		speaker.speak(textProvider.getText());
+		speaker.speak(wordProvider.getText(coords.getPosition()));
 	}
 
     @Override
