@@ -4,7 +4,21 @@ public interface CharCondition {
 	
 	boolean matches(char c);
 
-	CharCondition IS_WORD_PART = new CharCondition() {
+    CharCondition LETTER = new CharCondition() {
+        @Override
+        public boolean matches(char c) {
+            return Character.isLetter(c);
+        }
+    };
+
+    CharCondition DIGIT = new CharCondition() {
+        @Override
+        public boolean matches(char c) {
+            return Character.isDigit(c);
+        }
+    };
+
+    CharCondition IS_WORD_PART = new CharCondition() {
 		@Override
 		public boolean matches(char c) {
 			return Character.isLetter(c) || "-'".indexOf(c) != -1;
