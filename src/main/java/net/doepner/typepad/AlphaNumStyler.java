@@ -1,7 +1,7 @@
 package net.doepner.typepad;
 
 import java.awt.Color;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.text.AttributeSet;
@@ -12,24 +12,29 @@ import javax.swing.text.StyleConstants;
 import net.doepner.text.CharCondition;
 import net.doepner.ui.text.CharStyler;
 
-import static net.doepner.text.CharCondition.DIGIT;
-import static net.doepner.text.CharCondition.LETTER;
-import static net.doepner.typepad.CharType.ASPIRATED_PLOSIVE;
-import static net.doepner.typepad.CharType.VOICED_PLOSIVE;
-import static net.doepner.typepad.CharType.VOWEL;
+import static net.doepner.speech.LetterTypes.ASPIRATED_PLOSIVE;
+import static net.doepner.speech.LetterTypes.FRICATIVE;
+import static net.doepner.speech.LetterTypes.NASAL;
+import static net.doepner.speech.LetterTypes.VOICED_PLOSIVE;
+import static net.doepner.speech.LetterTypes.VOWEL;
+import static net.doepner.text.CharConditions.DIGIT;
+import static net.doepner.text.CharConditions.LETTER;
 
 public class AlphaNumStyler implements CharStyler {
 
     private static final AttributeSet DEFAULT = attribs(Color.DARK_GRAY);
 
-    private final Map<CharCondition, AttributeSet> styles = new HashMap<>();
+    private final Map<CharCondition, AttributeSet> styles =
+            new LinkedHashMap<>();
 
     public AlphaNumStyler() {
         style(DIGIT, Color.BLUE);
-        style(VOWEL, Color.ORANGE);
-        style(ASPIRATED_PLOSIVE, Color.RED);
+        style(VOWEL, Color.RED);
+        style(ASPIRATED_PLOSIVE, Color.MAGENTA);
         style(VOICED_PLOSIVE, Color.PINK);
-        style(LETTER, Color.MAGENTA);
+        style(FRICATIVE, Color.ORANGE);
+        style(NASAL, Color.CYAN);
+        style(LETTER, Color.BLACK);
     }
 
     private void style(CharCondition digit, Color color) {
@@ -37,19 +42,19 @@ public class AlphaNumStyler implements CharStyler {
     }
 
     @Override
-	public AttributeSet getAttribs(char c) {
+    public AttributeSet getAttribs(char c) {
         for (CharCondition condition : styles.keySet()) {
             if (condition.matches(c)) {
                 return styles.get(condition);
             }
         }
         // otherwise
-		return DEFAULT;
-	}
+        return DEFAULT;
+    }
 
     private static AttributeSet attribs(Color color) {
-		final MutableAttributeSet attribs = new SimpleAttributeSet();
-		StyleConstants.setForeground(attribs, color);
-		return attribs;
-	}
+        final MutableAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setForeground(attribs, color);
+        return attribs;
+    }
 }

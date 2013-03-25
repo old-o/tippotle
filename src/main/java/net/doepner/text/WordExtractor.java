@@ -1,7 +1,7 @@
 package net.doepner.text;
 
-import static net.doepner.text.CharCondition.IS_NUMBER_PART;
-import static net.doepner.text.CharCondition.IS_WORD_PART;
+import static net.doepner.text.CharConditions.IS_NUMBER_PART;
+import static net.doepner.text.CharConditions.IS_WORD_PART;
 
 public class WordExtractor implements WordProvider {
 
