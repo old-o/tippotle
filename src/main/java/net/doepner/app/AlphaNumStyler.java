@@ -1,62 +1,60 @@
 package net.doepner.app;
 
 import java.awt.Color;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import net.doepner.text.CharCondition;
 import net.doepner.ui.text.CharStyler;
+
+import static net.doepner.speech.LetterTypes.ASPIRATED_PLOSIVE;
+import static net.doepner.speech.LetterTypes.FRICATIVE;
+import static net.doepner.speech.LetterTypes.NASAL;
+import static net.doepner.speech.LetterTypes.VOICED_PLOSIVE;
+import static net.doepner.speech.LetterTypes.VOWEL;
+import static net.doepner.text.CharConditions.DIGIT;
+import static net.doepner.text.CharConditions.LETTER;
 
 public class AlphaNumStyler implements CharStyler {
 
-    private static final Color LIGHT_GREEN = new Color(144, 238, 144);
-	
-	private static final AttributeSet DIGIT = attribs(Color.GREEN);
-	private static final AttributeSet LETTER = attribs(Color.BLUE);
-	private static final AttributeSet VOWEL = attribs(Color.RED);
+    private static final AttributeSet DEFAULT = attribs(Color.DARK_GRAY);
 
-    private static final AttributeSet ASPIRATED_PLOSIVE = attribs(Color.GREEN);
-    private static final AttributeSet VOICED_PLOSIVE = attribs(LIGHT_GREEN);
+    private final Map<CharCondition, AttributeSet> styles =
+            new LinkedHashMap<>();
 
-    private static final AttributeSet OTHER = attribs(Color.DARK_GRAY);
-
-	@Override
-	public AttributeSet getAttribs(char c) {
-		if (Character.isDigit(c)) {
-			return DIGIT;
-		}
-		if (isVowel(c)) {
-			return VOWEL;
-		}
-        if (isAspiratedPlosive(c)) {
-            return ASPIRATED_PLOSIVE;
-        }
-        if (isVoicedPlosive(c)) {
-            return VOICED_PLOSIVE;
-        }
-        if (Character.isLetter(c)) {
-			return LETTER;
-		}
-		return OTHER;
-	}
-
-    private static boolean isAspiratedPlosive(char c) {
-        return "PTK".indexOf(Character.toUpperCase(c)) != -1;
+    public AlphaNumStyler() {
+        style(DIGIT, Color.BLUE);
+        style(VOWEL, Color.RED);
+        style(ASPIRATED_PLOSIVE, Color.MAGENTA);
+        style(VOICED_PLOSIVE, Color.PINK);
+        style(FRICATIVE, Color.ORANGE);
+        style(NASAL, Color.CYAN);
+        style(LETTER, Color.BLACK);
     }
 
-    private static boolean isVoicedPlosive(char c) {
-        return "BDG".indexOf(Character.toUpperCase(c)) != -1;
+    private void style(CharCondition digit, Color color) {
+        styles.put(digit, attribs(color));
     }
 
-    private static boolean isVowel(char c) {
-        return "AEIOUÜÖÄY".indexOf(Character.toUpperCase(c)) != -1;
+    @Override
+    public AttributeSet getAttribs(char c) {
+        for (CharCondition condition : styles.keySet()) {
+            if (condition.matches(c)) {
+                return styles.get(condition);
+            }
+        }
+        // otherwise
+        return DEFAULT;
     }
 
     private static AttributeSet attribs(Color color) {
-		final MutableAttributeSet attribs = new SimpleAttributeSet();
-		StyleConstants.setForeground(attribs, color);
-		return attribs;
-	}
+        final MutableAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setForeground(attribs, color);
+        return attribs;
+    }
 }
