@@ -5,6 +5,7 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
 
 import net.doepner.app.api.IContext;
+import net.doepner.ui.text.AlphaNumStyler;
 import net.doepner.ui.text.TextChangeListener;
 import net.doepner.ui.text.TextStyler;
 

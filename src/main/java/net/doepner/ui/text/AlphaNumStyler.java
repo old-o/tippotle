@@ -1,4 +1,4 @@
-package net.doepner.app;
+package net.doepner.ui.text;
 
 import java.awt.Color;
 import java.util.LinkedHashMap;
@@ -10,7 +10,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import net.doepner.text.CharCondition;
-import net.doepner.ui.text.CharStyler;
 
 import static net.doepner.speech.LetterTypes.ASPIRATED_PLOSIVE;
 import static net.doepner.speech.LetterTypes.FRICATIVE;
