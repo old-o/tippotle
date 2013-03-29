@@ -1,4 +1,4 @@
-package net.doepner.typepad;
+package net.doepner.app;
 
 import java.awt.Color;
 

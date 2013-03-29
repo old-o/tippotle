@@ -3,14 +3,14 @@ package net.doepner.speech;
 import java.io.IOException;
 
 import net.doepner.lang.Language;
-import net.doepner.lang.LanguageContext;
+import net.doepner.lang.LanguageProvider;
 
 
 public class ESpeaker implements Speaker {
 
-    private final LanguageContext ctx;
+    private final LanguageProvider ctx;
 
-    public ESpeaker(LanguageContext ctx) {
+    public ESpeaker(LanguageProvider ctx) {
         this.ctx = ctx;
     }
 

@@ -16,7 +16,7 @@ public final class FileHelper implements IFileHelper {
     private final Path appDir;
 
     public FileHelper(String appName) {
-        appDir = Paths.get(USER_HOME, "." + appName);
+        appDir = Paths.get(USER_HOME, "." + appName.toLowerCase());
     }
 
     @Override

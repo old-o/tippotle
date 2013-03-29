@@ -12,7 +12,7 @@ public class WordExtractor implements WordProvider {
     }
 
     @Override
-    public String getText(int position) {
+    public String getWord(int position) {
         final String word = findSequence(IS_WORD_PART, position);
         if (word.length() > 0) {
             return word;

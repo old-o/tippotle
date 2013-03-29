@@ -4,33 +4,29 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import net.doepner.file.TextBuffers;
-import net.doepner.text.TextModel;
+import net.doepner.app.api.IModel;
+import net.doepner.app.api.IServices;
 
 public class SwitchBuffer extends AbstractAction implements IdAction {
 
-    private final TextBuffers textBuffers;
-    private final TextModel textModel;
+    private final IModel model;
+    private final IServices services;
 
-    private final int max;
-    private int i = 1;
-
-    public SwitchBuffer(int max, TextModel textModel, TextBuffers textBuffers) {
-        this.max = max;
-        this.textModel = textModel;
-        this.textBuffers = textBuffers;
+    public SwitchBuffer(IModel model, IServices services) {
+        this.model = model;
+        this.services = services;
         loadText();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        textBuffers.save(textModel.getText(), i);
-        i = i % max + 1;
+        services.saveBuffer(model);
+        model.nextBuffer();
         loadText();
     }
 
     private void loadText() {
-        textModel.setText(textBuffers.load(i));
+        services.loadBuffer(model);
     }
 
     @Override

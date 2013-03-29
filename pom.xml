@@ -43,7 +43,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>net.doepner.typepad.App</mainClass>
+                            <mainClass>net.doepner.app.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

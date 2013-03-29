@@ -14,8 +14,8 @@ public class SpeakWord extends AbstractAction implements IdAction {
 	private final Speaker speaker;
     private final TextCoordinates coords;
 	
-	public SpeakWord(WordProvider wordProvider, Speaker speaker,
-                     TextCoordinates coords) {
+	public SpeakWord(WordProvider wordProvider, TextCoordinates coords,
+                     Speaker speaker) {
 		this.wordProvider = wordProvider;
 		this.speaker = speaker;
         this.coords = coords;
@@ -23,7 +23,7 @@ public class SpeakWord extends AbstractAction implements IdAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		speaker.speak(wordProvider.getText(coords.getPosition()));
+		speaker.speak(wordProvider.getWord(coords.getTextPosition()));
 	}
 
     @Override

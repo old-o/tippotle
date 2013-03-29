@@ -10,20 +10,20 @@ public class EnglishOrGerman implements LanguageChanger {
     private final ChangePropagator<Language> propagator =
             new ChangeSupport<>();
 
-	private boolean english;
+    private boolean english;
 
-	@Override
-	public Language getLanguage() {
-		return english ? Language.ENGLISH : Language.DEUTSCH;
-	}
+    @Override
+    public Language getLanguage() {
+        return english ? Language.ENGLISH : Language.DEUTSCH;
+    }
 
-	@Override
-	public void changeLanguage() {
+    @Override
+    public void changeLanguage() {
         final Language before = getLanguage();
         english = !english;
         final Language after = getLanguage();
         propagator.handleChange(before, after);
-	}
+    }
 
     @Override
     public void addListener(ChangeListener<Language> listener) {

@@ -5,6 +5,6 @@ package net.doepner.text;
  */
 public interface WordProvider {
 
-    String getText(int position);
+    String getWord(int position);
 
 }

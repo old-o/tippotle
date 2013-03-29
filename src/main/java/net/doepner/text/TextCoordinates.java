@@ -1,7 +1,11 @@
 package net.doepner.text;
 
+import net.doepner.event.ChangeListener;
+
 public interface TextCoordinates {
 
-	int getPosition();
+	int getTextPosition();
+
+    void addTextPositionListener(ChangeListener<Integer> tpl);
 
 }
