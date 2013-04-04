@@ -5,8 +5,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.Collection;
+import java.util.LinkedList;
 
-import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.Box;
 import javax.swing.Icon;
@@ -25,7 +26,13 @@ import javax.swing.text.StyledDocument;
 
 import net.doepner.app.api.IView;
 import net.doepner.event.ChangeListener;
-import net.doepner.ui.action.IdAction;
+import net.doepner.i18n.L10n;
+import net.doepner.lang.Language;
+import net.doepner.ui.action.ActionId;
+import net.doepner.ui.action.IAction;
+import net.doepner.ui.action.SwingAction;
+import net.doepner.ui.action.UiAction;
+import net.doepner.ui.i18n.ActionDescriptions;
 import net.doepner.ui.icons.IconLoader;
 import net.doepner.ui.images.ImageContainer;
 import net.doepner.ui.images.ImagePanel;
@@ -41,6 +48,11 @@ public class View implements IView {
 
     private final JTextPane editor;
     private final JToolBar toolBar = new JToolBar();
+
+    private final Collection<UiAction> uiActions = new LinkedList<>();
+
+    private final L10n<ActionId, String> actionDescr = new ActionDescriptions();
+    private final L10n<ActionId, Icon> iconLoader = new IconLoader();
 
     View(String appName, StyledDocument doc) {
         frame = new JFrame(appName);
@@ -73,30 +85,33 @@ public class View implements IView {
     }
 
     @Override
-    public void setActions(Iterable<IdAction> actions) {
+    public void setActions(Iterable<IAction> actions) {
         final InputMap inputMap = editor.getInputMap(WHEN_IN_FOCUSED_WINDOW);
         final ActionMap actionMap = editor.getActionMap();
 
         int i = 0;
-        for (IdAction action : actions) {
-            setIcon(action);
+        for (IAction action : actions) {
+
+            final UiAction uiAction =
+                    new SwingAction(action, iconLoader, actionDescr);
 
             inputMap.put(getKeyStroke(KeyEvent.VK_F1 + i, 0), i);
-            action.putValue(Action.NAME, "F" + (i + 1));
-            actionMap.put(i, action);
+            uiAction.putValue(javax.swing.Action.NAME, "F" + (i + 1));
+            actionMap.put(i, uiAction);
             i++;
 
-            toolBar.add(new JButton(action));
+            toolBar.add(new JButton(uiAction));
+            uiActions.add(uiAction);
         }
 
         toolBar.add(Box.createHorizontalGlue());
         toolBar.add(new FontChooser(editor));
     }
 
-    private void setIcon(IdAction action) {
-        if (action.getValue(Action.LARGE_ICON_KEY) == null) {
-            final Icon icon = IconLoader.getIcon(action.getId());
-            action.putValue(Action.LARGE_ICON_KEY, icon);
+    @Override
+    public void setLanguage(Language language) {
+        for (UiAction uiAction : uiActions) {
+            uiAction.setLanguage(language);
         }
     }
 
@@ -132,12 +147,11 @@ public class View implements IView {
     }
 
     @Override
-    public Font getFont() {
-        return editor.getFont();
-    }
-
-    @Override
-    public void setFont(Font font) {
-        editor.setFont(font);
+    public void resize(int step) {
+        final Font f = editor.getFont();
+        final int newSize = f.getSize() + step;
+        if (newSize > 0) {
+            editor.setFont(f.deriveFont((float) newSize));
+        }
     }
 }

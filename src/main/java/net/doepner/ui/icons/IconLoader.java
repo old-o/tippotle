@@ -5,23 +5,28 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import net.doepner.i18n.L10n;
+import net.doepner.lang.Language;
 import net.doepner.ui.action.ActionId;
 
 /**
  * Loads icons from the classpath
  */
-public class IconLoader {
+public class IconLoader implements L10n<ActionId, Icon> {
 
-    public static Icon getIcon(ActionId actionId) {
-        return getIcon(getIconFileName(actionId));
+    public Icon get(ActionId actionId, Language language) {
+        return getIcon(getIconFileName(actionId, language));
     }
 
-    public static Icon getIcon(String fileName) {
-        final URL resource = IconLoader.class.getResource(fileName);
-        return resource != null ? new ImageIcon(resource) : null;
+    private String getIconFileName(ActionId actionId, Language language) {
+        if (ActionId.SWITCH_LANGUAGE == actionId) {
+            return language.getCode() + ".png";
+        } else {
+            return getIconFileName(actionId);
+        }
     }
 
-    private static String getIconFileName(ActionId id) {
+    private String getIconFileName(ActionId id) {
         switch (id) {
             case BIGGER_FONT:
                 return "zoom-in.png";
@@ -31,10 +36,12 @@ public class IconLoader {
                 return "volume.png";
             case SWITCH_BUFFER:
                 return "buffers.png";
-            case SWITCH_LANGUAGE:
-                return "languages.png";
         }
         throw new IllegalArgumentException("Unknown action id: " + id);
     }
 
+    private Icon getIcon(String fileName) {
+        final URL resource = getClass().getResource(fileName);
+        return resource != null ? new ImageIcon(resource) : null;
+    }
 }

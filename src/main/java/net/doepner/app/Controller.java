@@ -8,8 +8,8 @@ import net.doepner.app.api.IModel;
 import net.doepner.app.api.IServices;
 import net.doepner.app.api.IView;
 import net.doepner.event.ChangeListener;
-import net.doepner.ui.IconL10nUpdater;
-import net.doepner.ui.action.IdAction;
+import net.doepner.lang.Language;
+import net.doepner.ui.action.IAction;
 import net.doepner.ui.action.ResizeFont;
 import net.doepner.ui.action.SpeakWord;
 import net.doepner.ui.action.SwitchBuffer;
@@ -23,16 +23,23 @@ public class Controller {
     public Controller(final IModel model, final IView view,
                       final IServices services) {
 
-        final Iterable<IdAction> actions = new LinkedList<IdAction>(
+        final Iterable<IAction> actions = new LinkedList<>(
                 Arrays.asList(
                         new SwitchLanguage(model),
                         new SpeakWord(model, view, services.getSpeaker()),
                         new ResizeFont(-1, view), new ResizeFont(+1, view),
                         new SwitchBuffer(model, services)));
 
-        model.addListener(new IconL10nUpdater(actions));
 
         view.setActions(actions);
+        view.setLanguage(model.getLanguage());
+
+        model.addListener(new ChangeListener<Language>() {
+            @Override
+            public void handleChange(Language before, Language after) {
+                view.setLanguage(after);
+            }
+        });
 
         view.addTextPositionListener(new ChangeListener<Integer>() {
             @Override

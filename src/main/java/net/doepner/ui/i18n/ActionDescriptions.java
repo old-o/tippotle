@@ -9,7 +9,7 @@ import static net.doepner.lang.Language.ENGLISH;
 /**
  * Localized action descriptions
  */
-public class ActionDescriptions extends L10nMapper<ActionId> {
+public class ActionDescriptions extends L10nMapper<ActionId, String> {
 
     {
         put(DEUTSCH, ActionId.SWITCH_BUFFER, "Textspeicher wechseln");

@@ -5,8 +5,8 @@ import net.doepner.lang.Language;
 /**
  * Registers localization mappings
  */
-public interface L10nRegistry<T> {
+public interface L10nRegistry<K, V> {
 
-    void put(Language language, T t, String s);
+    void put(Language language, K key, V value);
 
 }

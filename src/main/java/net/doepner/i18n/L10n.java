@@ -5,8 +5,8 @@ import net.doepner.lang.Language;
 /**
  * Localization provider
  */
-public interface L10n<T> {
+public interface L10n<K, V> {
 
-    String get(Language language, T t);
+    V get(K k, Language language);
 
 }

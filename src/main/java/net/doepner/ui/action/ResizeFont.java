@@ -1,30 +1,21 @@
 package net.doepner.ui.action;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
+import net.doepner.ui.FontResizable;
 
-import javax.swing.AbstractAction;
+public class ResizeFont implements IAction {
 
-import net.doepner.ui.HasFont;
+    private final int step;
+    private final FontResizable fontResizable;
 
-public class ResizeFont extends AbstractAction implements IdAction {
-
-	private final int step;
-	private final HasFont hasFont;
-
-	public ResizeFont(int step, HasFont hasFont) {
-		this.step = step;
-		this.hasFont = hasFont;
+    public ResizeFont(int step, FontResizable fontResizable) {
+        this.step = step;
+        this.fontResizable = fontResizable;
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		final Font f = hasFont.getFont();
-		final int newSize = f.getSize() + step;
-		if (newSize > 0) {
-			hasFont.setFont(f.deriveFont((float) newSize));
-		}
-	}
+    @Override
+    public void actionPerformed() {
+        fontResizable.resize(step);
+    }
 
     @Override
     public ActionId getId() {

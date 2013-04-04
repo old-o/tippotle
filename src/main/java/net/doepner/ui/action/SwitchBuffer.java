@@ -1,13 +1,9 @@
 package net.doepner.ui.action;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-
 import net.doepner.app.api.IModel;
 import net.doepner.app.api.IServices;
 
-public class SwitchBuffer extends AbstractAction implements IdAction {
+public class SwitchBuffer implements IAction {
 
     private final IModel model;
     private final IServices services;
@@ -19,7 +15,7 @@ public class SwitchBuffer extends AbstractAction implements IdAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed() {
         services.saveBuffer(model);
         model.nextBuffer();
         loadText();
