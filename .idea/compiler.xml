@@ -28,7 +28,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="typepad" />
+        <module name="api" />
+        <module name="impl" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

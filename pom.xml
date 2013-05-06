@@ -10,7 +10,12 @@
     <groupId>net.doepner</groupId>
     <artifactId>typepad</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>api</module>
+        <module>impl</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,7 +48,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>net.doepner.app.Main</mainClass>
+                            <mainClass>net.doepner.typepad.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
