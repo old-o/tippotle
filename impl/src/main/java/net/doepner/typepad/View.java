@@ -146,7 +146,7 @@ public class View implements IView {
     }
 
     @Override
-    public void resize(int step) {
+    public void resizeFont(int step) {
         final Font f = editor.getFont();
         final int newSize = f.getSize() + step;
         if (newSize > 0) {

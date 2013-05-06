@@ -5,5 +5,5 @@ package net.doepner.ui;
  */
 public interface FontResizable {
 
-    void resize(int step);
+    void resizeFont(int step);
 }
