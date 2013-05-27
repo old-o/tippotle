@@ -1,8 +1,10 @@
 target
 
+.idea
 .project
 .classpath
 .settings
+*.iml
 
 *.class
 
@@ -10,3 +12,4 @@ target
 *.jar
 *.war
 *.ear
+
