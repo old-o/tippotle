@@ -17,8 +17,8 @@ public class Main {
         final LanguageChanger languageChanger = new EnglishOrGerman();
         final Speaker speaker = getSpeaker(languageChanger);
 
-        final Context context = new Context("Typepad",
-            languageChanger, speaker);
+        final Context context = new Context("Typepad", languageChanger,
+                speaker);
 
         new Application(context).run();
     }
