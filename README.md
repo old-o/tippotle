@@ -15,7 +15,7 @@ Simplistic text editor with
 
 [![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
 
-[Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad/)
+[Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad-dist/artifact/net.doepner/typepad-dist/0.0.1-SNAPSHOT/typepad-dist-0.0.1-SNAPSHOT-assembly.zip)
 
 Technology
 ----------
