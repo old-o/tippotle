@@ -17,4 +17,12 @@
         </dependencySet>
     </dependencySets>
 
+    <fileSets>
+        <fileSet>
+            <includes>
+                <include>run.*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
 </assembly>
