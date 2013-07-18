@@ -15,6 +15,7 @@ public final class FileHelper implements IFileHelper {
 
     public FileHelper(String appName) {
         appDir = Paths.get(USER_HOME, "." + appName.toLowerCase());
+        createIfNecessary(appDir, PathType.DIRECTORY);
     }
 
     @Override
