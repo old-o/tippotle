@@ -12,13 +12,15 @@ public class Application {
     private final IView view;
 
     public Application(final IContext context) {
-        final StyledDocument doc = DocUtil.createDocument(context);
+        final Services services = new Services(context);
+
+        final StyledDocument doc = DocUtil.createDocument(services);
 
         final IModel model = new Model(new DocTextModel(doc), context);
 
         view = new View(context.getAppName(), doc);
 
-        new Controller(model, view, new Services(context), context.getLog());
+        new Controller(model, view, services);
     }
 
     void run() {

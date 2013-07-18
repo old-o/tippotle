@@ -3,21 +3,26 @@ package net.doepner.ui.images;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
-import net.doepner.file.ImageStore;
-import net.doepner.ui.ImageMap;
+import net.doepner.file.IFileHelper;
+import net.doepner.ui.Images;
+
+import static net.doepner.file.PathType.DIRECTORY;
 
 /**
  * Helps with loading images
  */
-public class ImageHelper implements ImageMap {
+public class ImageHelper implements Images {
 
-    private final ImageStore files;
+    private final IFileHelper fileHelper;
+    private final Path imgDir;
 
-    public ImageHelper(ImageStore files) {
-        this.files = files;
+    public ImageHelper(IFileHelper fileHelper) {
+        this.fileHelper = fileHelper;
+        this.imgDir = fileHelper.findOrCreate("images", DIRECTORY);
     }
 
     @Override
@@ -27,7 +32,7 @@ public class ImageHelper implements ImageMap {
         }
         final String name = word.toLowerCase();
 
-        final File imageFile = files.findImageFile(name);
+        final File imageFile = fileHelper.findInDir(imgDir, name, "png", "jpg", "gif");
         if (imageFile == null) {
             return null;
         }

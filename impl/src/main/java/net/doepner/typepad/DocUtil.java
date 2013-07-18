@@ -13,7 +13,7 @@ import net.doepner.ui.text.TextStyler;
  */
 public class DocUtil {
 
-    static StyledDocument createDocument(final IContext context) {
+    static StyledDocument createDocument(final IServices services) {
 
         final StyledDocument doc = new DefaultStyledDocument();
 
@@ -22,7 +22,7 @@ public class DocUtil {
         doc.addDocumentListener(new TextChangeListener() {
             @Override
             public void handleChange(DocumentEvent e) {
-                context.getSpeaker().speak(getText(e));
+                services.getSpeaker().speak(getText(e));
             }
         });
 

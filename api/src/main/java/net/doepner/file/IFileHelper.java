@@ -8,7 +8,7 @@ import java.nio.file.Path;
  */
 public interface IFileHelper {
 
-    File findInDir(Path dir, String name, String extension);
+    File findInDir(Path dir, String name, String... extension);
 
     Path findOrCreate(String dirName, PathCreator type);
 }

@@ -1,12 +1,15 @@
 package net.doepner.typepad;
 
+import java.io.IOException;
+
 import net.doepner.file.FileHelper;
-import net.doepner.file.IFileHelper;
-import net.doepner.file.ImageFiles;
 import net.doepner.file.TextBuffers;
 import net.doepner.file.TextFiles;
+import net.doepner.log.Log;
+import net.doepner.log.StdLog;
+import net.doepner.speech.ESpeaker;
 import net.doepner.speech.Speaker;
-import net.doepner.ui.ImageMap;
+import net.doepner.ui.Images;
 import net.doepner.ui.images.ImageHelper;
 
 /**
@@ -14,16 +17,26 @@ import net.doepner.ui.images.ImageHelper;
  */
 public class Services implements IServices {
 
+    private final Log log = new StdLog();
+
     private final Speaker speaker;
-    private final ImageMap imageMap;
+    private final Images images;
     private final TextBuffers buffers;
 
     Services(IContext context) {
-        this.speaker = context.getSpeaker();
+        final FileHelper fileHelper = new FileHelper(context.getAppName(), log);
+        speaker = createSpeaker(context);
 
-        final IFileHelper fileHelper = new FileHelper(context.getAppName());
-        imageMap = new ImageHelper(new ImageFiles(fileHelper));
+        // TODO: Make speaker selectable by user
+        // speaker = new WavSpeaker(fileHelper);
+
+        images = new ImageHelper(fileHelper);
         buffers = new TextFiles(fileHelper);
+    }
+
+    @Override
+    public Log getLog() {
+        return log;
     }
 
     @Override
@@ -32,8 +45,8 @@ public class Services implements IServices {
     }
 
     @Override
-    public ImageMap getImageMap() {
-        return imageMap;
+    public Images getImages() {
+        return images;
     }
 
     @Override
@@ -44,5 +57,22 @@ public class Services implements IServices {
     @Override
     public void saveBuffer(IModel model) {
         buffers.save(model.getText().trim(), model.getCurrentBuffer());
+    }
+
+    private Speaker createSpeaker(IContext context) {
+        try {
+            return new ESpeaker(context.getLanguageChanger());
+
+        } catch (IOException e) {
+            log.error(e);
+            log.info("We'll use a dummy 'speaker' that just logs the output");
+
+            return new Speaker() {
+                @Override
+                public void speak(String text) {
+                    log.info("Speak: " + text);
+                }
+            };
+        }
     }
 }

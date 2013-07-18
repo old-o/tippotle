@@ -1,18 +1,21 @@
 package net.doepner.typepad;
 
+import net.doepner.log.Log;
 import net.doepner.speech.Speaker;
-import net.doepner.ui.ImageMap;
+import net.doepner.ui.Images;
 
 /**
  * Application services interface
  */
 public interface IServices {
 
+    Log getLog();
+
     Speaker getSpeaker();
 
-    void saveBuffer(IModel model);
+    Images getImages();
 
-    ImageMap getImageMap();
+    void saveBuffer(IModel model);
 
     void loadBuffer(IModel model);
 }

@@ -6,6 +6,9 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+
+import net.doepner.log.Log;
 
 public final class FileHelper implements IFileHelper {
 
@@ -13,16 +16,26 @@ public final class FileHelper implements IFileHelper {
 
     private final Path appDir;
 
-    public FileHelper(String appName) {
+    private final Log log;
+
+    public FileHelper(String appName, Log log) {
+        this.log = log;
         appDir = Paths.get(USER_HOME, "." + appName.toLowerCase());
         createIfNecessary(appDir, PathType.DIRECTORY);
     }
 
     @Override
-    public File findInDir(Path dir, String name, String extension) {
+    public File findInDir(Path dir, String name, String... extensions) {
         createIfNecessary(dir, PathType.DIRECTORY);
-        final Path path = dir.resolve(name + '.' + extension);
-        return Files.exists(path) ? path.toFile() : null;
+        for (String extension : extensions) {
+            final Path path = dir.resolve(name + '.' + extension);
+            if (Files.exists(path)) {
+                return path.toFile();
+            }
+        }
+        final String extList = Arrays.toString(extensions);
+        log.error("findInDir(" + dir + ", " + name + ", " + extList + ") == null");
+        return null;
     }
 
     @Override
