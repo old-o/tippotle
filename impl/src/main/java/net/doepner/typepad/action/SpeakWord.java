@@ -11,8 +11,7 @@ public class SpeakWord implements IAction {
     private final Speaker speaker;
     private final TextCoordinates coords;
 
-    public SpeakWord(WordProvider wordProvider, TextCoordinates coords,
-                     Speaker speaker) {
+    public SpeakWord(WordProvider wordProvider, TextCoordinates coords, Speaker speaker) {
         this.wordProvider = wordProvider;
         this.speaker = speaker;
         this.coords = coords;

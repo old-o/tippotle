@@ -18,7 +18,7 @@ public class Application {
 
         view = new View(context.getAppName(), doc);
 
-        new Controller(model, view, new Services(context));
+        new Controller(model, view, new Services(context), context.getLog());
     }
 
     void run() {

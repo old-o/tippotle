@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import net.doepner.event.ChangeListener;
 import net.doepner.lang.ILanguage;
+import net.doepner.log.Log;
 import net.doepner.typepad.action.ResizeFont;
 import net.doepner.typepad.action.SpeakWord;
 import net.doepner.typepad.action.SwitchBuffer;
@@ -18,7 +19,7 @@ import net.doepner.ui.IAction;
 public class Controller {
 
     public Controller(final IModel model, final IView view,
-                      final IServices services) {
+                      final IServices services, final Log log) {
 
         final Iterable<IAction> actions = new LinkedList<>(
             Arrays.asList(
@@ -35,6 +36,7 @@ public class Controller {
             @Override
             public void handleChange(ILanguage before, ILanguage after) {
                 view.setLanguage(after);
+                log.info("Language changed to: " + after);
             }
         });
 

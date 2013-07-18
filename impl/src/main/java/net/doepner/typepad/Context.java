@@ -1,6 +1,7 @@
 package net.doepner.typepad;
 
 import net.doepner.lang.LanguageChanger;
+import net.doepner.log.Log;
 import net.doepner.speech.Speaker;
 
 /**
@@ -8,17 +9,29 @@ import net.doepner.speech.Speaker;
  */
 public class Context implements IContext {
 
+    private final String appName;
+    private final Log log;
+
     private final LanguageChanger languageChanger;
     private final Speaker speaker;
 
-    private final String appName;
-
-    public Context(String appName,
+    public Context(String appName, Log log,
                    LanguageChanger languageChanger,
                    Speaker speaker) {
+        this.appName = appName;
+        this.log = log;
         this.languageChanger = languageChanger;
         this.speaker = speaker;
-        this.appName = appName;
+    }
+
+    @Override
+    public String getAppName() {
+        return appName;
+    }
+
+    @Override
+    public Log getLog() {
+        return log;
     }
 
     @Override
@@ -29,10 +42,5 @@ public class Context implements IContext {
     @Override
     public Speaker getSpeaker() {
         return speaker;
-    }
-
-    @Override
-    public String getAppName() {
-        return appName;
     }
 }
