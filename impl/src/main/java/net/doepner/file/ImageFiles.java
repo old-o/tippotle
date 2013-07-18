@@ -10,9 +10,10 @@ import static net.doepner.file.PathType.DIRECTORY;
  */
 public class ImageFiles implements ImageStore {
 
-    private final Path imgDir;
+    private static final String[] IMAGE_EXTENSIONS = {"png", "jpg", "gif"};
 
     private final IFileHelper fileHelper;
+    private final Path imgDir;
 
     public ImageFiles(IFileHelper fileHelper) {
         this.fileHelper = fileHelper;
@@ -21,8 +22,13 @@ public class ImageFiles implements ImageStore {
 
     @Override
     public File findImageFile(String name) {
-        final File png = findInDir(name, "png");
-        return png != null ? png : findInDir(name, "jpg");
+        for (String extension : IMAGE_EXTENSIONS) {
+            final File file = findInDir(name, extension);
+            if (file != null) {
+                return file;
+            }
+        }
+        return null;
     }
 
     private File findInDir(String name, String extension) {
