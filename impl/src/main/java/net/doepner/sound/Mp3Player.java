@@ -1,11 +1,13 @@
 package net.doepner.sound;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine.Info;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
@@ -16,24 +18,14 @@ public class Mp3Player extends AbstractAudioPlayer {
         super("audio/mpeg");
     }
 
-    public static void main(String[] args) {
-        System.out.println("Available mixers:");
-        for (Mixer.Info info : AudioSystem.getMixerInfo()) {
-            System.out.println(info.getName());
-        }
-
-        final Mp3Player player = new Mp3Player();
-        final Path path = Paths.get("/home/oliver/bubba/storage/music" +
-                "/peter_bjorn_john/Peter_Bjorn_and_John_-_Young_Folks.mp3");
-//                "/arbeit/an_den_deutschen_mond/ich_stand_auf_hohem_berge.wav");
-
-        player.play(path);
+    @Override
+    protected boolean playInNewThread() {
+        return true;
     }
 
     @Override
-    protected void play(AudioInputStream stream)
+    protected void play(final AudioInputStream stream)
             throws LineUnavailableException, IOException {
-
         final AudioFormat outFormat = getOutFormat(stream.getFormat());
         final Info info = new Info(SourceDataLine.class, outFormat);
 
