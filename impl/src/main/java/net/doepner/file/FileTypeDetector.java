@@ -14,7 +14,8 @@ import org.apache.tika.Tika;
 public class FileTypeDetector extends java.nio.file.spi.FileTypeDetector {
 
     public static void main(String[] args) throws IOException {
-        final String filePath = "/home/oliver/.typepad/incoming/zeitgeist_mp3";
+//        final String filePath = "/home/oliver/.typepad/incoming/zeitgeist_mp3";
+        final String filePath = "C:/Documents and Settings/isdc858/Desktop/example.ogg";
 
         // http://jeszysblog.wordpress.com/2012/03/05/file-type-detection-with-apache-tika/#comment-81
         final String mediaType = new Tika().detect(new File(filePath));

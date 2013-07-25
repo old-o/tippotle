@@ -17,12 +17,13 @@ public class SoundTestUtil {
             System.out.println(info.getName());
         }
 
-//        final Mp3Player player = new Mp3Player();
-        final WavPlayer player = new WavPlayer();
+        final DecodingAudioPlayer player = new DecodingAudioPlayer();
+//        final WavPlayer player = new WavPlayer();
 
         final Path path = Paths.get(
-//                "C:/Documents and Settings/isdc858/Desktop/blah.mp3");
-                "C:/WINDOWS/Media/Windows XP Startup.wav");
+//                "C:/Documents and Settings/isdc858/Desktop/example.ogg");
+                "C:/Documents and Settings/isdc858/Desktop/blah.mp3");
+//                "C:/WINDOWS/Media/Windows XP Startup.wav");
 //                 "/home/oliver/bubba/storage/music" +
 //                "/peter_bjorn_john/Peter_Bjorn_and_John_-_Young_Folks.mp3");
 //                "/arbeit/an_den_deutschen_mond/ich_stand_auf_hohem_berge.wav");

@@ -12,10 +12,10 @@ import javax.sound.sampled.SourceDataLine;
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 
-public class Mp3Player extends AbstractAudioPlayer {
+public class DecodingAudioPlayer extends AbstractAudioPlayer {
 
-    public Mp3Player() {
-        super("audio/mpeg");
+    public DecodingAudioPlayer() {
+        super("audio/mpeg", "audio/ogg");
     }
 
     @Override
@@ -26,6 +26,7 @@ public class Mp3Player extends AbstractAudioPlayer {
     @Override
     protected void play(final AudioInputStream stream)
             throws LineUnavailableException, IOException {
+
         final AudioFormat outFormat = getOutFormat(stream.getFormat());
         final Info info = new Info(SourceDataLine.class, outFormat);
 
