@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
-import net.doepner.file.IFileHelper;
+import net.doepner.file.PathHelper;
 import net.doepner.ui.Images;
 
 import static net.doepner.file.PathType.DIRECTORY;
@@ -17,10 +17,10 @@ import static net.doepner.file.PathType.DIRECTORY;
  */
 public class ImageHelper implements Images {
 
-    private final IFileHelper fileHelper;
+    private final PathHelper fileHelper;
     private final Path imgDir;
 
-    public ImageHelper(IFileHelper fileHelper) {
+    public ImageHelper(PathHelper fileHelper) {
         this.fileHelper = fileHelper;
         this.imgDir = fileHelper.findOrCreate("images", DIRECTORY);
     }
@@ -32,12 +32,12 @@ public class ImageHelper implements Images {
         }
         final String name = word.toLowerCase();
 
-        final File imageFile = fileHelper.findInDir(imgDir, name, "png", "jpg", "gif");
-        if (imageFile == null) {
+        final Path imagePath = fileHelper.findInDir(imgDir, name, "png", "jpg", "gif");
+        if (imagePath == null) {
             return null;
         }
         try {
-            return ImageIO.read(imageFile);
+            return ImageIO.read(imagePath.toFile());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }

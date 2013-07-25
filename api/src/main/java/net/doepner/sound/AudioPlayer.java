@@ -1,11 +1,13 @@
 package net.doepner.sound;
 
-import java.io.File;
+import java.nio.file.Path;
 
 /**
  * Plays audio files (like wav, mp3, etc.)
  */
 public interface AudioPlayer {
 
-    void play(File file);
+    boolean canPlay(Path path);
+
+    void play(Path path);
 }

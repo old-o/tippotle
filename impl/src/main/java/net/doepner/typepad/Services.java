@@ -2,7 +2,8 @@ package net.doepner.typepad;
 
 import java.io.IOException;
 
-import net.doepner.file.FileHelper;
+import net.doepner.file.PathHelper;
+import net.doepner.file.StdPathHelper;
 import net.doepner.file.TextBuffers;
 import net.doepner.file.TextFiles;
 import net.doepner.log.Log;
@@ -24,14 +25,14 @@ public class Services implements IServices {
     private final TextBuffers buffers;
 
     Services(IContext context) {
-        final FileHelper fileHelper = new FileHelper(context.getAppName(), log);
+        final PathHelper pathHelper = new StdPathHelper(context.getAppName(), log);
         speaker = createSpeaker(context);
 
         // TODO: Make speaker selectable by user
-        // speaker = new WavSpeaker(fileHelper);
+        // speaker = new AudioFileSpeaker(pathHelper);
 
-        images = new ImageHelper(fileHelper);
-        buffers = new TextFiles(fileHelper);
+        images = new ImageHelper(pathHelper);
+        buffers = new TextFiles(pathHelper);
     }
 
     @Override

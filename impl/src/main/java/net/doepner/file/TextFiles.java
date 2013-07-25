@@ -18,9 +18,9 @@ public class TextFiles implements TextBuffers {
     private static final String LINE_SEPARATOR =
         System.getProperty("line.separator");
 
-    private final IFileHelper fileHelper;
+    private final PathHelper fileHelper;
 
-    public TextFiles(IFileHelper fileHelper) {
+    public TextFiles(PathHelper fileHelper) {
         this.fileHelper = fileHelper;
     }
 

@@ -1,6 +1,5 @@
 package net.doepner.file;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 
 import net.doepner.log.Log;
 
-public final class FileHelper implements IFileHelper {
+public final class StdPathHelper implements PathHelper {
 
     private static final String USER_HOME = System.getProperty("user.home");
 
@@ -18,19 +17,19 @@ public final class FileHelper implements IFileHelper {
 
     private final Log log;
 
-    public FileHelper(String appName, Log log) {
+    public StdPathHelper(String appName, Log log) {
         this.log = log;
         appDir = Paths.get(USER_HOME, "." + appName.toLowerCase());
         createIfNecessary(appDir, PathType.DIRECTORY);
     }
 
     @Override
-    public File findInDir(Path dir, String name, String... extensions) {
+    public Path findInDir(Path dir, String name, String... extensions) {
         createIfNecessary(dir, PathType.DIRECTORY);
         for (String extension : extensions) {
             final Path path = dir.resolve(name + '.' + extension);
             if (Files.exists(path)) {
-                return path.toFile();
+                return path;
             }
         }
         final String extList = Arrays.toString(extensions);
