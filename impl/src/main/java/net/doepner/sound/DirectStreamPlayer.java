@@ -11,16 +11,21 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 
 /**
- * Plays wav audio files
+ * Plays supported audio files directly
  */
-public class WavPlayer extends AbstractAudioPlayer {
+public class DirectStreamPlayer implements AudioStreamPlayer {
 
     @Override
-    protected void play(AudioInputStream stream)
-            throws LineUnavailableException, IOException {
+    public boolean isPlaybackBlockingThread() {
+        return false;
+    }
+
+    @Override
+    public void play(AudioInputStream stream)
+        throws LineUnavailableException, IOException {
 
         final Clip clip = (Clip) AudioSystem.getLine(
-                new DataLine.Info(Clip.class, stream.getFormat()));
+            new DataLine.Info(Clip.class, stream.getFormat()));
 
         clip.open(stream);
         clip.start();
@@ -33,10 +38,5 @@ public class WavPlayer extends AbstractAudioPlayer {
                 }
             }
         });
-    }
-
-    @Override
-    protected boolean playInNewThread() {
-        return false;
     }
 }

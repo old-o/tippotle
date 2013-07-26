@@ -12,26 +12,22 @@ import javax.sound.sampled.SourceDataLine;
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 
-public class DecodingAudioPlayer extends AbstractAudioPlayer {
+public class ConvertingStreamPlayer implements AudioStreamPlayer {
 
-    public DecodingAudioPlayer() {
-        super("audio/mpeg", "audio/ogg");
+    @Override
+    public boolean isPlaybackBlockingThread() {
+        return false;
     }
 
     @Override
-    protected boolean playInNewThread() {
-        return true;
-    }
-
-    @Override
-    protected void play(final AudioInputStream stream)
-            throws LineUnavailableException, IOException {
+    public void play(final AudioInputStream stream)
+        throws LineUnavailableException, IOException {
 
         final AudioFormat outFormat = getOutFormat(stream.getFormat());
         final Info info = new Info(SourceDataLine.class, outFormat);
 
         try (final SourceDataLine line =
-                     (SourceDataLine) AudioSystem.getLine(info)) {
+                 (SourceDataLine) AudioSystem.getLine(info)) {
 
             if (line != null) {
                 line.open(outFormat);
@@ -55,5 +51,4 @@ public class DecodingAudioPlayer extends AbstractAudioPlayer {
             line.write(buffer, 0, n);
         }
     }
-
 }
