@@ -26,7 +26,7 @@ public class ESpeaker implements Speaker {
 
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
-            "espeak", "-v", getVoice(text), text
+                "espeak", "-v", getVoice(text), text
         });
     }
 
@@ -38,8 +38,7 @@ public class ESpeaker implements Speaker {
     }
 
     private boolean isZed(String text) {
-        return Language.ENGLISH == ctx.getLanguage()
-            && "z".equalsIgnoreCase(text);
+        return Language.ENGLISH == ctx.getLanguage() && "z".equalsIgnoreCase(text);
     }
 
 }

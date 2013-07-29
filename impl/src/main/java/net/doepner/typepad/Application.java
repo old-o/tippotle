@@ -1,9 +1,5 @@
 package net.doepner.typepad;
 
-import javax.swing.text.StyledDocument;
-
-import net.doepner.ui.text.DocTextModel;
-
 /**
  * The application itself (mainly an abstract MVC container)
  */
@@ -12,15 +8,12 @@ public class Application {
     private final IView view;
 
     public Application(final IContext context) {
-        final Services services = new Services(context);
 
-        final StyledDocument doc = DocUtil.createDocument(services);
+        view = new View(context.getAppName());
 
-        final IModel model = new Model(new DocTextModel(doc), context);
+        final IModel model = new Model(view.getEditor().getTextModel(), context);
 
-        view = new View(context.getAppName(), doc);
-
-        new Controller(model, view, services);
+        new Controller(model, view, new Services(context));
     }
 
     void run() {

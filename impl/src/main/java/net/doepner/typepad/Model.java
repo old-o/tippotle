@@ -3,12 +3,13 @@ package net.doepner.typepad;
 import net.doepner.event.ChangeListener;
 import net.doepner.lang.ILanguage;
 import net.doepner.lang.LanguageChanger;
+import net.doepner.text.TextListener;
 import net.doepner.text.TextModel;
 import net.doepner.text.WordExtractor;
 import net.doepner.text.WordProvider;
 
 /**
- * Application model
+ * Application model (facade for several model elements)
  */
 public class Model implements IModel {
 
@@ -34,6 +35,11 @@ public class Model implements IModel {
     @Override
     public void setText(String text) {
         textModel.setText(text);
+    }
+
+    @Override
+    public void addTextListener(TextListener listener) {
+        textModel.addTextListener(listener);
     }
 
     @Override

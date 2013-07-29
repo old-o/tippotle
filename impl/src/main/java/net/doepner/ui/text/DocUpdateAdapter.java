@@ -5,16 +5,15 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 /**
- * Adapter between document events and text change
- * events
+ * Adapter between document events and text change events
  */
-public abstract class TextChangeListener implements DocumentListener {
+public abstract class DocUpdateAdapter implements DocumentListener {
 
-    protected abstract void handleChange(DocumentEvent e);
+    protected abstract void handleUpdate(DocumentEvent e);
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        handleChange(e);
+        handleUpdate(e);
     }
 
     @Override

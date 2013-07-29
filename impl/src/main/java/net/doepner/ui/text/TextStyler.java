@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.StyledDocument;
 
-public class TextStyler extends TextChangeListener {
+public class TextStyler extends DocUpdateAdapter {
 
     private final CharStyler charStyler;
 
@@ -13,7 +13,7 @@ public class TextStyler extends TextChangeListener {
     }
 
     @Override
-    public void handleChange(DocumentEvent event) {
+    public void handleUpdate(DocumentEvent event) {
         final StyledDocument doc = (StyledDocument) event.getDocument();
 
         final int offset = event.getOffset();
@@ -24,7 +24,7 @@ public class TextStyler extends TextChangeListener {
             public void run() {
                 for (int i = 0; i < text.length(); i++) {
                     doc.setCharacterAttributes(offset + i, 1,
-                        charStyler.getAttribs(text.charAt(i)), true);
+                            charStyler.getAttribs(text.charAt(i)), true);
                 }
             }
         });
