@@ -18,6 +18,11 @@ public class SelectableSpeaker implements Speaker, SpeakerChanger {
     }
 
     @Override
+    public String getName() {
+        return speaker == null ? "unknown" : speaker.getName();
+    }
+
+    @Override
     public void speak(String text) {
         speaker.speak(text);
     }
@@ -25,5 +30,7 @@ public class SelectableSpeaker implements Speaker, SpeakerChanger {
     @Override
     public void nextSpeaker() {
         speaker = speakers.get((speakers.indexOf(speaker) + 1) % speakers.size());
+        // identify the current speaker
+        speak(getName());
     }
 }

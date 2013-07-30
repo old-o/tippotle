@@ -30,4 +30,9 @@ public class SwitchBuffer implements IAction {
     public ActionEnum getId() {
         return ActionEnum.SWITCH_BUFFER;
     }
+
+    @Override
+    public String getIconName() {
+        return getId().getIconName();
+    }
 }

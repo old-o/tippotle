@@ -26,4 +26,9 @@ public class SpeakWord implements IAction {
     public ActionEnum getId() {
         return ActionEnum.SPEAK_WORD;
     }
+
+    @Override
+    public String getIconName() {
+        return getId().getIconName();
+    }
 }

@@ -17,11 +17,15 @@ public class SwitchSpeaker implements IAction {
     @Override
     public void actionPerformed() {
         services.switchSpeaker();
-        // TODO: Update action icon
     }
 
     @Override
     public ActionEnum getId() {
         return ActionEnum.SWITCH_SPEAKER;
+    }
+
+    @Override
+    public String getIconName() {
+        return services.getSpeaker().getName();
     }
 }

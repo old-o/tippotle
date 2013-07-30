@@ -75,21 +75,4 @@ public class Services implements IServices {
     public void saveBuffer(IModel model) {
         buffers.save(model.getText().trim(), model.getCurrentBuffer());
     }
-
-    private Speaker createSpeaker(IContext context) {
-        try {
-            return new ESpeaker(context.getLanguageChanger());
-
-        } catch (IOException e) {
-            log.error(e);
-            log.info("We'll use a dummy 'speaker' that just logs the output");
-
-            return new Speaker() {
-                @Override
-                public void speak(String text) {
-                    log.info("Speak: " + text);
-                }
-            };
-        }
-    }
 }

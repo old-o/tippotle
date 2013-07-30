@@ -22,4 +22,9 @@ public class ResizeFont implements IAction {
     public ActionEnum getId() {
         return step > 0 ? ActionEnum.BIGGER_FONT : ActionEnum.SMALLER_FONT;
     }
+
+    @Override
+    public String getIconName() {
+        return getId().getIconName();
+    }
 }

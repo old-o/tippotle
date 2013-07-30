@@ -6,16 +6,13 @@ import java.awt.Image;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import javax.swing.Icon;
-
 import net.doepner.i18n.L10n;
 import net.doepner.lang.ILanguage;
+import net.doepner.log.Log;
 import net.doepner.typepad.action.ActionDescriptions;
 import net.doepner.typepad.action.SwingAction;
-import net.doepner.ui.ActionId;
 import net.doepner.ui.Editor;
 import net.doepner.ui.IAction;
-import net.doepner.ui.IconLoader;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingFrame;
 import net.doepner.ui.UiAction;
@@ -26,10 +23,12 @@ public class View implements IView {
 
     private final Collection<UiAction> uiActions = new LinkedList<>();
 
-    private final L10n<ActionId, String> actionDescr = new ActionDescriptions();
-    private final L10n<ActionId, Icon> iconLoader = new IconLoader();
+    private final L10n<IAction, String> actionDescr = new ActionDescriptions();
+    private final Log log;
 
-    View(String appName) {
+    public View(String appName, Log log) {
+        this.log = log;
+
         final SwingEditor editor = new SwingEditor(new Font("serif", Font.PLAIN, 40));
 
         final Dimension frameSize = new Dimension(800, 600);
@@ -42,7 +41,7 @@ public class View implements IView {
     public void setActions(IAction... actions) {
         int i = 0;
         for (IAction action : actions) {
-            final UiAction uiAction = new SwingAction(action, iconLoader, actionDescr);
+            final UiAction uiAction = new SwingAction(action, actionDescr, log);
             frame.addAction(uiAction, i);
             uiActions.add(uiAction);
             i++;

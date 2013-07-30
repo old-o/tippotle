@@ -4,4 +4,5 @@ public interface Speaker {
 
     void speak(String text);
 
+    String getName();
 }

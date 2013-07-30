@@ -7,12 +7,12 @@ import net.doepner.ui.ActionId;
  */
 public enum ActionEnum implements ActionId {
 
-    SWITCH_BUFFER("buffers.png"),
+    SWITCH_BUFFER("buffers"),
     SWITCH_LANGUAGE,
-    BIGGER_FONT("zoom-in.png"),
-    SMALLER_FONT("zoom-out.png"),
-    SPEAK_WORD("volume.png"),
-    SWITCH_SPEAKER("volume.png");
+    BIGGER_FONT("zoom-in"),
+    SMALLER_FONT("zoom-out"),
+    SPEAK_WORD("volume"),
+    SWITCH_SPEAKER("volume");
 
     private final String iconName;
 

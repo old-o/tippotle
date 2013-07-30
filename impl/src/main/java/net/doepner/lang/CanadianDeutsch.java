@@ -5,7 +5,7 @@ import net.doepner.event.ChangeListener;
 import net.doepner.event.ChangePropagator;
 import net.doepner.event.ChangeSupport;
 
-public class EnglishOrGerman implements LanguageChanger {
+public class CanadianDeutsch implements LanguageChanger {
 
     private final ChangePropagator<ILanguage> propagator = new ChangeSupport<>();
 
@@ -13,7 +13,7 @@ public class EnglishOrGerman implements LanguageChanger {
 
     @Override
     public ILanguage getLanguage() {
-        return english ? Language.ENGLISH : Language.DEUTSCH;
+        return english ? Language.CANADIAN : Language.DEUTSCH;
     }
 
     @Override

@@ -20,4 +20,9 @@ public class SwitchLanguage implements IAction {
     public ActionEnum getId() {
         return ActionEnum.SWITCH_LANGUAGE;
     }
+
+    @Override
+    public String getIconName() {
+        return langChanger.getLanguage().getCode();
+    }
 }

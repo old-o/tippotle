@@ -27,6 +27,11 @@ public class AudioFileSpeaker implements Speaker {
     }
 
     @Override
+    public String getName() {
+        return "recording";
+    }
+
+    @Override
     public void speak(final String text) {
         final Path path = pathHelper.findInDir(audioDir, text, "ogg", "mp3", "wav", "au");
         if (path != null) {

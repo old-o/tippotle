@@ -2,7 +2,6 @@ package net.doepner.speech;
 
 import java.io.IOException;
 
-import net.doepner.lang.Language;
 import net.doepner.lang.LanguageProvider;
 
 
@@ -12,7 +11,11 @@ public class ESpeaker implements Speaker {
 
     public ESpeaker(LanguageProvider ctx) throws IOException {
         this.ctx = ctx;
-        doSpeak("test");
+    }
+
+    @Override
+    public String getName() {
+        return "espeak";
     }
 
     @Override
@@ -26,19 +29,7 @@ public class ESpeaker implements Speaker {
 
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
-                "espeak", "-v", getVoice(text), text
+                "espeak", "-v", ctx.getLanguage().getCode(), text
         });
     }
-
-    private String getVoice(String text) {
-        if (isZed(text)) {
-            return "en";
-        }
-        return ctx.getLanguage().getCode();
-    }
-
-    private boolean isZed(String text) {
-        return Language.ENGLISH == ctx.getLanguage() && "z".equalsIgnoreCase(text);
-    }
-
 }
