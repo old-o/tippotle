@@ -15,7 +15,7 @@ public interface IView {
 
     void showImage(Image image);
 
-    void setActions(Iterable<IAction> actions);
+    void setActions(IAction... actions);
 
     void setLanguage(ILanguage language);
 

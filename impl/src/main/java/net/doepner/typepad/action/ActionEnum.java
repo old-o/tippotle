@@ -11,7 +11,8 @@ public enum ActionEnum implements ActionId {
     SWITCH_LANGUAGE,
     BIGGER_FONT("zoom-in.png"),
     SMALLER_FONT("zoom-out.png"),
-    SPEAK_WORD("volume.png");
+    SPEAK_WORD("volume.png"),
+    SWITCH_SPEAKER("volume.png");
 
     private final String iconName;
 

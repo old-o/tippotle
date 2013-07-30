@@ -13,6 +13,8 @@ public interface IServices {
 
     Speaker getSpeaker();
 
+    void switchSpeaker();
+
     Images getImages();
 
     void saveBuffer(IModel model);

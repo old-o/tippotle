@@ -7,8 +7,7 @@ import net.doepner.event.ChangeSupport;
 
 public class EnglishOrGerman implements LanguageChanger {
 
-    private final ChangePropagator<ILanguage> propagator =
-        new ChangeSupport<>();
+    private final ChangePropagator<ILanguage> propagator = new ChangeSupport<>();
 
     private boolean english;
 

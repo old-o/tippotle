@@ -39,7 +39,7 @@ public class View implements IView {
     }
 
     @Override
-    public void setActions(Iterable<IAction> actions) {
+    public void setActions(IAction... actions) {
         int i = 0;
         for (IAction action : actions) {
             final UiAction uiAction = new SwingAction(action, iconLoader, actionDescr);
