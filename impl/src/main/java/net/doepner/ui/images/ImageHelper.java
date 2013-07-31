@@ -50,7 +50,12 @@ public class ImageHelper implements Images {
     }
 
     private Image findImage(Path dir, String name) {
-        final Path imagePath = fileHelper.findInDir(dir, name, "png", "jpg", "gif");
+        final String[] split = name.split("[^\\w']+");
+        if (split.length == 0) {
+            return null;
+        }
+        final String imageName = split[split.length - 1];
+        final Path imagePath = fileHelper.findInDir(dir, imageName, "png", "jpg", "gif");
         if (imagePath == null) {
             return null;
         }

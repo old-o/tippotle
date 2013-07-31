@@ -7,10 +7,10 @@ import net.doepner.lang.LanguageProvider;
 
 public class ESpeaker implements Speaker {
 
-    private final LanguageProvider ctx;
+    private final LanguageProvider languageProvider;
 
-    public ESpeaker(LanguageProvider ctx) throws IOException {
-        this.ctx = ctx;
+    public ESpeaker(LanguageProvider languageProvider) throws IOException {
+        this.languageProvider = languageProvider;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ESpeaker implements Speaker {
 
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
-                "espeak", "-v", ctx.getLanguage().getCode(), text
+                "espeak", "-v", languageProvider.getLanguage().getCode(), text
         });
     }
 }

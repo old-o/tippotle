@@ -1,7 +1,7 @@
 package net.doepner.sound;
 
 import java.io.IOException;
-import java.nio.file.Path;
+import java.net.URL;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -10,5 +10,5 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public interface AudioPlayer {
 
-    void play(Path path) throws IOException, UnsupportedAudioFileException;
+    void play(URL url) throws IOException, UnsupportedAudioFileException;
 }

@@ -8,6 +8,7 @@ import net.doepner.file.PathHelper;
 import net.doepner.file.StdPathHelper;
 import net.doepner.file.TextBuffers;
 import net.doepner.file.TextFiles;
+import net.doepner.lang.LanguageChanger;
 import net.doepner.log.Log;
 import net.doepner.log.StdLog;
 import net.doepner.speech.AudioFileSpeaker;
@@ -37,9 +38,10 @@ public class Services implements IServices {
 
     private SelectableSpeaker createSpeaker(IContext context, PathHelper pathHelper) {
         final List<Speaker> speakers = new LinkedList<>();
-        speakers.add(new AudioFileSpeaker(pathHelper));
+        final LanguageChanger languageChanger = context.getLanguageChanger();
+        speakers.add(new AudioFileSpeaker(pathHelper, languageChanger));
         try {
-            speakers.add(new ESpeaker(context.getLanguageChanger()));
+            speakers.add(new ESpeaker(languageChanger));
         } catch (IOException e) {
             log.error(e);
         }

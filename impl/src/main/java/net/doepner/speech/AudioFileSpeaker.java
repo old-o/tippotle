@@ -1,15 +1,15 @@
 package net.doepner.speech;
 
 import java.io.IOException;
-import java.nio.file.Path;
+import java.net.URL;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import net.doepner.file.PathHelper;
+import net.doepner.lang.LanguageProvider;
+import net.doepner.resources.ResourceFinder;
 import net.doepner.sound.AudioPlayer;
 import net.doepner.sound.StdAudioPlayer;
-
-import static net.doepner.file.PathType.DIRECTORY;
 
 /**
  * Speaks by playing audio files
@@ -17,13 +17,11 @@ import static net.doepner.file.PathType.DIRECTORY;
 public class AudioFileSpeaker implements Speaker {
 
     private final AudioPlayer player = new StdAudioPlayer();
+    private final ResourceFinder resourceFinder;
 
-    private final PathHelper pathHelper;
-    private final Path audioDir;
-
-    public AudioFileSpeaker(PathHelper pathHelper) {
-        this.pathHelper = pathHelper;
-        this.audioDir = pathHelper.findOrCreate("audio", DIRECTORY);
+    public AudioFileSpeaker(PathHelper pathHelper, LanguageProvider languageProvider) {
+        resourceFinder = new ResourceFinder(pathHelper, "audio", languageProvider,
+                "ogg", "mp3", "wav", "au");
     }
 
     @Override
@@ -33,13 +31,20 @@ public class AudioFileSpeaker implements Speaker {
 
     @Override
     public void speak(final String text) {
-        final Path path = pathHelper.findInDir(audioDir, text, "ogg", "mp3", "wav", "au");
-        if (path != null) {
+        for (String s : text.toLowerCase().split("[^\\w']+")) {
+            speakPart(s);
+        }
+    }
+
+    private void speakPart(String text) {
+        final URL audio = resourceFinder.find(text);
+        if (audio != null) {
             try {
-                player.play(path);
+                player.play(audio);
             } catch (IOException | UnsupportedAudioFileException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 }
+

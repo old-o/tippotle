@@ -1,6 +1,7 @@
 package net.doepner.sound;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -25,12 +26,12 @@ public class SoundTestUtil {
 //                "C:/Documents and Settings/isdc858/Desktop/example.ogg");
 //                "C:/Documents and Settings/isdc858/Desktop/blah.mp3");
 //                "C:/WINDOWS/Media/Windows XP Startup.wav");
-            "/home/oliver/bubba/storage/music" +
-                "/peter_bjorn_john/Peter_Bjorn_and_John_-_Young_Folks.mp3");
+                "/home/oliver/bubba/storage/music" +
+                        "/peter_bjorn_john/Peter_Bjorn_and_John_-_Young_Folks.mp3");
 //                  "/yazoo/Upstairs_At_Eric_s/01-Don_t_Go.ogg");
 //                "/arbeit/an_den_deutschen_mond/ich_stand_auf_hohem_berge.wav");
 
-        player.play(path);
+        player.play(new URL("http://ssl.gstatic.com/dictionary/static/sounds/de/0/supercalifragilisticexpialidocious.mp3"));
 
 
         Thread.sleep(10000);
