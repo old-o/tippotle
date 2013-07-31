@@ -33,7 +33,7 @@ public class AlphaNumStyler implements CharStyler {
         style(VOICED_PLOSIVE, Color.PINK);
         style(FRICATIVE, Color.ORANGE);
         style(NASAL, Color.CYAN);
-        style(LETTER, Color.BLACK);
+        style(LETTER, Color.DARK_GRAY);
     }
 
     private void style(CharCondition digit, Color color) {

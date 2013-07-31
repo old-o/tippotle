@@ -13,7 +13,9 @@ public interface IView {
 
     void show();
 
-    void showImage(Image image);
+    void showWordImages(Iterable<Image> images);
+
+    void showCharImages(Iterable<Image> images);
 
     void setActions(IAction... actions);
 

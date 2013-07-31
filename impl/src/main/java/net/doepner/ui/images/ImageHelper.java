@@ -1,9 +1,12 @@
 package net.doepner.ui.images;
 
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -26,13 +29,28 @@ public class ImageHelper implements Images {
     }
 
     @Override
-    public Image getImage(String word) {
+    public Iterable<Image> getImages(String word) {
+        final List<Image> images = new LinkedList<>();
         if (word == null) {
-            return null;
+            return images;
         }
         final String name = word.toLowerCase();
 
-        final Path imagePath = fileHelper.findInDir(imgDir, name, "png", "jpg", "gif");
+        try (DirectoryStream<Path> paths = Files.newDirectoryStream(imgDir, "[0-9]")) {
+            for (Path path : paths) {
+                if (Files.isDirectory(path)) {
+                    final Image image = findImage(path, name);
+                    images.add(image);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return images;
+    }
+
+    private Image findImage(Path dir, String name) {
+        final Path imagePath = fileHelper.findInDir(dir, name, "png", "jpg", "gif");
         if (imagePath == null) {
             return null;
         }

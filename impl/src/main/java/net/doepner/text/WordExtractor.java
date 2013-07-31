@@ -21,6 +21,12 @@ public class WordExtractor implements WordProvider {
         }
     }
 
+    @Override
+    public char getCharacter(int position) {
+        final String text = model.getText();
+        return text.length() > position ? text.charAt(position) : ' ';
+    }
+
     private String findSequence(CharCondition cond, int position) {
         final int start = getStart(cond, position);
         final int end = getEnd(cond, position);

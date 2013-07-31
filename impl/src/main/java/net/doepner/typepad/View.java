@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.doepner.i18n.L10n;
@@ -13,6 +14,7 @@ import net.doepner.typepad.action.ActionDescriptions;
 import net.doepner.typepad.action.SwingAction;
 import net.doepner.ui.Editor;
 import net.doepner.ui.IAction;
+import net.doepner.ui.ImageContainer;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingFrame;
 import net.doepner.ui.UiAction;
@@ -67,7 +69,22 @@ public class View implements IView {
     }
 
     @Override
-    public void showImage(Image image) {
-        frame.getImagePanel().setImage(image);
+    public void showWordImages(Iterable<Image> images) {
+        setImages(images, frame.getWordImagePanels());
+    }
+
+    @Override
+    public void showCharImages(Iterable<Image> images) {
+        setImages(images, frame.getCharImagePanels());
+    }
+
+    private static void setImages(Iterable<Image> images,
+                                  Iterable<? extends ImageContainer> panels) {
+        final Iterator<Image> imageIter = images.iterator();
+        for (ImageContainer panel : panels) {
+            if (imageIter.hasNext()) {
+                panel.setImage(imageIter.next());
+            }
+        }
     }
 }

@@ -7,4 +7,5 @@ public interface WordProvider {
 
     String getWord(int position);
 
+    char getCharacter(int position);
 }

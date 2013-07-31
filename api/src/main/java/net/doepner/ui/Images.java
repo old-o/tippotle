@@ -7,5 +7,5 @@ import java.awt.Image;
  */
 public interface Images {
 
-    Image getImage(String word);
+    Iterable<Image> getImages(String word);
 }

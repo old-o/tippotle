@@ -58,6 +58,11 @@ public class Model implements IModel {
     }
 
     @Override
+    public char getCharacter(int position) {
+        return wordProvider.getCharacter(position);
+    }
+
+    @Override
     public void changeLanguage() {
         languageChanger.changeLanguage();
     }

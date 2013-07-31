@@ -1,6 +1,5 @@
 package net.doepner.file;
 
-import java.io.File;
 import java.nio.file.Path;
 
 /**
@@ -10,5 +9,6 @@ public interface PathHelper {
 
     Path findInDir(Path dir, String name, String... extension);
 
-    Path findOrCreate(String dirName, PathCreator type);
+    Path findOrCreate(String name, PathCreator type);
+
 }
