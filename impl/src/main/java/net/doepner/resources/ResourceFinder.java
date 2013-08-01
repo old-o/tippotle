@@ -16,7 +16,7 @@ import net.doepner.lang.LanguageProvider;
 import static net.doepner.file.PathType.DIRECTORY;
 
 /**
- * TODO: Document this
+ * Finds files in classpath, file system or online
  */
 public class ResourceFinder {
 
@@ -50,6 +50,7 @@ public class ResourceFinder {
                 return null;
             }
             return getUrl(audioDir1, name);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -57,8 +58,8 @@ public class ResourceFinder {
 
     private URL getUrl(Path audioDir1, String name) throws IOException {
         final URL url = new URL("http://translate.google.com/translate_tts?ie=UTF-8" +
-                "&tl=" + languageProvider.getLanguage().getCode() +
-                "&q=" + name.toLowerCase());
+            "&tl=" + languageProvider.getLanguage().getCode() +
+            "&q=" + name.toLowerCase());
 
         final URLConnection c = url.openConnection();
         c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");

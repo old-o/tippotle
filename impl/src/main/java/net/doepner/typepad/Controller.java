@@ -1,7 +1,5 @@
 package net.doepner.typepad;
 
-import javax.swing.SwingUtilities;
-
 import net.doepner.event.ChangeListener;
 import net.doepner.lang.ILanguage;
 import net.doepner.text.TextListener;
@@ -39,8 +37,13 @@ public class Controller {
 
         model.addTextListener(new TextListener() {
             @Override
-            public void handleText(String text) {
-                services.getSpeaker().speak(text);
+            public void handleText(final String text) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        services.getSpeaker().speak(text);
+                    }
+                }).start();
             }
         });
 
@@ -49,7 +52,7 @@ public class Controller {
 
             @Override
             public void handleChange(final Integer before, final Integer after) {
-                SwingUtilities.invokeLater(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         final char ch = model.getCharacter(after);
@@ -57,7 +60,7 @@ public class Controller {
                         view.showCharImages(images.getImages(String.valueOf(ch)));
                         view.showWordImages(images.getImages(word));
                     }
-                });
+                }).start();
             }
         });
     }
