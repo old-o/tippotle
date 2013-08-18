@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import net.doepner.i18n.L10n;
-import net.doepner.lang.ILanguage;
+import net.doepner.lang.Language;
 import net.doepner.log.Log;
 import net.doepner.typepad.action.ActionDescriptions;
 import net.doepner.typepad.action.SwingAction;
@@ -52,7 +52,7 @@ public class View implements IView {
     }
 
     @Override
-    public void setLanguage(ILanguage language) {
+    public void setLanguage(Language language) {
         for (UiAction uiAction : uiActions) {
             uiAction.setLanguage(language);
         }

@@ -1,7 +1,7 @@
 package net.doepner.typepad;
 
 import net.doepner.event.ChangeListener;
-import net.doepner.lang.ILanguage;
+import net.doepner.lang.Language;
 import net.doepner.lang.LanguageChanger;
 import net.doepner.text.TextListener;
 import net.doepner.text.TextModel;
@@ -68,12 +68,12 @@ public class Model implements IModel {
     }
 
     @Override
-    public ILanguage getLanguage() {
+    public Language getLanguage() {
         return languageChanger.getLanguage();
     }
 
     @Override
-    public void addListener(ChangeListener<ILanguage> listener) {
+    public void addListener(ChangeListener<Language> listener) {
         languageChanger.addListener(listener);
     }
 }

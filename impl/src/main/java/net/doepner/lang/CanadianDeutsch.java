@@ -7,25 +7,25 @@ import net.doepner.event.ChangeSupport;
 
 public class CanadianDeutsch implements LanguageChanger {
 
-    private final ChangePropagator<ILanguage> propagator = new ChangeSupport<>();
+    private final ChangePropagator<Language> propagator = new ChangeSupport<>();
 
     private boolean english;
 
     @Override
-    public ILanguage getLanguage() {
-        return english ? Language.CANADIAN : Language.DEUTSCH;
+    public Language getLanguage() {
+        return english ? LanguageEnum.CANADIAN : LanguageEnum.DEUTSCH;
     }
 
     @Override
     public void changeLanguage() {
-        final ILanguage before = getLanguage();
+        final Language before = getLanguage();
         english = !english;
-        final ILanguage after = getLanguage();
+        final Language after = getLanguage();
         propagator.handleChange(before, after);
     }
 
     @Override
-    public void addListener(ChangeListener<ILanguage> listener) {
+    public void addListener(ChangeListener<Language> listener) {
         propagator.addListener(listener);
     }
 }

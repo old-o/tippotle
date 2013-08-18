@@ -1,7 +1,7 @@
 package net.doepner.typepad;
 
 import net.doepner.event.ChangeListener;
-import net.doepner.lang.ILanguage;
+import net.doepner.lang.Language;
 import net.doepner.text.TextListener;
 import net.doepner.typepad.action.ResizeFont;
 import net.doepner.typepad.action.SpeakWord;
@@ -27,9 +27,9 @@ public class Controller {
 
         view.setLanguage(model.getLanguage());
 
-        model.addListener(new ChangeListener<ILanguage>() {
+        model.addListener(new ChangeListener<Language>() {
             @Override
-            public void handleChange(ILanguage before, ILanguage after) {
+            public void handleChange(Language before, Language after) {
                 view.setLanguage(after);
                 services.getLog().info("Language changed to: " + after);
             }

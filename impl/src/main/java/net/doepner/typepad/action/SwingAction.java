@@ -9,7 +9,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import net.doepner.i18n.L10n;
-import net.doepner.lang.ILanguage;
+import net.doepner.lang.Language;
 import net.doepner.log.Log;
 import net.doepner.ui.IAction;
 import net.doepner.ui.UiAction;
@@ -39,7 +39,7 @@ public class SwingAction extends AbstractAction implements UiAction {
     }
 
     @Override
-    public void setLanguage(ILanguage language) {
+    public void setLanguage(Language language) {
         final String descr = descriptions.get(action, language);
         putValue(Action.SHORT_DESCRIPTION, descr);
         updateIcon();

@@ -2,12 +2,12 @@ package net.doepner.typepad.action;
 
 import net.doepner.i18n.L10n;
 import net.doepner.i18n.L10nMapper;
-import net.doepner.lang.ILanguage;
+import net.doepner.lang.Language;
 import net.doepner.ui.ActionId;
 import net.doepner.ui.IAction;
 
-import static net.doepner.lang.Language.CANADIAN;
-import static net.doepner.lang.Language.DEUTSCH;
+import static net.doepner.lang.LanguageEnum.CANADIAN;
+import static net.doepner.lang.LanguageEnum.DEUTSCH;
 import static net.doepner.typepad.action.ActionEnum.BIGGER_FONT;
 import static net.doepner.typepad.action.ActionEnum.SMALLER_FONT;
 import static net.doepner.typepad.action.ActionEnum.SPEAK_WORD;
@@ -47,7 +47,7 @@ public class ActionDescriptions implements L10n<IAction, String> {
     }
 
     @Override
-    public String get(IAction action, ILanguage language) {
+    public String get(IAction action, Language language) {
         return byId.get(action.getId(), language);
     }
 }

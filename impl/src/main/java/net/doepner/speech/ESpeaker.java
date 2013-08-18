@@ -15,7 +15,7 @@ public class ESpeaker implements Speaker {
 
     @Override
     public String getName() {
-        return "espeak";
+        return "robby";
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ESpeaker implements Speaker {
 
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
-                "espeak", "-v", languageProvider.getLanguage().getCode(), text
+            "espeak", "-v", languageProvider.getLanguage().getCode(), text
         });
     }
 }

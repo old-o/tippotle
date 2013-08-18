@@ -28,6 +28,7 @@ Technology
 Planned features
 ----------------
 
+- "Login"-Dialog where computer speaker welcomes and asks user for their name
 - Let computer read the current sentence or line
 - Hand writing recognition (of single letters)
 - Make computer voice more "interactive"

@@ -1,13 +1,13 @@
 package net.doepner.lang;
 
-public enum Language implements ILanguage {
+public enum LanguageEnum implements Language {
 
     CANADIAN("en-ca"),
     DEUTSCH("de");
 
     private final String code;
 
-    private Language(String code) {
+    private LanguageEnum(String code) {
         this.code = code;
     }
 
@@ -22,6 +22,6 @@ public enum Language implements ILanguage {
 
     private static String capitalize(String s) {
         return Character.toUpperCase(s.charAt(0))
-                + s.toLowerCase().substring(1);
+            + s.toLowerCase().substring(1);
     }
 }

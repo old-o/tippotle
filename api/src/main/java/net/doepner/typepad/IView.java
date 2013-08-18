@@ -2,7 +2,7 @@ package net.doepner.typepad;
 
 import java.awt.Image;
 
-import net.doepner.lang.ILanguage;
+import net.doepner.lang.Language;
 import net.doepner.ui.Editor;
 import net.doepner.ui.IAction;
 
@@ -19,7 +19,7 @@ public interface IView {
 
     void setActions(IAction... actions);
 
-    void setLanguage(ILanguage language);
+    void setLanguage(Language language);
 
     Editor getEditor();
 }
