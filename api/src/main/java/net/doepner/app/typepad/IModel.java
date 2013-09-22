@@ -1,11 +1,11 @@
-package net.doepner.typepad;
+package net.doepner.app.typepad;
 
 import net.doepner.lang.LanguageChanger;
 import net.doepner.text.TextModel;
 import net.doepner.text.WordProvider;
 
 /**
- * Aplpication model interface
+ * Application model interface
  */
 public interface IModel extends TextModel, WordProvider, LanguageChanger {
 

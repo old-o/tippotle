@@ -1,4 +1,4 @@
-package net.doepner.typepad.action;
+package net.doepner.app.typepad.action;
 
 import java.awt.event.ActionEvent;
 import java.net.URL;

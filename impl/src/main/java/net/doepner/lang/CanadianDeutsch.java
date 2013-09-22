@@ -9,17 +9,17 @@ public class CanadianDeutsch implements LanguageChanger {
 
     private final ChangePropagator<Language> propagator = new ChangeSupport<>();
 
-    private boolean english;
+    private boolean deutsch;
 
     @Override
     public Language getLanguage() {
-        return english ? LanguageEnum.CANADIAN : LanguageEnum.DEUTSCH;
+        return deutsch ? LanguageEnum.DEUTSCH : LanguageEnum.CANADIAN;
     }
 
     @Override
     public void changeLanguage() {
         final Language before = getLanguage();
-        english = !english;
+        deutsch = !deutsch;
         final Language after = getLanguage();
         propagator.handleChange(before, after);
     }

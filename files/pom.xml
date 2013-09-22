@@ -7,6 +7,5 @@
     <artifactId>typepad-files</artifactId>
     <groupId>net.doepner</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
 </project>

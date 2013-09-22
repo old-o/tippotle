@@ -8,6 +8,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import net.doepner.log.Log;
+
 import static javax.sound.sampled.AudioSystem.getAudioFileFormat;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.AudioSystem.isFileTypeSupported;
@@ -20,12 +22,18 @@ public class StdAudioPlayer implements AudioPlayer {
     private final AudioStreamPlayer directPlayer = new DirectStreamPlayer();
     private final AudioStreamPlayer convertingPlayer = new ConvertingStreamPlayer();
 
+    private final Log log;
+
+    public StdAudioPlayer(Log log) {
+        this.log = log;
+    }
+
     @Override
     public void play(final URL url) throws UnsupportedAudioFileException, IOException {
         final AudioFileFormat format = getAudioFileFormat(url);
 
         final AudioStreamPlayer player = isFileTypeSupported(format.getType())
-                ? directPlayer : convertingPlayer;
+            ? directPlayer : convertingPlayer;
 
         if (player.isPlaybackBlockingThread()) {
             new Thread(new Runnable() {
@@ -48,7 +56,7 @@ public class StdAudioPlayer implements AudioPlayer {
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 }

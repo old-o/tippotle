@@ -56,4 +56,9 @@ public final class StdPathHelper implements PathHelper {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Log getLog() {
+        return log;
+    }
 }

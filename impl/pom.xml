@@ -7,7 +7,6 @@
     <artifactId>typepad-impl</artifactId>
     <groupId>net.doepner</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -61,7 +60,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>net.doepner.typepad.Main</mainClass>
+                            <mainClass>net.doepner.app.typepad.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -1,4 +1,4 @@
-package net.doepner.typepad.action;
+package net.doepner.app.typepad.action;
 
 import net.doepner.i18n.L10n;
 import net.doepner.i18n.L10nMapper;
@@ -6,14 +6,14 @@ import net.doepner.lang.Language;
 import net.doepner.ui.ActionId;
 import net.doepner.ui.IAction;
 
+import static net.doepner.app.typepad.action.ActionEnum.BIGGER_FONT;
+import static net.doepner.app.typepad.action.ActionEnum.SMALLER_FONT;
+import static net.doepner.app.typepad.action.ActionEnum.SPEAK_WORD;
+import static net.doepner.app.typepad.action.ActionEnum.SWITCH_BUFFER;
+import static net.doepner.app.typepad.action.ActionEnum.SWITCH_LANGUAGE;
+import static net.doepner.app.typepad.action.ActionEnum.SWITCH_SPEAKER;
 import static net.doepner.lang.LanguageEnum.CANADIAN;
 import static net.doepner.lang.LanguageEnum.DEUTSCH;
-import static net.doepner.typepad.action.ActionEnum.BIGGER_FONT;
-import static net.doepner.typepad.action.ActionEnum.SMALLER_FONT;
-import static net.doepner.typepad.action.ActionEnum.SPEAK_WORD;
-import static net.doepner.typepad.action.ActionEnum.SWITCH_BUFFER;
-import static net.doepner.typepad.action.ActionEnum.SWITCH_LANGUAGE;
-import static net.doepner.typepad.action.ActionEnum.SWITCH_SPEAKER;
 
 /**
  * Localized action descriptions

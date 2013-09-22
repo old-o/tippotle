@@ -3,9 +3,11 @@ package net.doepner.resources;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
@@ -57,7 +59,15 @@ public class GoogleTranslateDownload implements ResourceFinder {
 
     private URL getDownloadUrl(String name) throws MalformedURLException {
         return new URL("http://translate.google.com/translate_tts?ie=UTF-8" +
-            "&tl=" + languageProvider.getLanguage().getCode() +
-            "&q=" + name.toLowerCase());
+            "&tl=" + urlEncode(languageProvider.getLanguage().getCode()) +
+            "&q=" + urlEncode(name.toLowerCase()));
+    }
+
+    private String urlEncode(String text) {
+        try {
+            return URLEncoder.encode(text, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package net.doepner.typepad.action;
+package net.doepner.app.typepad.action;
 
 import net.doepner.ui.ActionId;
 
@@ -17,7 +17,7 @@ public enum ActionEnum implements ActionId {
     private final String iconName;
 
     private ActionEnum() {
-        this.iconName = null;
+        this(null);
     }
 
     private ActionEnum(String iconName) {

@@ -1,13 +1,13 @@
-package net.doepner.typepad;
+package net.doepner.app.typepad;
 
+import net.doepner.app.typepad.action.ResizeFont;
+import net.doepner.app.typepad.action.SpeakWord;
+import net.doepner.app.typepad.action.SwitchBuffer;
+import net.doepner.app.typepad.action.SwitchLanguage;
+import net.doepner.app.typepad.action.SwitchSpeaker;
 import net.doepner.event.ChangeListener;
 import net.doepner.lang.Language;
 import net.doepner.text.TextListener;
-import net.doepner.typepad.action.ResizeFont;
-import net.doepner.typepad.action.SpeakWord;
-import net.doepner.typepad.action.SwitchBuffer;
-import net.doepner.typepad.action.SwitchLanguage;
-import net.doepner.typepad.action.SwitchSpeaker;
 import net.doepner.ui.Editor;
 import net.doepner.ui.Images;
 

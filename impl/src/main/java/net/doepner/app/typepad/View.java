@@ -1,4 +1,4 @@
-package net.doepner.typepad;
+package net.doepner.app.typepad;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,11 +7,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import net.doepner.app.typepad.action.ActionDescriptions;
+import net.doepner.app.typepad.action.SwingAction;
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
-import net.doepner.typepad.action.ActionDescriptions;
-import net.doepner.typepad.action.SwingAction;
 import net.doepner.ui.Editor;
 import net.doepner.ui.IAction;
 import net.doepner.ui.ImageContainer;

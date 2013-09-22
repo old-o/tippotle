@@ -1,4 +1,4 @@
-package net.doepner.typepad;
+package net.doepner.app.typepad;
 
 /**
  * The application itself (mainly an abstract MVC container)

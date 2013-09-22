@@ -1,7 +1,7 @@
-package net.doepner.typepad.action;
+package net.doepner.app.typepad.action;
 
-import net.doepner.typepad.IModel;
-import net.doepner.typepad.IServices;
+import net.doepner.app.typepad.IModel;
+import net.doepner.app.typepad.IServices;
 import net.doepner.ui.IAction;
 
 public class SwitchBuffer implements IAction {

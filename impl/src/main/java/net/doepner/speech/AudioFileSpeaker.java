@@ -21,18 +21,19 @@ import static net.doepner.file.PathType.DIRECTORY;
  */
 public class AudioFileSpeaker implements Speaker {
 
-    private final String[] extensions = {"ogg", "mp3", "wav", "au"};
+    private static final String[] EXTENSIONS = {"ogg", "mp3", "wav", "au"};
 
-    private final AudioPlayer player = new StdAudioPlayer();
     private final DelegatingResourceFinder resourceFinder;
+    private final AudioPlayer player;
 
     public AudioFileSpeaker(PathHelper pathHelper, LanguageProvider languageProvider) {
         final Path audioDir = pathHelper.findOrCreate("audio", DIRECTORY);
         resourceFinder = new DelegatingResourceFinder(
-            //new ClasspathFinder(extensions),
-            new FileFinder(pathHelper, languageProvider, audioDir, extensions),
+            //new ClasspathFinder(EXTENSIONS),
+            new FileFinder(pathHelper, languageProvider, audioDir, EXTENSIONS),
             new GoogleTranslateDownload(languageProvider, audioDir)
         );
+        player = new StdAudioPlayer(pathHelper.getLog());
     }
 
     @Override
@@ -42,9 +43,12 @@ public class AudioFileSpeaker implements Speaker {
 
     @Override
     public void speak(final String text) {
+/*
         for (String s : text.toLowerCase().split("[^\\w']+")) {
             speakPart(s);
         }
+*/
+        speakPart(text);
     }
 
     private void speakPart(String text) {

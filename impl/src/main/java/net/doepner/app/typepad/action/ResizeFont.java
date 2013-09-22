@@ -1,4 +1,4 @@
-package net.doepner.typepad.action;
+package net.doepner.app.typepad.action;
 
 import net.doepner.ui.FontResizable;
 import net.doepner.ui.IAction;
