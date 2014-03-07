@@ -35,6 +35,7 @@ public class SwingEditor implements Editor {
         final StyledDocument doc = new DefaultStyledDocument();
         editor = new JTextPane(doc);
         editor.setFont(editorFont);
+        editor.setCaret(new BlockCaret(new SwingCaretContext(editor)));
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
     }
 
