@@ -1,6 +1,7 @@
 package net.doepner.app.typepad;
 
 import net.doepner.lang.CanadianDeutsch;
+import net.doepner.log.Slf4jLogProvider;
 
 /**
  * Main class with main method (entry point for app execution)
@@ -8,6 +9,11 @@ import net.doepner.lang.CanadianDeutsch;
 public class Main {
 
     public static void main(String[] args) {
-        new Application(new Context("Typepad", new CanadianDeutsch())).run();
+
+        final Context context = new Context("Typepad",
+            new CanadianDeutsch(),
+            new Slf4jLogProvider());
+
+        new Application(context).run();
     }
 }

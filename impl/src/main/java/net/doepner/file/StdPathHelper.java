@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 
 public final class StdPathHelper implements PathHelper {
 
@@ -17,8 +18,8 @@ public final class StdPathHelper implements PathHelper {
 
     private final Log log;
 
-    public StdPathHelper(String appName, Log log) {
-        this.log = log;
+    public StdPathHelper(String appName, LogProvider logProvider) {
+        this.log = logProvider.getLog(getClass());
         appDir = Paths.get(USER_HOME, "." + appName.toLowerCase());
         createIfNecessary(appDir, PathType.DIRECTORY);
     }
@@ -55,10 +56,5 @@ public final class StdPathHelper implements PathHelper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public Log getLog() {
-        return log;
     }
 }

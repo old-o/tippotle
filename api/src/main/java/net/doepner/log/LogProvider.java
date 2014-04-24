@@ -5,5 +5,5 @@ package net.doepner.log;
  */
 public interface LogProvider {
 
-    Log getLog();
+    Log getLog(Class<?> clazz);
 }

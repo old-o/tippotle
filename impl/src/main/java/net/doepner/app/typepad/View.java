@@ -12,6 +12,7 @@ import net.doepner.app.typepad.action.SwingAction;
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 import net.doepner.ui.Editor;
 import net.doepner.ui.IAction;
 import net.doepner.ui.ImageContainer;
@@ -28,10 +29,12 @@ public class View implements IView {
     private final L10n<IAction, String> actionDescr = new ActionDescriptions();
     private final Log log;
 
-    public View(String appName, Log log) {
-        this.log = log;
+    public View(String appName, LogProvider logProvider) {
+        this.log = logProvider.getLog(getClass());
 
-        final SwingEditor editor = new SwingEditor(new Font("serif", Font.PLAIN, 40));
+        final SwingEditor editor = new SwingEditor(
+            new Font("serif", Font.PLAIN, 40),
+            logProvider);
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);

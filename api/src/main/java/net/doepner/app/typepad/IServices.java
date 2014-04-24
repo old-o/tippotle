@@ -1,6 +1,5 @@
 package net.doepner.app.typepad;
 
-import net.doepner.log.Log;
 import net.doepner.speech.Speaker;
 import net.doepner.ui.Images;
 
@@ -8,8 +7,6 @@ import net.doepner.ui.Images;
  * Application services interface
  */
 public interface IServices {
-
-    Log getLog();
 
     Speaker getSpeaker();
 

@@ -10,7 +10,6 @@ import net.doepner.file.TextBuffers;
 import net.doepner.file.TextFiles;
 import net.doepner.lang.LanguageChanger;
 import net.doepner.log.Log;
-import net.doepner.log.StdLog;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.SelectableSpeaker;
@@ -23,34 +22,36 @@ import net.doepner.ui.images.ImageHelper;
  */
 public class Services implements IServices {
 
-    private final Log log = new StdLog();
-
     private final SelectableSpeaker speaker;
     private final Images images;
     private final TextBuffers buffers;
 
+    private final Log log;
+
     Services(IContext context) {
-        final PathHelper pathHelper = new StdPathHelper(context.getAppName(), log);
+        this.log = context.getLog(getClass());
+
+        final PathHelper pathHelper = new StdPathHelper(context.getAppName(),
+            context);
+
         speaker = createSpeaker(context, pathHelper);
         images = new ImageHelper(pathHelper);
         buffers = new TextFiles(pathHelper);
     }
 
-    private SelectableSpeaker createSpeaker(IContext context, PathHelper pathHelper) {
+    private SelectableSpeaker createSpeaker(IContext context,
+                                            PathHelper pathHelper) {
         final List<Speaker> speakers = new LinkedList<>();
         final LanguageChanger languageChanger = context.getLanguageChanger();
-        speakers.add(new AudioFileSpeaker(pathHelper, languageChanger));
+
+        speakers.add(new AudioFileSpeaker(pathHelper, languageChanger, context));
+
         try {
             speakers.add(new ESpeaker(languageChanger));
         } catch (IOException e) {
             log.error(e);
         }
         return new SelectableSpeaker(speakers);
-    }
-
-    @Override
-    public Log getLog() {
-        return log;
     }
 
     @Override

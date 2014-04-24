@@ -8,6 +8,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import net.doepner.file.PathHelper;
 import net.doepner.lang.LanguageProvider;
+import net.doepner.log.LogProvider;
 import net.doepner.resources.DelegatingResourceFinder;
 import net.doepner.resources.FileFinder;
 import net.doepner.resources.GoogleTranslateDownload;
@@ -26,14 +27,17 @@ public class AudioFileSpeaker implements Speaker {
     private final DelegatingResourceFinder resourceFinder;
     private final AudioPlayer player;
 
-    public AudioFileSpeaker(PathHelper pathHelper, LanguageProvider languageProvider) {
+    public AudioFileSpeaker(PathHelper pathHelper,
+                            LanguageProvider languageProvider,
+                            LogProvider logProvider) {
+
         final Path audioDir = pathHelper.findOrCreate("audio", DIRECTORY);
         resourceFinder = new DelegatingResourceFinder(
             //new ClasspathFinder(EXTENSIONS),
             new FileFinder(pathHelper, languageProvider, audioDir, EXTENSIONS),
             new GoogleTranslateDownload(languageProvider, audioDir)
         );
-        player = new StdAudioPlayer(pathHelper.getLog());
+        player = new StdAudioPlayer(logProvider);
     }
 
     @Override

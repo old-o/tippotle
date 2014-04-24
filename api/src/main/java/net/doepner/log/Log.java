@@ -9,4 +9,5 @@ public interface Log {
 
     void error(Object o);
 
+    void debug(String message, Object... parameters);
 }

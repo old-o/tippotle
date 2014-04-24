@@ -9,6 +9,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 
 import static javax.sound.sampled.AudioSystem.getAudioFileFormat;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
@@ -24,8 +25,8 @@ public class StdAudioPlayer implements AudioPlayer {
 
     private final Log log;
 
-    public StdAudioPlayer(Log log) {
-        this.log = log;
+    public StdAudioPlayer(LogProvider logProvider) {
+        this.log = logProvider.getLog(getClass());
     }
 
     @Override

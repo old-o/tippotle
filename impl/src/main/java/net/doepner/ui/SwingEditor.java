@@ -15,6 +15,7 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
 
 import net.doepner.event.ChangeListener;
+import net.doepner.log.LogProvider;
 import net.doepner.text.TextModel;
 import net.doepner.ui.text.AlphaNumStyler;
 import net.doepner.ui.text.DocTextModel;
@@ -31,11 +32,12 @@ public class SwingEditor implements Editor {
 
     private final JTextPane editor;
 
-    public SwingEditor(Font editorFont) {
+    public SwingEditor(Font editorFont, LogProvider logProvider) {
         final StyledDocument doc = new DefaultStyledDocument();
         editor = new JTextPane(doc);
         editor.setFont(editorFont);
-        editor.setCaret(new BlockCaret(new SwingCaretContext(editor)));
+        editor.setCaret(new BlockCaret(new SwingCaretContext(editor),
+            logProvider));
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
     }
 
