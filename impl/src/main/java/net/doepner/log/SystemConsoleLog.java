@@ -6,20 +6,21 @@ package net.doepner.log;
 public class SystemConsoleLog implements Log {
 
     @Override
-    public void info(Object o) {
-        System.out.println(o);
+    public void $(Level level, String message, Throwable t) {
+        System.err.println(message);
+        t.printStackTrace();
     }
 
     @Override
-    public void error(Object o) {
-        System.err.println(o);
+    public void $(Level level, Throwable t) {
+        t.printStackTrace();
     }
 
     @Override
-    public void debug(String message, Object... parameters) {
-        info(message);
+    public void $(Level level, String message, Object... parameters) {
+        System.out.println(message);
         for (Object parameter : parameters) {
-            info(parameter);
+            System.out.println(parameter);
         }
     }
 }

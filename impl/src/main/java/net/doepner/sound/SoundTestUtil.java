@@ -1,7 +1,6 @@
 package net.doepner.sound;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -35,8 +34,11 @@ public class SoundTestUtil {
 //                  "/yazoo/Upstairs_At_Eric_s/01-Don_t_Go.ogg");
 //                "/arbeit/an_den_deutschen_mond/ich_stand_auf_hohem_berge.wav");
 
+        /*
         player.play(new URL("http://ssl.gstatic.com/dictionary/static/sounds/de/0/supercalifragilisticexpialidocious.mp3"));
+        */
 
+        player.play(path.toUri().toURL());
 
         Thread.sleep(10000);
 

@@ -13,6 +13,8 @@ import net.doepner.text.TextListener;
 import net.doepner.ui.Editor;
 import net.doepner.ui.Images;
 
+import static net.doepner.log.Log.Level.info;
+
 /**
  * Application controller
  */
@@ -40,7 +42,7 @@ public class Controller {
             @Override
             public void handleChange(Language before, Language after) {
                 view.setLanguage(after);
-                log.info("Language changed to: " + after);
+                log.$(info, "Language changed to: {}", after);
             }
         });
 

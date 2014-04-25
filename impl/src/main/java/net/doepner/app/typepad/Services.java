@@ -17,6 +17,8 @@ import net.doepner.speech.Speaker;
 import net.doepner.ui.Images;
 import net.doepner.ui.images.ImageHelper;
 
+import static net.doepner.log.Log.Level.error;
+
 /**
  * Application services
  */
@@ -49,7 +51,7 @@ public class Services implements IServices {
         try {
             speakers.add(new ESpeaker(languageChanger));
         } catch (IOException e) {
-            log.error(e);
+            log.$(error, e);
         }
         return new SelectableSpeaker(speakers);
     }

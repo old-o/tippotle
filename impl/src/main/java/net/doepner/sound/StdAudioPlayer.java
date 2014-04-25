@@ -14,6 +14,7 @@ import net.doepner.log.LogProvider;
 import static javax.sound.sampled.AudioSystem.getAudioFileFormat;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.AudioSystem.isFileTypeSupported;
+import static net.doepner.log.Log.Level.error;
 
 /**
  * Default audio player that delegates to the appropriate stream player
@@ -57,7 +58,7 @@ public class StdAudioPlayer implements AudioPlayer {
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            log.error(e);
+            log.$(error, e);
         }
     }
 }

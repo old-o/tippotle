@@ -10,6 +10,8 @@ import java.util.Arrays;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
 
+import static net.doepner.log.Log.Level.error;
+
 public final class StdPathHelper implements PathHelper {
 
     private static final String USER_HOME = System.getProperty("user.home");
@@ -34,7 +36,7 @@ public final class StdPathHelper implements PathHelper {
             }
         }
         final String extList = Arrays.toString(extensions);
-        log.error("findInDir(" + dir + ", " + name + ", " + extList + ") == null");
+        log.$(error, "findInDir({}, {}, {}) == null", dir, name, extList);
         return null;
     }
 

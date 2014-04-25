@@ -5,9 +5,13 @@ package net.doepner.log;
  */
 public interface Log {
 
-    void info(Object o);
+    enum Level {
+        trace, debug, info, warn, error
+    }
 
-    void error(Object o);
+    void $(Level level, Throwable t);
 
-    void debug(String message, Object... parameters);
+    void $(Level level, String message, Throwable t);
+
+    void $(Level level, String message, Object... parameters);
 }

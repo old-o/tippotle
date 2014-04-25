@@ -14,17 +14,49 @@ public class Slf4jLog implements Log {
     }
 
     @Override
-    public void info(Object o) {
-        logger.info(o.toString());
+    public void $(Level level, String message, Object... parameters) {
+        switch (level) {
+            case trace:
+                logger.trace(message, parameters);
+                break;
+            case debug:
+                logger.debug(message, parameters);
+                break;
+            case info:
+                logger.info(message, parameters);
+                break;
+            case warn:
+                logger.warn(message, parameters);
+                break;
+            case error:
+                logger.error(message, parameters);
+                break;
+        }
     }
 
     @Override
-    public void error(Object o) {
-        logger.error(o.toString());
+    public void $(Level level, Throwable t) {
+        $(level, "", t);
     }
 
     @Override
-    public void debug(String message, Object... parameters) {
-        logger.debug(message, parameters);
+    public void $(Level level, String message, Throwable t) {
+        switch (level) {
+            case trace:
+                logger.trace(message, t);
+                break;
+            case debug:
+                logger.debug(message, t);
+                break;
+            case info:
+                logger.info(message, t);
+                break;
+            case warn:
+                logger.warn(message, t);
+                break;
+            case error:
+                logger.error(message, t);
+                break;
+        }
     }
 }
