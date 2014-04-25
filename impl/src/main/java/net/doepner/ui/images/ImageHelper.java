@@ -31,7 +31,7 @@ public class ImageHelper implements Images {
     @Override
     public Iterable<Image> getImages(String word) {
         final List<Image> images = new LinkedList<>();
-        if (word == null) {
+        if (word == null || word.trim().isEmpty()) {
             return images;
         }
         final String name = word.toLowerCase();
@@ -55,7 +55,9 @@ public class ImageHelper implements Images {
             return null;
         }
         final String imageName = split[split.length - 1];
-        final Path imagePath = fileHelper.findInDir(dir, imageName, "png", "jpg", "gif");
+        final Path imagePath = fileHelper.findInDir(dir, imageName,
+            "png", "jpg", "gif");
+
         if (imagePath == null) {
             return null;
         }
