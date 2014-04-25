@@ -11,6 +11,8 @@ import javax.swing.text.DefaultCaret;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
 
+import static net.doepner.log.Log.Level.debug;
+
 /**
  * A caret that paints itself as a filled rectangle
  * on the bounding box of the next character
@@ -42,9 +44,9 @@ public class BlockCaret extends DefaultCaret {
         if (r != null) {
             int damageWidth = context.getCaretWidth();
 
-            log.debug("r = {}", r);
-            log.debug("bounds before = {}", getBounds());
-            log.debug("damageWidth = {}", damageWidth);
+            log.$(debug, "r = {}", r);
+            log.$(debug, "bounds before = {}", getBounds());
+            log.$(debug, "damageWidth = {}", damageWidth);
 
             // TODO: Fix this so that newly typed character appears in block
 
@@ -53,7 +55,7 @@ public class BlockCaret extends DefaultCaret {
             width = damageWidth + 1;
             height = r.height;
 
-            log.debug("bounds after = {}", getBounds());
+            log.$(debug, "bounds after = {}", getBounds());
 
             repaint();
         }
