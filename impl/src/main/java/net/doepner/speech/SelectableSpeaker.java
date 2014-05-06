@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Delegates to the currently selected speaker (among the available ones)
  */
-public class SelectableSpeaker implements Speaker, SpeakerChanger {
+public class SelectableSpeaker implements Speaker {
 
     private final List<Speaker> speakers;
     private Speaker speaker;
@@ -27,7 +27,6 @@ public class SelectableSpeaker implements Speaker, SpeakerChanger {
         speaker.speak(text);
     }
 
-    @Override
     public void nextSpeaker() {
         speaker = speakers.get((speakers.indexOf(speaker) + 1) % speakers.size());
         // identify the current speaker

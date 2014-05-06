@@ -1,21 +1,11 @@
 package net.doepner.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import net.doepner.ui.images.ImagePanel;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-
-import net.doepner.ui.images.ImagePanel;
 
 /**
  * Swing frame wrapper (for loose coupling)
@@ -49,7 +39,8 @@ public class SwingFrame {
     }
 
     private void addImageBar(JPanel wrapper, List<ImagePanel> panels,
-                             int axis, String constraints, Dimension imageSize) {
+                             int axis, String constraints,
+                             Dimension imageSize) {
         final JPanel imageBar = new JPanel();
         imageBar.setLayout(new BoxLayout(imageBar, axis));
 
@@ -85,7 +76,6 @@ public class SwingFrame {
             }
         });
     }
-
 
     public void addOtherToolbarComponents() {
         toolBar.add(Box.createHorizontalGlue());

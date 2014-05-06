@@ -1,4 +1,4 @@
-package net.doepner.ui.text;
+package net.doepner.ui;
 
 import javax.swing.text.AttributeSet;
 

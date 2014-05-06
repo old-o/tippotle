@@ -1,19 +1,19 @@
 package net.doepner.speech;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import net.doepner.file.PathHelper;
 import net.doepner.lang.LanguageProvider;
 import net.doepner.log.LogProvider;
+import net.doepner.resources.ClasspathFinder;
 import net.doepner.resources.DelegatingResourceFinder;
 import net.doepner.resources.FileFinder;
 import net.doepner.resources.GoogleTranslateDownload;
 import net.doepner.sound.AudioPlayer;
 import net.doepner.sound.StdAudioPlayer;
+
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
 
 import static net.doepner.file.PathType.DIRECTORY;
 
@@ -33,9 +33,9 @@ public class AudioFileSpeaker implements Speaker {
 
         final Path audioDir = pathHelper.findOrCreate("audio", DIRECTORY);
         resourceFinder = new DelegatingResourceFinder(
-            //new ClasspathFinder(EXTENSIONS),
-            new FileFinder(pathHelper, languageProvider, audioDir, EXTENSIONS),
-            new GoogleTranslateDownload(languageProvider, audioDir)
+                new ClasspathFinder(EXTENSIONS),
+                new FileFinder(pathHelper, languageProvider, audioDir, EXTENSIONS),
+                new GoogleTranslateDownload(languageProvider, audioDir)
         );
         player = new StdAudioPlayer(logProvider);
     }

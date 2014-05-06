@@ -1,6 +1,8 @@
 package net.doepner.ui.text;
 
-import javax.swing.SwingUtilities;
+import net.doepner.ui.CharStyler;
+
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.StyledDocument;
 

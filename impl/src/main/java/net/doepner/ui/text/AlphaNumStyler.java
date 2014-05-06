@@ -1,21 +1,17 @@
 package net.doepner.ui.text;
 
-import java.awt.Color;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import net.doepner.text.CharCondition;
+import net.doepner.ui.CharStyler;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import java.awt.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import net.doepner.text.CharCondition;
-
-import static net.doepner.speech.LetterTypes.ASPIRATED_PLOSIVE;
-import static net.doepner.speech.LetterTypes.FRICATIVE;
-import static net.doepner.speech.LetterTypes.NASAL;
-import static net.doepner.speech.LetterTypes.VOICED_PLOSIVE;
-import static net.doepner.speech.LetterTypes.VOWEL;
+import static net.doepner.speech.LetterTypes.*;
 import static net.doepner.text.CharConditions.DIGIT;
 import static net.doepner.text.CharConditions.LETTER;
 

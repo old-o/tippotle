@@ -1,26 +1,26 @@
 package net.doepner.resources;
 
+import net.doepner.file.PathHelper;
+import net.doepner.lang.LanguageProvider;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
-
-import net.doepner.file.PathHelper;
-import net.doepner.lang.LanguageProvider;
 
 /**
  * Finds a resource on the file system
  */
 public class FileFinder implements ResourceFinder {
 
-    private final PathHelper pathHelper;
-    private final Path baseDir;
     private final LanguageProvider languageProvider;
+    private final PathHelper pathHelper;
     private final String[] extensions;
+    private final Path baseDir;
 
     public FileFinder(PathHelper pathHelper, LanguageProvider languageProvider,
                       Path baseDir, String... extensions) {
-        this.pathHelper = pathHelper;
         this.languageProvider = languageProvider;
+        this.pathHelper = pathHelper;
         this.extensions = extensions;
         this.baseDir = baseDir;
     }

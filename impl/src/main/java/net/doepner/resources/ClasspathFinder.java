@@ -3,7 +3,7 @@ package net.doepner.resources;
 import java.net.URL;
 
 /**
- * TODO: Document this
+ * Finds classpath resources
  */
 public class ClasspathFinder implements ResourceFinder {
 
