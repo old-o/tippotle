@@ -1,9 +1,5 @@
 package net.doepner.app.typepad;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
 import net.doepner.file.PathHelper;
 import net.doepner.file.StdPathHelper;
 import net.doepner.file.TextBuffers;
@@ -17,6 +13,10 @@ import net.doepner.speech.Speaker;
 import net.doepner.ui.Images;
 import net.doepner.ui.images.ImageHelper;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
 import static net.doepner.log.Log.Level.error;
 
 /**
@@ -25,16 +25,18 @@ import static net.doepner.log.Log.Level.error;
 public class Services implements IServices {
 
     private final SelectableSpeaker speaker;
-    private final Images images;
     private final TextBuffers buffers;
+    private final Images images;
 
     private final Log log;
 
     Services(IContext context) {
         this.log = context.getLog(getClass());
 
-        final PathHelper pathHelper = new StdPathHelper(context.getAppName(),
-            context);
+        final PathHelper pathHelper = new StdPathHelper(
+                context.getAppName(),
+                context.getHomeDirectory(),
+                context);
 
         speaker = createSpeaker(context, pathHelper);
         images = new ImageHelper(pathHelper);
@@ -43,6 +45,7 @@ public class Services implements IServices {
 
     private SelectableSpeaker createSpeaker(IContext context,
                                             PathHelper pathHelper) {
+
         final List<Speaker> speakers = new LinkedList<>();
         final LanguageChanger languageChanger = context.getLanguageChanger();
 

@@ -1,5 +1,6 @@
 package net.doepner.file;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -14,9 +15,6 @@ import static net.doepner.file.PathType.FILE;
 public class TextFiles implements TextBuffers {
 
     private static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
-
-    private static final String LINE_SEPARATOR =
-        System.getProperty("line.separator");
 
     private final PathHelper fileHelper;
 
@@ -40,7 +38,7 @@ public class TextFiles implements TextBuffers {
         try {
             for (String line : Files.readAllLines(getBuffer(i),
                 DEFAULT_CHARSET)) {
-                result.append(line).append(LINE_SEPARATOR);
+                result.append(line).append(File.separator);
             }
         } catch (IOException e) {
             throw new IllegalStateException(e);

@@ -1,10 +1,6 @@
 package net.doepner.app.typepad;
 
-import net.doepner.app.typepad.action.ResizeFont;
-import net.doepner.app.typepad.action.SpeakWord;
-import net.doepner.app.typepad.action.SwitchBuffer;
-import net.doepner.app.typepad.action.SwitchLanguage;
-import net.doepner.app.typepad.action.SwitchSpeaker;
+import net.doepner.app.typepad.action.*;
 import net.doepner.event.ChangeListener;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
@@ -26,15 +22,18 @@ public class Controller {
                       final IView view,
                       final IServices services,
                       final LogProvider logProvider) {
+
         log = logProvider.getLog(getClass());
 
         final Editor editor = view.getEditor();
 
-        view.setActions(new SwitchLanguage(model),
-            new SpeakWord(model, editor, services.getSpeaker()),
-            new ResizeFont(-1, editor), new ResizeFont(+1, editor),
-            new SwitchBuffer(model, services),
-            new SwitchSpeaker(services));
+        view.setActions(
+                new SwitchLanguage(model),
+                new SpeakWord(editor, model, services.getSpeaker()),
+                new ResizeFont(-1, editor),
+                new ResizeFont(+1, editor),
+                new SwitchBuffer(model, services),
+                new SwitchSpeaker(services));
 
         view.setLanguage(model.getLanguage());
 
@@ -42,7 +41,7 @@ public class Controller {
             @Override
             public void handleChange(Language before, Language after) {
                 view.setLanguage(after);
-                log.$(info, "Language changed to: {}", after);
+                log.$(info, "Language changed from {} to {}", before, after);
             }
         });
 

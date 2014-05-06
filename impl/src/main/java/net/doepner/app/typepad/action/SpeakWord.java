@@ -7,19 +7,21 @@ import net.doepner.ui.IAction;
 
 public class SpeakWord implements IAction {
 
+    private final TextCoordinates textCoordinates;
     private final WordProvider wordProvider;
     private final Speaker speaker;
-    private final TextCoordinates coords;
 
-    public SpeakWord(WordProvider wordProvider, TextCoordinates coords, Speaker speaker) {
+    public SpeakWord(TextCoordinates textCoordinates,
+                     WordProvider wordProvider,
+                     Speaker speaker) {
+        this.textCoordinates = textCoordinates;
         this.wordProvider = wordProvider;
         this.speaker = speaker;
-        this.coords = coords;
     }
 
     @Override
     public void actionPerformed() {
-        final String word = wordProvider.getWord(coords.getTextPosition());
+        final String word = wordProvider.getWord(textCoordinates.getTextPosition());
         if (word != null && !word.isEmpty()) {
             speaker.speak(word);
         }

@@ -15,16 +15,16 @@ public class Model implements IModel {
 
     private static final int MAX_BUFFER = 5;
 
-    private final TextModel textModel;
     private final LanguageChanger languageChanger;
     private final WordProvider wordProvider;
+    private final TextModel textModel;
 
     private int currentBuffer = 1;
 
     public Model(TextModel textModel, IContext context) {
-        this.textModel = textModel;
         this.languageChanger = context.getLanguageChanger();
-        wordProvider = new WordExtractor(textModel);
+        this.wordProvider = new WordExtractor(textModel);
+        this.textModel = textModel;
     }
 
     @Override

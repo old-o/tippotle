@@ -1,28 +1,25 @@
 package net.doepner.file;
 
+import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
+
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
 
 import static net.doepner.log.Log.Level.error;
 
 public final class StdPathHelper implements PathHelper {
 
-    private static final String USER_HOME = System.getProperty("user.home");
-
     private final Path appDir;
-
     private final Log log;
 
-    public StdPathHelper(String appName, LogProvider logProvider) {
-        this.log = logProvider.getLog(getClass());
-        appDir = Paths.get(USER_HOME, "." + appName.toLowerCase());
+    public StdPathHelper(String appName, Path homeDir,
+                         LogProvider logProvider) {
+        log = logProvider.getLog(getClass());
+        appDir = homeDir.resolve("." + appName.toLowerCase());
         createIfNecessary(appDir, PathType.DIRECTORY);
     }
 

@@ -11,8 +11,8 @@ public class Main {
     public static void main(String[] args) {
 
         final Context context = new Context("Typepad",
-            new CanadianDeutsch(),
-            new Slf4jLogProvider());
+                new CanadianDeutsch(),
+                new Slf4jLogProvider());
 
         new Application(context).run();
     }

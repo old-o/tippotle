@@ -1,24 +1,16 @@
 package net.doepner.app.typepad;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import net.doepner.app.typepad.action.ActionDescriptions;
 import net.doepner.app.typepad.action.SwingAction;
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
-import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
-import net.doepner.ui.Editor;
-import net.doepner.ui.IAction;
-import net.doepner.ui.ImageContainer;
-import net.doepner.ui.SwingEditor;
-import net.doepner.ui.SwingFrame;
-import net.doepner.ui.UiAction;
+import net.doepner.ui.*;
+
+import java.awt.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class View implements IView {
 
@@ -27,14 +19,14 @@ public class View implements IView {
     private final Collection<UiAction> uiActions = new LinkedList<>();
 
     private final L10n<IAction, String> actionDescr = new ActionDescriptions();
-    private final Log log;
+    private final LogProvider logProvider;
 
     public View(String appName, LogProvider logProvider) {
-        this.log = logProvider.getLog(getClass());
+        this.logProvider = logProvider;
 
         final SwingEditor editor = new SwingEditor(
-            new Font("serif", Font.PLAIN, 40),
-            logProvider);
+                new Font("serif", Font.PLAIN, 40),
+                logProvider);
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);
@@ -46,7 +38,7 @@ public class View implements IView {
     public void setActions(IAction... actions) {
         int i = 0;
         for (IAction action : actions) {
-            final UiAction uiAction = new SwingAction(action, actionDescr, log);
+            final UiAction uiAction = new SwingAction(action, actionDescr, logProvider);
             frame.addAction(uiAction, i);
             uiActions.add(uiAction);
             i++;

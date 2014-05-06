@@ -15,6 +15,7 @@ public enum PathType implements PathCreator {
             return Files.createFile(path);
         }
     },
+
     DIRECTORY() {
         @Override
         public Path create(Path path) throws IOException {

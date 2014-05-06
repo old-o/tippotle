@@ -4,10 +4,15 @@ import net.doepner.lang.LanguageChanger;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * Application context
  */
 public class Context implements IContext {
+
+    private final Path homeDir = Paths.get(System.getProperty("user.home"));
 
     private final String appName;
     private final LanguageChanger languageChanger;
@@ -29,6 +34,11 @@ public class Context implements IContext {
     @Override
     public LanguageChanger getLanguageChanger() {
         return languageChanger;
+    }
+
+    @Override
+    public Path getHomeDirectory() {
+        return homeDir;
     }
 
     @Override

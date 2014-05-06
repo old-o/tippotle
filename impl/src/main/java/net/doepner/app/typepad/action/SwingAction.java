@@ -1,18 +1,15 @@
 package net.doepner.app.typepad.action;
 
-import java.awt.event.ActionEvent;
-import java.net.URL;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 import net.doepner.ui.IAction;
 import net.doepner.ui.UiAction;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.net.URL;
 
 import static net.doepner.log.Log.Level.error;
 
@@ -28,10 +25,10 @@ public class SwingAction extends AbstractAction implements UiAction {
 
     public SwingAction(IAction action,
                        L10n<IAction, String> descriptions,
-                       Log log) {
+                       LogProvider logProvider) {
         this.action = action;
         this.descriptions = descriptions;
-        this.log = log;
+        this.log = logProvider.getLog(getClass());
     }
 
     @Override
