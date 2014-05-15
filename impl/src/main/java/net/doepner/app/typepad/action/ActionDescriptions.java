@@ -7,6 +7,7 @@ import net.doepner.ui.ActionId;
 import net.doepner.ui.IAction;
 
 import static net.doepner.app.typepad.action.ActionEnum.BIGGER_FONT;
+import static net.doepner.app.typepad.action.ActionEnum.EMAIL;
 import static net.doepner.app.typepad.action.ActionEnum.SMALLER_FONT;
 import static net.doepner.app.typepad.action.ActionEnum.SPEAK_WORD;
 import static net.doepner.app.typepad.action.ActionEnum.SWITCH_BUFFER;
@@ -29,6 +30,8 @@ public class ActionDescriptions implements L10n<IAction, String> {
         de(BIGGER_FONT, "Schrift vergrößern");
         de(SPEAK_WORD, "Wort vorlesen");
         de(SWITCH_SPEAKER, "Sprecher wechseln");
+        de(EMAIL, "Email versenden");
+
 
         en(SWITCH_BUFFER, "Switch buffer");
         en(SWITCH_LANGUAGE, "Switch language");
@@ -36,6 +39,7 @@ public class ActionDescriptions implements L10n<IAction, String> {
         en(BIGGER_FONT, "Increase font size");
         en(SPEAK_WORD, "Speak word");
         en(SWITCH_SPEAKER, "Switch speaker");
+        en(EMAIL, "Send email");
     }
 
     private void en(ActionEnum key, String value) {

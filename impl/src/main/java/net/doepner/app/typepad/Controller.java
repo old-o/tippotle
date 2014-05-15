@@ -1,6 +1,11 @@
 package net.doepner.app.typepad;
 
-import net.doepner.app.typepad.action.*;
+import net.doepner.app.typepad.action.EmailAction;
+import net.doepner.app.typepad.action.ResizeFont;
+import net.doepner.app.typepad.action.SpeakWord;
+import net.doepner.app.typepad.action.SwitchBuffer;
+import net.doepner.app.typepad.action.SwitchLanguage;
+import net.doepner.app.typepad.action.SwitchSpeaker;
 import net.doepner.event.ChangeListener;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
@@ -33,7 +38,8 @@ public class Controller {
                 new ResizeFont(-1, editor),
                 new ResizeFont(+1, editor),
                 new SwitchBuffer(model, services),
-                new SwitchSpeaker(services));
+                new SwitchSpeaker(services),
+                new EmailAction(view.getEmailDialog(), model, services));
 
         view.setLanguage(model.getLanguage());
 
@@ -67,6 +73,7 @@ public class Controller {
                     public void run() {
                         final char ch = model.getCharacter(after);
                         final String word = model.getWord(after);
+                        log.$(info, "Current word: {}", word);
                         view.showCharImages(images.getImages(String.valueOf(ch)));
                         view.showWordImages(images.getImages(word));
                     }

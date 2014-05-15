@@ -15,4 +15,6 @@ public interface IContext extends LogProvider {
     LanguageChanger getLanguageChanger();
 
     Path getHomeDirectory();
+
+    String getEmailConfigFileName();
 }

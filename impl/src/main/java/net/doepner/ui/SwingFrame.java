@@ -2,8 +2,18 @@ package net.doepner.ui;
 
 import net.doepner.ui.images.ImagePanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Action;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -84,5 +94,9 @@ public class SwingFrame {
 
     public SwingEditor getEditor() {
         return editor;
+    }
+
+    public Component getMainComponent() {
+        return frame;
     }
 }

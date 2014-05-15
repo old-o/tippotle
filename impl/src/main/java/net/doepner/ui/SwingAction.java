@@ -1,13 +1,14 @@
-package net.doepner.app.typepad.action;
+package net.doepner.ui;
 
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
-import net.doepner.ui.IAction;
-import net.doepner.ui.UiAction;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 
@@ -45,11 +46,10 @@ public class SwingAction extends AbstractAction implements UiAction {
     }
 
     private void updateIcon() {
-        final Icon icon = getIcon(action);
-        putValue(Action.LARGE_ICON_KEY, icon);
+        putValue(Action.LARGE_ICON_KEY, getIcon());
     }
 
-    private Icon getIcon(IAction action) {
+    private Icon getIcon() {
         final String iconName = action.getIconName();
         final String fileName = (iconName == null ? "unknown" : iconName) + ".png";
         final URL resource = getClass().getResource(fileName);

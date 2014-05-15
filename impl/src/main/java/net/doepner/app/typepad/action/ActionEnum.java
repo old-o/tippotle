@@ -12,7 +12,8 @@ public enum ActionEnum implements ActionId {
     BIGGER_FONT("zoom-in"),
     SMALLER_FONT("zoom-out"),
     SPEAK_WORD("volume"),
-    SWITCH_SPEAKER("volume");
+    SWITCH_SPEAKER,
+    EMAIL("email");
 
     private final String iconName;
 

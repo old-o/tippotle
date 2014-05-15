@@ -12,7 +12,8 @@ public class Main {
 
         final Context context = new Context("Typepad",
                 new CanadianDeutsch(),
-                new Slf4jLogProvider());
+                new Slf4jLogProvider(),
+                "email.properties");
 
         new Application(context).run();
     }

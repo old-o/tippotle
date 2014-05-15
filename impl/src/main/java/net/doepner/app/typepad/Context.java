@@ -17,13 +17,16 @@ public class Context implements IContext {
     private final String appName;
     private final LanguageChanger languageChanger;
     private final LogProvider logProvider;
+    private final String emailConfigFileName;
 
     public Context(String appName,
                    LanguageChanger languageChanger,
-                   LogProvider logProvider) {
+                   LogProvider logProvider,
+                   String emailConfigFileName) {
         this.appName = appName;
         this.languageChanger = languageChanger;
         this.logProvider = logProvider;
+        this.emailConfigFileName = emailConfigFileName;
     }
 
     @Override
@@ -44,5 +47,10 @@ public class Context implements IContext {
     @Override
     public Log getLog(Class<?> clazz) {
         return logProvider.getLog(clazz);
+    }
+
+    @Override
+    public String getEmailConfigFileName() {
+        return emailConfigFileName;
     }
 }

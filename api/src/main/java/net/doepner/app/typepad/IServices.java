@@ -1,5 +1,6 @@
 package net.doepner.app.typepad;
 
+import net.doepner.mail.Emailer;
 import net.doepner.speech.Speaker;
 import net.doepner.ui.Images;
 
@@ -17,4 +18,6 @@ public interface IServices {
     void saveBuffer(IModel model);
 
     void loadBuffer(IModel model);
+
+    Emailer getEmailer();
 }

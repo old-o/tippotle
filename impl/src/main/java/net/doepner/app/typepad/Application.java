@@ -8,12 +8,13 @@ public class Application {
     private final IView view;
 
     public Application(final IContext context) {
+        final Services services = new Services(context);
 
-        view = new View(context.getAppName(), context);
+        view = new View(context.getAppName(), context, services.getImages());
 
         final IModel model = new Model(view.getEditor().getTextModel(), context);
 
-        new Controller(model, view, new Services(context), context);
+        new Controller(model, view, services, context);
     }
 
     void run() {

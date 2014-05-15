@@ -1,13 +1,23 @@
 package net.doepner.app.typepad;
 
 import net.doepner.app.typepad.action.ActionDescriptions;
-import net.doepner.app.typepad.action.SwingAction;
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.LogProvider;
-import net.doepner.ui.*;
+import net.doepner.ui.Editor;
+import net.doepner.ui.EmailDialog;
+import net.doepner.ui.IAction;
+import net.doepner.ui.ImageContainer;
+import net.doepner.ui.Images;
+import net.doepner.ui.SwingAction;
+import net.doepner.ui.SwingEditor;
+import net.doepner.ui.SwingEmailDialog;
+import net.doepner.ui.SwingFrame;
+import net.doepner.ui.UiAction;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,8 +30,9 @@ public class View implements IView {
 
     private final L10n<IAction, String> actionDescr = new ActionDescriptions();
     private final LogProvider logProvider;
+    private final EmailDialog emailDialog;
 
-    public View(String appName, LogProvider logProvider) {
+    public View(String appName, LogProvider logProvider, Images images) {
         this.logProvider = logProvider;
 
         final SwingEditor editor = new SwingEditor(
@@ -32,6 +43,8 @@ public class View implements IView {
         final Dimension imageSize = new Dimension(100, 100);
 
         frame = new SwingFrame(appName, editor, imageSize, frameSize);
+
+        emailDialog = new SwingEmailDialog(frame, images);
     }
 
     @Override
@@ -56,6 +69,11 @@ public class View implements IView {
     @Override
     public Editor getEditor() {
         return frame.getEditor();
+    }
+
+    @Override
+    public EmailDialog getEmailDialog() {
+        return emailDialog;
     }
 
     @Override

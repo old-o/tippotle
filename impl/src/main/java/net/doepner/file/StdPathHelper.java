@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 
-import static net.doepner.log.Log.Level.error;
+import static net.doepner.log.Log.Level.info;
 
 public final class StdPathHelper implements PathHelper {
 
@@ -33,7 +33,7 @@ public final class StdPathHelper implements PathHelper {
             }
         }
         final String extList = Arrays.toString(extensions);
-        log.$(error, "findInDir({}, {}, {}) == null", dir, name, extList);
+        log.$(info, "findInDir({}, {}, {}) == null", dir, name, extList);
         return null;
     }
 
