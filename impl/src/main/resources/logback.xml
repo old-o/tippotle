@@ -10,7 +10,7 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>typepad.log</file>
+        <file>${user.home}/.typepad/log/log.txt</file>
         <encoder>
             <pattern>${defaultPattern}</pattern>
         </encoder>
