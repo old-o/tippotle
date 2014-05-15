@@ -1,15 +1,15 @@
 package net.doepner.speech;
 
-import java.io.IOException;
-
 import net.doepner.lang.LanguageProvider;
 
+import java.io.IOException;
 
-public class ESpeaker implements Speaker {
+
+public class ESpeaker implements TestableSpeaker {
 
     private final LanguageProvider languageProvider;
 
-    public ESpeaker(LanguageProvider languageProvider) throws IOException {
+    public ESpeaker(LanguageProvider languageProvider) {
         this.languageProvider = languageProvider;
     }
 
@@ -27,9 +27,18 @@ public class ESpeaker implements Speaker {
         }
     }
 
+    @Override
+    public void test() {
+        try {
+            Runtime.getRuntime().exec(new String[]{"espeak", "-h"});
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
-            "espeak", "-v", languageProvider.getLanguage().getCode(), text
+                "espeak", "-v", languageProvider.getLanguage().getCode(), text
         });
     }
 }

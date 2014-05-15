@@ -16,7 +16,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Path;
 
 /**
- * Downloads spoken word from Goggle Translate site,
+ * Downloads spoken word from Google Translate site,
  * with language-specific pronunciation
  */
 public class GoogleTranslateDownload implements ResourceFinder {
