@@ -1,6 +1,8 @@
 package net.doepner.resources;
 
 import net.doepner.lang.LanguageProvider;
+import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +17,8 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Path;
 
+import static net.doepner.log.Log.Level.info;
+
 /**
  * Downloads spoken word from Goggle Translate site,
  * with language-specific pronunciation
@@ -26,11 +30,14 @@ public class GoogleTranslateDownload implements ResourceFinder {
 
     private final LanguageProvider languageProvider;
     private final Path cacheBaseDir;
+    private final Log log;
 
     public GoogleTranslateDownload(LanguageProvider languageProvider,
-                                   Path cacheBaseDir) {
+                                   Path cacheBaseDir,
+                                   LogProvider logProvider) {
         this.languageProvider = languageProvider;
         this.cacheBaseDir = cacheBaseDir;
+        log = logProvider.getLog(getClass());
     }
 
     @Override
@@ -44,6 +51,8 @@ public class GoogleTranslateDownload implements ResourceFinder {
 
     private URL getUrl(String name) throws IOException {
         final URL url = getDownloadUrl(name);
+        log.$(info, "Retrieving {}", url);
+
         final URLConnection c = url.openConnection();
         c.setRequestProperty("User-Agent", USER_AGENT);
 

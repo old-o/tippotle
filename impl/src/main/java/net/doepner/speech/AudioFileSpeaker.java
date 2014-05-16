@@ -35,7 +35,7 @@ public class AudioFileSpeaker implements Speaker {
         resourceFinder = new DelegatingResourceFinder(
                 new ClasspathFinder(EXTENSIONS),
                 new FileFinder(pathHelper, languageProvider, audioDir, EXTENSIONS),
-                new GoogleTranslateDownload(languageProvider, audioDir)
+                new GoogleTranslateDownload(languageProvider, audioDir, logProvider)
         );
         player = new StdAudioPlayer(logProvider);
     }
