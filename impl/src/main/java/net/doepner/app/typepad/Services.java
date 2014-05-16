@@ -15,6 +15,7 @@ import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.SelectableSpeaker;
 import net.doepner.speech.Speaker;
+import net.doepner.speech.TestableSpeaker;
 import net.doepner.ui.Images;
 import net.doepner.ui.images.ImageHelper;
 
@@ -23,7 +24,7 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
-import static net.doepner.log.Log.Level.error;
+import static net.doepner.log.Log.Level.warn;
 
 /**
  * Application services
@@ -52,7 +53,8 @@ public class Services implements IServices {
     }
 
     private Emailer createEmailer(IContext context, PathHelper pathHelper) {
-        final Path emailConfigFile = pathHelper.findOrCreate(context.getEmailConfigFileName(), PathType.FILE);
+        final Path emailConfigFile = pathHelper.findOrCreate(
+                context.getEmailConfigFileName(), PathType.FILE);
         try {
             return new SmtpEmailer(new SmtpConfig(emailConfigFile), context);
         } catch (IOException e) {
@@ -63,18 +65,24 @@ public class Services implements IServices {
 
     private SelectableSpeaker createSpeaker(IContext context,
                                             PathHelper pathHelper) {
-
         final List<Speaker> speakers = new LinkedList<>();
         final LanguageChanger languageChanger = context.getLanguageChanger();
 
-        speakers.add(new AudioFileSpeaker(pathHelper, languageChanger, context));
+        addIfFunctional(speakers, new AudioFileSpeaker(pathHelper, languageChanger, context));
+        addIfFunctional(speakers, new ESpeaker(languageChanger));
 
-        try {
-            speakers.add(new ESpeaker(languageChanger));
-        } catch (IOException e) {
-            log.$(error, e);
-        }
         return new SelectableSpeaker(speakers);
+    }
+
+    private void addIfFunctional(List<Speaker> speakers, TestableSpeaker speaker) {
+        try {
+            speaker.test();
+            speakers.add(speaker);
+
+        } catch (IllegalStateException e) {
+            log.$(warn, "Speaker '{}' not functional. Error: {}",
+                    speaker.getName(), e.getMessage());
+        }
     }
 
     @Override

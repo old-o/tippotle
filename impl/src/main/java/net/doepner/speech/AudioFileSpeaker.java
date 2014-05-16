@@ -20,7 +20,7 @@ import static net.doepner.file.PathType.DIRECTORY;
 /**
  * Speaks by playing audio files
  */
-public class AudioFileSpeaker implements Speaker {
+public class AudioFileSpeaker implements TestableSpeaker {
 
     private static final String[] EXTENSIONS = {"ogg", "mp3", "wav", "au"};
 
@@ -61,9 +61,14 @@ public class AudioFileSpeaker implements Speaker {
             try {
                 player.play(audio);
             } catch (IOException | UnsupportedAudioFileException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e);
             }
         }
+    }
+
+    @Override
+    public void test() {
+        speak(getName());
     }
 }
 

@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import static net.doepner.log.Log.Level.info;
 
 /**
- * Downloads spoken word from Goggle Translate site,
+ * Downloads spoken word from Google Translate site,
  * with language-specific pronunciation
  */
 public class GoogleTranslateDownload implements ResourceFinder {

@@ -3,6 +3,8 @@ package net.doepner.ui;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.awt.Image;
+import java.util.Iterator;
 
 /**
  * Prompts user to select an email recipient
@@ -40,8 +42,10 @@ public class SwingEmailDialog implements EmailDialog {
         return choice == JOptionPane.CLOSED_OPTION ? null : addresses[choice];
     }
 
-    private ImageIcon getImageIcon(String oliver) {
-        return new ImageIcon(images.getImages(oliver).iterator().next());
+    private ImageIcon getImageIcon(String name) {
+        final Iterator<Image> iterator = images.getImages(name).iterator();
+        return iterator.hasNext() ? new ImageIcon(iterator.next())
+                : new ImageIcon("http://oliver.doepner.net/pics/oliver.jpg");
     }
 
     @Override
