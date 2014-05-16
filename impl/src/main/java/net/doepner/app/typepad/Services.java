@@ -102,7 +102,8 @@ public class Services implements IServices {
 
     @Override
     public void loadBuffer(IModel model) {
-        model.setText(buffers.load(model.getCurrentBuffer()).trim());
+        final String text = buffers.load(model.getCurrentBuffer()).trim();
+        model.setText(text);
     }
 
     @Override
@@ -112,6 +113,7 @@ public class Services implements IServices {
 
     @Override
     public void saveBuffer(IModel model) {
-        buffers.save(model.getText().trim(), model.getCurrentBuffer());
+        final String text = model.getText().trim();
+        buffers.save(text, model.getCurrentBuffer());
     }
 }

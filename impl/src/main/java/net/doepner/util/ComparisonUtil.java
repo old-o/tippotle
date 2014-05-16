@@ -5,7 +5,11 @@ package net.doepner.util;
  */
 public class ComparisonUtil {
 
-    public static <T> boolean bothNullOrEqual(T before, T after) {
-        return before == null ? after == null : before.equals(after);
+    public static boolean not(boolean b) {
+        return !b;
+    }
+
+    public static <T> boolean bothNullOrEqual(T t1, T t2) {
+        return t1 == null ? t2 == null : t1.equals(t2);
     }
 }

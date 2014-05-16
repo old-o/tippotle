@@ -25,8 +25,7 @@ public class TextFiles implements TextBuffers {
     @Override
     public void save(String text, int i) {
         try {
-            Files.write(getBuffer(i), Arrays.asList(text),
-                DEFAULT_CHARSET);
+            Files.write(getBuffer(i), Arrays.asList(text), DEFAULT_CHARSET);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -36,8 +35,7 @@ public class TextFiles implements TextBuffers {
     public String load(int i) {
         final StringBuilder result = new StringBuilder();
         try {
-            for (String line : Files.readAllLines(getBuffer(i),
-                DEFAULT_CHARSET)) {
+            for (String line : Files.readAllLines(getBuffer(i), DEFAULT_CHARSET)) {
                 result.append(line).append(File.separator);
             }
         } catch (IOException e) {

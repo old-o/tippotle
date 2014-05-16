@@ -15,6 +15,8 @@ import net.doepner.ui.Editor;
 import net.doepner.ui.Images;
 
 import static net.doepner.log.Log.Level.info;
+import static net.doepner.util.ComparisonUtil.bothNullOrEqual;
+import static net.doepner.util.ComparisonUtil.not;
 
 /**
  * Application controller
@@ -73,9 +75,15 @@ public class Controller {
                     public void run() {
                         final char ch = model.getCharacter(after);
                         final String word = model.getWord(after);
-                        log.$(info, "Current word: {}", word);
-                        view.showCharImages(images.getImages(String.valueOf(ch)));
-                        view.showWordImages(images.getImages(word));
+
+                        if (ch != model.getCharacter(before)) {
+                            view.showCharImages(images.getImages(String.valueOf(ch)));
+                            log.$(info, "Current character: {}", ch);
+                        }
+                        if (not(bothNullOrEqual(word, model.getWord(before)))) {
+                            view.showWordImages(images.getImages(word));
+                            log.$(info, "Current word: {}", word);
+                        }
                     }
                 }).start();
             }
