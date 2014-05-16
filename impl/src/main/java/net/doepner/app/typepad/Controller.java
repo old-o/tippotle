@@ -66,13 +66,13 @@ public class Controller {
         });
 
         editor.addTextPositionListener(new ChangeListener<Integer>() {
-            final Images images = services.getImages();
-
             @Override
             public void handleChange(final Integer before, final Integer after) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        final Images images = services.getImages();
+
                         final char ch = model.getCharacter(after);
                         final String word = model.getWord(after);
 
