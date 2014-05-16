@@ -1,8 +1,11 @@
 package net.doepner.ui;
 
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
+import net.doepner.event.ChangeListener;
+import net.doepner.text.TextModel;
+import net.doepner.ui.text.AlphaNumStyler;
+import net.doepner.ui.text.DocTextModel;
+import net.doepner.ui.text.FontChooser;
+import net.doepner.ui.text.TextStyler;
 
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -13,14 +16,9 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
-
-import net.doepner.event.ChangeListener;
-import net.doepner.log.LogProvider;
-import net.doepner.text.TextModel;
-import net.doepner.ui.text.AlphaNumStyler;
-import net.doepner.ui.text.DocTextModel;
-import net.doepner.ui.text.FontChooser;
-import net.doepner.ui.text.TextStyler;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
 import static javax.swing.KeyStroke.getKeyStroke;
@@ -32,12 +30,11 @@ public class SwingEditor implements Editor {
 
     private final JTextPane editor;
 
-    public SwingEditor(Font editorFont, LogProvider logProvider) {
+    public SwingEditor(Font editorFont) {
         final StyledDocument doc = new DefaultStyledDocument();
         editor = new JTextPane(doc);
         editor.setFont(editorFont);
-        editor.setCaret(new BlockCaret(new SwingCaretContext(editor),
-            logProvider));
+        editor.setCaret(new BlockCaret(new SwingCaretContext(editor)));
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
     }
 

@@ -36,8 +36,8 @@ public class View implements IView {
         this.logProvider = logProvider;
 
         final SwingEditor editor = new SwingEditor(
-                new Font("serif", Font.PLAIN, 40),
-                logProvider);
+                new Font("serif", Font.PLAIN, 40)
+        );
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);

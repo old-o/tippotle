@@ -1,11 +1,9 @@
 package net.doepner.ui;
 
-import java.awt.Rectangle;
-
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
+import java.awt.FontMetrics;
 
 /**
  * Manages and exposes the caret width for a text component
@@ -15,53 +13,39 @@ import javax.swing.text.JTextComponent;
  */
 public class SwingCaretContext implements CaretContext {
 
-    private static final Rectangle NULL_RECTANGLE = new Rectangle();
-
     private final JTextComponent component;
 
     public SwingCaretContext(final JTextComponent component) {
         if (component == null) {
             throw new IllegalArgumentException("component must not be null");
         }
-        component.addCaretListener(new CaretListener() {
+        this.component = component;
+        this.component.addCaretListener(new CaretListener() {
             public void caretUpdate(CaretEvent e) {
-                component.putClientProperty("caretWidth",
-                    getWidth(component.getCaretPosition()));
+                updateCaretWidth();
             }
         });
-        this.component = component;
+        updateCaretWidth();
+    }
+
+    private void updateCaretWidth() {
+        final Integer width = getWidth(component.getCaretPosition());
+        component.putClientProperty("caretWidth", width);
     }
 
     @Override
     public int getCaretWidth() {
         final Object caretWidth = component.getClientProperty("caretWidth");
-        return caretWidth instanceof Integer ? (int) caretWidth : 1;
+        return caretWidth instanceof Integer ? (int) caretWidth : 3;
     }
 
-    private int getWidth(int pos) {
+    private Integer getWidth(int pos) {
         if (pos > 0) {
-            final Rectangle prevBox = getBoundingBox(pos - 1);
-            final Rectangle box = getBoundingBox(pos);
-            if (prevBox.y == box.y) {
-                final int width = box.x - prevBox.x;
-                if (width > 0) {
-                    return width + 1;
-                }
-            }
+            final String currentCharacter = String.valueOf(component.getText().charAt(pos - 1));
+            final FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
+            return fontMetrics.stringWidth(currentCharacter);
+        } else {
+            return null;
         }
-        // otherwise
-        return 1;
-    }
-
-    private Rectangle getBoundingBox(int pos) {
-        try {
-            final Rectangle r1 = component.modelToView(pos);
-            if (r1 != null) {
-                return r1.getBounds();
-            }
-        } catch (BadLocationException e) {
-            // ignore
-        }
-        return NULL_RECTANGLE;
     }
 }
