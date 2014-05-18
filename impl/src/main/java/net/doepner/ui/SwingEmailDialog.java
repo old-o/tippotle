@@ -1,5 +1,7 @@
 package net.doepner.ui;
 
+import net.doepner.app.typepad.ui.SwingFrame;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;

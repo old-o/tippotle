@@ -1,6 +1,7 @@
 package net.doepner.app.typepad;
 
 import net.doepner.app.typepad.action.ActionDescriptions;
+import net.doepner.app.typepad.ui.SwingFrame;
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.LogProvider;
@@ -12,7 +13,6 @@ import net.doepner.ui.Images;
 import net.doepner.ui.SwingAction;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingEmailDialog;
-import net.doepner.ui.SwingFrame;
 import net.doepner.ui.UiAction;
 
 import java.awt.Dimension;

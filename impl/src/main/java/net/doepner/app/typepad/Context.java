@@ -53,4 +53,9 @@ public class Context implements IContext {
     public String getEmailConfigFileName() {
         return emailConfigFileName;
     }
+
+    @Override
+    public Package getBasePackage() {
+        return getClass().getPackage();
+    }
 }

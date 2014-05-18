@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 
 import static net.doepner.log.Log.Level.info;
 
@@ -24,16 +23,16 @@ public final class StdPathHelper implements PathHelper {
     }
 
     @Override
-    public Path findInDir(Path dir, String name, String... extensions) {
+    public Path findInDir(Path dir, String name, MediaType mediaType) {
         createIfNecessary(dir, PathType.DIRECTORY);
-        for (String extension : extensions) {
-            final Path path = dir.resolve(name + '.' + extension);
+        for (FileType fileType : mediaType.getFileTypes()) {
+            final Path path = dir.resolve(name + '.' + fileType.getExtension());
             if (Files.exists(path)) {
+                log.$(info, "findInDir({}, {}, {}) == {}", dir, name, mediaType, path);
                 return path;
             }
         }
-        final String extList = Arrays.toString(extensions);
-        log.$(info, "findInDir({}, {}, {}) == null", dir, name, extList);
+        log.$(info, "findInDir({}, {}, {}) == null", dir, name, mediaType);
         return null;
     }
 

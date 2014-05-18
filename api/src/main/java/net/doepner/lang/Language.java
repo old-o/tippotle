@@ -6,4 +6,5 @@ package net.doepner.lang;
 public interface Language {
 
     String getCode();
+
 }

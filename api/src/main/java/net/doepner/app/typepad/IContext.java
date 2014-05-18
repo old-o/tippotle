@@ -17,4 +17,6 @@ public interface IContext extends LogProvider {
     Path getHomeDirectory();
 
     String getEmailConfigFileName();
+
+    Package getBasePackage();
 }

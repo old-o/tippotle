@@ -1,5 +1,8 @@
 package net.doepner.resources;
 
+import net.doepner.file.MediaType;
+import net.doepner.lang.Language;
+
 import java.net.URL;
 
 /**
@@ -7,5 +10,7 @@ import java.net.URL;
  */
 public interface ResourceFinder {
 
-    URL find(String name);
+    URL find(MediaType mediaType, Language language, String category, String name);
+
+    String UNSPECIFIED_PATH_PART = "_";
 }

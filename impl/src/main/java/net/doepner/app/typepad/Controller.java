@@ -73,16 +73,19 @@ public class Controller {
                     public void run() {
                         final Images images = services.getImages();
 
-                        final char ch = model.getCharacter(after);
-                        final String word = model.getWord(after);
+                        if (after != null) {
 
-                        if (ch != model.getCharacter(before)) {
-                            view.showCharImages(images.getImages(String.valueOf(ch)));
-                            log.$(info, "Current character: {}", ch);
-                        }
-                        if (not(bothNullOrEqual(word, model.getWord(before)))) {
-                            view.showWordImages(images.getImages(word));
-                            log.$(info, "Current word: {}", word);
+                            final char ch = model.getCharacter(after);
+                            final String word = model.getWord(after);
+
+                            if (before == null || not(bothNullOrEqual(ch, model.getCharacter(before)))) {
+                                view.showCharImages(images.getImages(String.valueOf(ch)));
+                                log.$(info, "Current character: {}", ch);
+                            }
+                            if (before == null || not(bothNullOrEqual(word, model.getWord(before)))) {
+                                view.showWordImages(images.getImages(word));
+                                log.$(info, "Current word: {}", word);
+                            }
                         }
                     }
                 }).start();

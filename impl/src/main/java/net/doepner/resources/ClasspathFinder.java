@@ -1,5 +1,9 @@
 package net.doepner.resources;
 
+import net.doepner.file.FileType;
+import net.doepner.file.MediaType;
+import net.doepner.lang.Language;
+
 import java.net.URL;
 
 /**
@@ -7,20 +11,35 @@ import java.net.URL;
  */
 public class ClasspathFinder implements ResourceFinder {
 
-    private final String[] extensions;
+    private final String baseLocation;
 
-    public ClasspathFinder(String... extensions) {
-        this.extensions = extensions;
+    public ClasspathFinder(Package basePackage) {
+        baseLocation = '/' + basePackage.getName().replace('.', '/');
     }
 
     @Override
-    public URL find(String name) {
-        for (String extension : extensions) {
-            final URL resource = getClass().getResource(name + extension);
+    public URL find(MediaType mediaType, Language language, String category, String name) {
+        final String location = baseLocation
+                + '/' + mediaType.getGroupingName()
+                + '/' + pathPart(language)
+                + '/' + pathPart(category)
+                + '/' + name;
+
+        for (FileType fileType : mediaType.getFileTypes()) {
+            final String filePath = location + '.' + fileType.getExtension();
+            final URL resource = getClass().getResource(filePath);
             if (resource != null) {
                 return resource;
             }
         }
         return null;
+    }
+
+    private String pathPart(String category) {
+        return category != null ? category : UNSPECIFIED_PATH_PART;
+    }
+
+    private String pathPart(Language language) {
+        return language != null ? language.getCode() : UNSPECIFIED_PATH_PART;
     }
 }

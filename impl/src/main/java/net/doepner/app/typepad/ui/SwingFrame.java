@@ -1,5 +1,7 @@
-package net.doepner.ui;
+package net.doepner.app.typepad.ui;
 
+import net.doepner.ui.ImageContainer;
+import net.doepner.ui.SwingEditor;
 import net.doepner.ui.images.ImagePanel;
 
 import javax.swing.Action;

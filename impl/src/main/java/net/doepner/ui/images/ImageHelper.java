@@ -1,5 +1,9 @@
 package net.doepner.ui.images;
 
+import net.doepner.file.PathHelper;
+import net.doepner.ui.Images;
+
+import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -8,16 +12,15 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
-import net.doepner.file.PathHelper;
-import net.doepner.ui.Images;
-
+import static net.doepner.file.MediaTypeEnum.image;
 import static net.doepner.file.PathType.DIRECTORY;
 
 /**
  * Helps with loading images
+ *
+ * @deprecated Use a ResourceFinder instead
  */
+@Deprecated
 public class ImageHelper implements Images {
 
     private final PathHelper fileHelper;
@@ -50,21 +53,24 @@ public class ImageHelper implements Images {
     }
 
     private Image findImage(Path dir, String name) {
+        /*
         final String[] split = name.split("[^\\w']+");
         if (split.length == 0) {
             return null;
         }
         final String imageName = split[split.length - 1];
-        final Path imagePath = fileHelper.findInDir(dir, imageName,
-            "png", "jpg", "gif");
+        */
 
-        if (imagePath == null) {
+        final Path imagePath = fileHelper.findInDir(dir, name, image);
+
+        if (imagePath != null) {
+            try {
+                return ImageIO.read(imagePath.toFile());
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+        } else {
             return null;
-        }
-        try {
-            return ImageIO.read(imagePath.toFile());
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
         }
     }
 }

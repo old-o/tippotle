@@ -11,6 +11,11 @@ import net.doepner.mail.Emailer;
 import net.doepner.mail.NoEmailer;
 import net.doepner.mail.SmtpConfig;
 import net.doepner.mail.SmtpEmailer;
+import net.doepner.resources.CascadingResourceFinder;
+import net.doepner.resources.ClasspathFinder;
+import net.doepner.resources.FileFinder;
+import net.doepner.resources.GoogleTranslateDownload;
+import net.doepner.resources.ResourceFinder;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.SelectableSpeaker;
@@ -46,7 +51,12 @@ public class Services implements IServices {
                 context.getHomeDirectory(),
                 context);
 
-        speaker = createSpeaker(context, pathHelper);
+        final ResourceFinder resourceFinder = new CascadingResourceFinder(
+                new FileFinder(pathHelper),
+                new ClasspathFinder(context.getBasePackage()),
+                new GoogleTranslateDownload(context));
+
+        speaker = createSpeaker(context, resourceFinder);
         images = new ImageHelper(pathHelper);
         buffers = new TextFiles(pathHelper);
         emailer = createEmailer(context, pathHelper);
@@ -64,11 +74,12 @@ public class Services implements IServices {
     }
 
     private SelectableSpeaker createSpeaker(IContext context,
-                                            PathHelper pathHelper) {
+                                            ResourceFinder resourceFinder) {
+
         final List<Speaker> speakers = new LinkedList<>();
         final LanguageChanger languageChanger = context.getLanguageChanger();
 
-        addIfFunctional(speakers, new AudioFileSpeaker(pathHelper, languageChanger, context));
+        addIfFunctional(speakers, new AudioFileSpeaker("google-translate", context, resourceFinder, languageChanger));
         addIfFunctional(speakers, new ESpeaker(languageChanger));
 
         return new SelectableSpeaker(speakers);
