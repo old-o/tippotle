@@ -15,7 +15,7 @@ public class ESpeaker implements TestableSpeaker {
 
     @Override
     public String getName() {
-        return "robby";
+        return "robbi";
     }
 
     @Override

@@ -1,20 +1,18 @@
 package net.doepner.resources;
 
+import net.doepner.file.FileTypeEnum;
+import net.doepner.file.PathHelper;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Path;
 
 import static net.doepner.log.Log.Level.info;
@@ -29,14 +27,16 @@ public class GoogleTranslateDownload implements ResourceDownloader {
             "Gecko/20100101 Firefox/21.0 Iceweasel/21.0";
 
     private final Log log;
+    private final PathHelper pathHelper;
 
-    public GoogleTranslateDownload(LogProvider logProvider) {
+    public GoogleTranslateDownload(LogProvider logProvider,
+                                   PathHelper pathHelper) {
+        this.pathHelper = pathHelper;
         log = logProvider.getLog(getClass());
     }
 
     @Override
     public File download(Language language, String name, Path targetDir) {
-
         try {
             final URL url = getDownloadUrl(name, language);
             log.$(info, "Retrieving {}", url);
@@ -44,14 +44,7 @@ public class GoogleTranslateDownload implements ResourceDownloader {
             final URLConnection c = url.openConnection();
             c.setRequestProperty("User-Agent", USER_AGENT);
 
-            final ReadableByteChannel rbc = Channels.newChannel(c.getInputStream());
-            final File file = targetDir.resolve(name + '.' + "mp3").toFile();
-
-            try (final FileOutputStream fos = new FileOutputStream(file)) {
-                final FileChannel channel = fos.getChannel();
-                channel.transferFrom(rbc, 0, Long.MAX_VALUE);
-            }
-            return file;
+            return pathHelper.writeFile(name, targetDir, c.getInputStream(), FileTypeEnum.mp3);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

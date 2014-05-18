@@ -12,7 +12,10 @@ public class WordExtractor implements WordProvider {
     }
 
     @Override
-    public String getWord(int position) {
+    public String getWord(Integer position) {
+        if (position == null) {
+            return null;
+        }
         final String word = findSequence(IS_WORD_PART, position);
         if (word.length() > 0) {
             return word;
@@ -22,7 +25,10 @@ public class WordExtractor implements WordProvider {
     }
 
     @Override
-    public char getCharacter(int position) {
+    public Character getCharacter(Integer position) {
+        if (position == null) {
+            return null;
+        }
         final String text = model.getText();
         return text.length() > position ? text.charAt(position) : ' ';
     }

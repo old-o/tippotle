@@ -1,6 +1,5 @@
 package net.doepner.file;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -36,7 +35,7 @@ public class TextFiles implements TextBuffers {
         final StringBuilder result = new StringBuilder();
         try {
             for (String line : Files.readAllLines(getBuffer(i), DEFAULT_CHARSET)) {
-                result.append(line).append(File.separator);
+                result.append(line).append(System.lineSeparator());
             }
         } catch (IOException e) {
             throw new IllegalStateException(e);

@@ -54,7 +54,7 @@ public class Services implements IServices {
         final ResourceFinder resourceFinder = new CascadingResourceFinder(
                 new FileFinder(pathHelper),
                 new ClasspathFinder(context.getBasePackage()),
-                new GoogleTranslateDownload(context));
+                new GoogleTranslateDownload(context, pathHelper));
 
         speaker = createSpeaker(context, resourceFinder);
         images = new ImageHelper(pathHelper);

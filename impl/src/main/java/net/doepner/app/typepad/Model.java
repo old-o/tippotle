@@ -53,12 +53,12 @@ public class Model implements IModel {
     }
 
     @Override
-    public String getWord(int position) {
+    public String getWord(Integer position) {
         return wordProvider.getWord(position);
     }
 
     @Override
-    public char getCharacter(int position) {
+    public Character getCharacter(Integer position) {
         return wordProvider.getCharacter(position);
     }
 

@@ -95,9 +95,7 @@ public class View implements IView {
                                   Iterable<? extends ImageContainer> panels) {
         final Iterator<Image> imageIter = images.iterator();
         for (ImageContainer panel : panels) {
-            if (imageIter.hasNext()) {
-                panel.setImage(imageIter.next());
-            }
+            panel.setImage(imageIter.hasNext() ? imageIter.next() : null);
         }
     }
 }

@@ -2,6 +2,7 @@ package net.doepner.app.typepad;
 
 import net.doepner.app.typepad.action.EmailAction;
 import net.doepner.app.typepad.action.ResizeFont;
+import net.doepner.app.typepad.action.SpeakAll;
 import net.doepner.app.typepad.action.SpeakWord;
 import net.doepner.app.typepad.action.SwitchBuffer;
 import net.doepner.app.typepad.action.SwitchLanguage;
@@ -10,6 +11,7 @@ import net.doepner.event.ChangeListener;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
+import net.doepner.speech.Speaker;
 import net.doepner.text.TextListener;
 import net.doepner.ui.Editor;
 import net.doepner.ui.Images;
@@ -33,17 +35,26 @@ public class Controller {
         log = logProvider.getLog(getClass());
 
         final Editor editor = view.getEditor();
+        final Speaker speaker = services.getSpeaker();
 
         view.setActions(
                 new SwitchLanguage(model),
-                new SpeakWord(editor, model, services.getSpeaker()),
+                new SpeakWord(editor, model, speaker),
                 new ResizeFont(-1, editor),
                 new ResizeFont(+1, editor),
                 new SwitchBuffer(model, services),
                 new SwitchSpeaker(services),
-                new EmailAction(view.getEmailDialog(), model, services));
+                new EmailAction(view.getEmailDialog(), model, services),
+                new SpeakAll(model, speaker));
 
         view.setLanguage(model.getLanguage());
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                services.saveBuffer(model);
+            }
+        }));
 
         model.addListener(new ChangeListener<Language>() {
             @Override
@@ -59,7 +70,7 @@ public class Controller {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        services.getSpeaker().speak(text);
+                        speaker.speak(text);
                     }
                 }).start();
             }
@@ -71,25 +82,27 @@ public class Controller {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        final Images images = services.getImages();
-
-                        if (after != null) {
-
-                            final char ch = model.getCharacter(after);
-                            final String word = model.getWord(after);
-
-                            if (before == null || not(bothNullOrEqual(ch, model.getCharacter(before)))) {
-                                view.showCharImages(images.getImages(String.valueOf(ch)));
-                                log.$(info, "Current character: {}", ch);
-                            }
-                            if (before == null || not(bothNullOrEqual(word, model.getWord(before)))) {
-                                view.showWordImages(images.getImages(word));
-                                log.$(info, "Current word: {}", word);
-                            }
-                        }
+                        handleTestPositionChange(model, view, services, before, after);
                     }
                 }).start();
             }
         });
+    }
+
+    private void handleTestPositionChange(IModel model, IView view, IServices services,
+                                          Integer before, Integer after) {
+        final Images images = services.getImages();
+
+        final Character ch = model.getCharacter(after);
+        final String word = model.getWord(after);
+
+        if (not(bothNullOrEqual(ch, model.getCharacter(before)))) {
+            view.showCharImages(images.getImages(String.valueOf(ch)));
+            log.$(info, "Current character: {}", ch);
+        }
+        if (not(bothNullOrEqual(word, model.getWord(before)))) {
+            view.showWordImages(images.getImages(word));
+            log.$(info, "Current word: {}", word);
+        }
     }
 }

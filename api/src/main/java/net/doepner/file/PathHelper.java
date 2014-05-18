@@ -1,5 +1,8 @@
 package net.doepner.file;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 
 /**
@@ -11,4 +14,5 @@ public interface PathHelper {
 
     Path findOrCreate(String name, PathCreator type);
 
+    File writeFile(String name, Path targetDir, InputStream inputStream, FileType fileType) throws IOException;
 }

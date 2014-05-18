@@ -24,7 +24,8 @@ public class CascadingResourceFinder implements ResourceFinder {
     }
 
     @Override
-    public URL find(MediaType mediaType, Language language, String category, String name) {
+    public URL find(MediaType mediaType, Language language, String category, String rawName) {
+        final String name = normalize(rawName);
 
         final URL storedResource = store.find(mediaType, language, category, name);
         if (storedResource != null) {
@@ -39,5 +40,9 @@ public class CascadingResourceFinder implements ResourceFinder {
         downloader.download(language, name, targetDir);
 
         return store.find(mediaType, language, category, name);
+    }
+
+    private String normalize(String rawName) {
+        return rawName.toLowerCase().replaceAll("\\s+", " ");
     }
 }
