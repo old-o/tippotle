@@ -40,8 +40,9 @@ public class SwingCaretContext implements CaretContext {
     }
 
     private Integer getWidth(int pos) {
-        if (pos > 0) {
-            final String currentCharacter = String.valueOf(component.getText().charAt(pos - 1));
+        final String text = component.getText();
+        if (pos >= 0 && pos < text.length()) {
+            final String currentCharacter = String.valueOf(text.charAt(pos));
             final FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
             return fontMetrics.stringWidth(currentCharacter);
         } else {

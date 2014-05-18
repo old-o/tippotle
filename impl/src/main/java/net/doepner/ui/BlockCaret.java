@@ -26,7 +26,7 @@ public class BlockCaret extends DefaultCaret {
         final AffineTransform old = g2d.getTransform();
         int w = context.getCaretWidth();
         g.setXORMode(COLOR_MASK);
-        g.translate(-w / 2, 0);
+        g.translate(w / 2, 0);
         super.paint(g);
         g2d.setTransform(old);
     }
@@ -34,7 +34,7 @@ public class BlockCaret extends DefaultCaret {
     protected synchronized void damage(Rectangle r) {
         if (r != null) {
             int damageWidth = context.getCaretWidth();
-            x = r.x - damageWidth;
+            x = r.x;
             y = r.y;
             width = damageWidth + 1;
             height = r.height;
