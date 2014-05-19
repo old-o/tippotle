@@ -8,7 +8,12 @@ public class SystemConsoleLog implements Log {
     @Override
     public void $(Level level, String message, Throwable t) {
         System.err.println(message);
-        t.printStackTrace();
+        error(t);
+    }
+
+    @Override
+    public void error(Throwable t) {
+        t.printStackTrace(System.err);
     }
 
     @Override

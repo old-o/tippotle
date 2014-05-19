@@ -1,8 +1,5 @@
 package net.doepner.file;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,6 +10,9 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 
 import static net.doepner.log.Log.Level.info;
 
@@ -76,7 +76,7 @@ public final class StdPathHelper implements PathHelper {
             return path;
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 }

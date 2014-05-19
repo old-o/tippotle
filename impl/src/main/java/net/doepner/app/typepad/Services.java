@@ -1,5 +1,10 @@
 package net.doepner.app.typepad;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
+
 import net.doepner.file.PathHelper;
 import net.doepner.file.PathType;
 import net.doepner.file.StdPathHelper;
@@ -21,13 +26,6 @@ import net.doepner.speech.ESpeaker;
 import net.doepner.speech.SelectableSpeaker;
 import net.doepner.speech.Speaker;
 import net.doepner.speech.TestableSpeaker;
-import net.doepner.ui.Images;
-import net.doepner.ui.images.ImageHelper;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.LinkedList;
-import java.util.List;
 
 import static net.doepner.log.Log.Level.warn;
 
@@ -38,7 +36,8 @@ public class Services implements IServices {
 
     private final SelectableSpeaker speaker;
     private final TextBuffers buffers;
-    private final Images images;
+
+    private final ResourceFinder resourceFinder;
     private final Emailer emailer;
 
     private final Log log;
@@ -51,13 +50,12 @@ public class Services implements IServices {
                 context.getHomeDirectory(),
                 context);
 
-        final ResourceFinder resourceFinder = new CascadingResourceFinder(
-                new FileFinder(pathHelper),
+        resourceFinder = new CascadingResourceFinder(
+            new FileFinder(pathHelper, context),
                 new ClasspathFinder(context.getBasePackage()),
                 new GoogleTranslateDownload(context, pathHelper));
 
         speaker = createSpeaker(context, resourceFinder);
-        images = new ImageHelper(pathHelper);
         buffers = new TextFiles(pathHelper);
         emailer = createEmailer(context, pathHelper);
     }
@@ -97,6 +95,11 @@ public class Services implements IServices {
     }
 
     @Override
+    public ResourceFinder getResourceFinder() {
+        return resourceFinder;
+    }
+
+    @Override
     public Speaker getSpeaker() {
         return speaker;
     }
@@ -104,11 +107,6 @@ public class Services implements IServices {
     @Override
     public void switchSpeaker() {
         speaker.nextSpeaker();
-    }
-
-    @Override
-    public Images getImages() {
-        return images;
     }
 
     @Override

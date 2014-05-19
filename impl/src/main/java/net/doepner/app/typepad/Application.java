@@ -10,7 +10,7 @@ public class Application {
     public Application(final IContext context) {
         final Services services = new Services(context);
 
-        view = new View(context.getAppName(), context, services.getImages());
+        view = new View(context.getAppName(), context, services);
 
         final IModel model = new Model(view.getEditor().getTextModel(), context);
 

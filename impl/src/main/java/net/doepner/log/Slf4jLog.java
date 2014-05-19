@@ -35,6 +35,11 @@ public class Slf4jLog implements Log {
     }
 
     @Override
+    public void error(Throwable e) {
+        $(Level.error, e);
+    }
+
+    @Override
     public void $(Level level, Throwable t) {
         $(level, "", t);
     }

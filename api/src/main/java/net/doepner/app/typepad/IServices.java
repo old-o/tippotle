@@ -1,19 +1,19 @@
 package net.doepner.app.typepad;
 
 import net.doepner.mail.Emailer;
+import net.doepner.resources.ResourceFinder;
 import net.doepner.speech.Speaker;
-import net.doepner.ui.Images;
 
 /**
  * Application services interface
  */
 public interface IServices {
 
+    ResourceFinder getResourceFinder();
+
     Speaker getSpeaker();
 
     void switchSpeaker();
-
-    Images getImages();
 
     void saveBuffer(IModel model);
 

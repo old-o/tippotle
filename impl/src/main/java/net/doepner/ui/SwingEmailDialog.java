@@ -1,12 +1,16 @@
 package net.doepner.ui;
 
-import net.doepner.app.typepad.ui.SwingFrame;
+import java.net.URL;
+import java.util.Iterator;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import java.awt.Image;
-import java.util.Iterator;
+
+import net.doepner.app.typepad.ui.SwingFrame;
+import net.doepner.resources.ResourceFinder;
+
+import static net.doepner.file.MediaTypeEnum.image;
 
 /**
  * Prompts user to select an email recipient
@@ -14,11 +18,11 @@ import java.util.Iterator;
 public class SwingEmailDialog implements EmailDialog {
 
     private final SwingFrame frame;
-    private final Images images;
+    private final ResourceFinder finder;
 
-    public SwingEmailDialog(SwingFrame frame, Images images) {
+    public SwingEmailDialog(SwingFrame frame, ResourceFinder finder) {
         this.frame = frame;
-        this.images = images;
+        this.finder = finder;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class SwingEmailDialog implements EmailDialog {
     }
 
     private ImageIcon getImageIcon(String name) {
-        final Iterator<Image> iterator = images.getImages(name).iterator();
+        final Iterator<URL> iterator = finder.findAll(image, name).iterator();
         return iterator.hasNext() ? new ImageIcon(iterator.next())
                 : new ImageIcon("http://oliver.doepner.net/pics/oliver.jpg");
     }
