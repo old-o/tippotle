@@ -1,11 +1,11 @@
 package net.doepner.app.typepad;
 
-import java.net.URL;
-
 import net.doepner.lang.Language;
 import net.doepner.ui.Editor;
 import net.doepner.ui.EmailDialog;
 import net.doepner.ui.IAction;
+
+import java.awt.Image;
 
 /**
  * Application view interface
@@ -14,9 +14,9 @@ public interface IView {
 
     void show();
 
-    void showWordImages(Iterable<URL> images);
+    void showWordImages(Iterable<Image> images);
 
-    void showCharImages(Iterable<URL> images);
+    void showCharImages(Iterable<Image> images);
 
     void setActions(IAction... actions);
 

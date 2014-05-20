@@ -1,5 +1,6 @@
 package net.doepner.resources;
 
+import net.doepner.file.FileType;
 import net.doepner.file.FileTypeEnum;
 import net.doepner.file.PathHelper;
 import net.doepner.lang.Language;
@@ -44,16 +45,21 @@ public class GoogleTranslateDownload implements ResourceDownloader {
             final URLConnection c = url.openConnection();
             c.setRequestProperty("User-Agent", USER_AGENT);
 
-            return pathHelper.writeFile(name, targetDir, c.getInputStream(), FileTypeEnum.mp3);
+            return pathHelper.writeFile(name, targetDir, c.getInputStream(), getFileType());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
+    public FileType getFileType() {
+        return FileTypeEnum.mp3;
+    }
+
     private URL getDownloadUrl(String name, Language language) throws MalformedURLException {
         return new URL("http://translate.google.com/translate_tts?ie=UTF-8" +
-                "&tl=" + urlEncode(language.getCode()) +
+                (language != null ? "&tl=" + urlEncode(language.getCode()) : "") +
                 "&q=" + urlEncode(name.toLowerCase()));
     }
 

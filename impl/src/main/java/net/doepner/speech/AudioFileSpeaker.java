@@ -39,7 +39,7 @@ public class AudioFileSpeaker implements TestableSpeaker {
     @Override
     public void speak(final String text) {
         final Language language = languageProvider.getLanguage();
-        final URL audio = resourceFinder.find(MediaTypeEnum.audio, language, getName(), text);
+        final URL audio = resourceFinder.find(text, MediaTypeEnum.audio, language, getName());
         try {
             player.play(audio);
         } catch (IOException | UnsupportedAudioFileException e) {

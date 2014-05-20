@@ -1,16 +1,5 @@
 package net.doepner.app.typepad;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javax.imageio.ImageIO;
-
 import net.doepner.app.typepad.action.ActionDescriptions;
 import net.doepner.app.typepad.ui.SwingFrame;
 import net.doepner.i18n.L10n;
@@ -25,6 +14,13 @@ import net.doepner.ui.SwingAction;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingEmailDialog;
 import net.doepner.ui.UiAction;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class View implements IView {
 
@@ -60,7 +56,7 @@ public class View implements IView {
         int i = 0;
         for (IAction action : actions) {
             final UiAction uiAction = new SwingAction(action,
-                actionDescr, logProvider);
+                    actionDescr, logProvider);
             frame.addAction(uiAction, i);
             uiActions.add(uiAction);
             i++;
@@ -91,30 +87,20 @@ public class View implements IView {
     }
 
     @Override
-    public void showWordImages(Iterable<URL> images) {
+    public void showWordImages(Iterable<Image> images) {
         setImages(images, frame.getWordImagePanels());
     }
 
     @Override
-    public void showCharImages(Iterable<URL> images) {
+    public void showCharImages(Iterable<Image> images) {
         setImages(images, frame.getCharImagePanels());
     }
 
-    private void setImages(Iterable<URL> images,
-                                  Iterable<? extends ImageContainer> panels) {
-        final Iterator<URL> imageIter = images.iterator();
+    private void setImages(Iterable<Image> images,
+                           Iterable<? extends ImageContainer> panels) {
+        final Iterator<Image> imageIter = images.iterator();
         for (ImageContainer panel : panels) {
-            panel.setImage(getNextImage(imageIter));
-        }
-    }
-
-    private Image getNextImage(Iterator<URL> imageIter) {
-        final URL url = imageIter.hasNext() ? imageIter.next() : null;
-        try {
-            return ImageIO.read(url);
-        } catch (IOException e) {
-            log.error(e);
-            return null;
+            panel.setImage(imageIter.next());
         }
     }
 }

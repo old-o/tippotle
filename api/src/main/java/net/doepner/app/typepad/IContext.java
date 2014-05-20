@@ -18,5 +18,4 @@ public interface IContext extends LogProvider {
 
     String getEmailConfigFileName();
 
-    Package getBasePackage();
 }

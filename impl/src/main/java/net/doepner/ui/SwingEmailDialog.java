@@ -1,14 +1,11 @@
 package net.doepner.ui;
 
-import java.net.URL;
-import java.util.Iterator;
+import net.doepner.app.typepad.ui.SwingFrame;
+import net.doepner.resources.ResourceFinder;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-
-import net.doepner.app.typepad.ui.SwingFrame;
-import net.doepner.resources.ResourceFinder;
 
 import static net.doepner.file.MediaTypeEnum.image;
 
@@ -31,8 +28,8 @@ public class SwingEmailDialog implements EmailDialog {
         // TODO: Make the recipient list configurable
 
         final Icon[] options = {
-                getImageIcon("oliver"),
-                getImageIcon("heather"),
+                getIcon("oliver"),
+                getIcon("heather"),
         };
 
         final String[] addresses = {
@@ -48,10 +45,8 @@ public class SwingEmailDialog implements EmailDialog {
         return choice == JOptionPane.CLOSED_OPTION ? null : addresses[choice];
     }
 
-    private ImageIcon getImageIcon(String name) {
-        final Iterator<URL> iterator = finder.findAll(image, name).iterator();
-        return iterator.hasNext() ? new ImageIcon(iterator.next())
-                : new ImageIcon("http://oliver.doepner.net/pics/oliver.jpg");
+    private Icon getIcon(String name) {
+        return new ImageIcon(finder.find(name, image, null, "email"));
     }
 
     @Override

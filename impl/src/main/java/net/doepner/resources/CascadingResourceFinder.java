@@ -24,22 +24,27 @@ public class CascadingResourceFinder implements ResourceFinder {
     }
 
     @Override
-    public URL find(MediaType mediaType, Language language, String category, String rawName) {
+    public URL find(String rawName, MediaType mediaType, Language language, String category) {
         final String name = normalize(rawName);
 
-        final URL storedResource = store.find(mediaType, language, category, name);
+        final URL storedResource = store.find(name, mediaType, language, category);
         if (storedResource != null) {
             return storedResource;
         }
-        final URL resource = finder.find(mediaType, language, category, name);
+
+        final URL resource = finder.find(name, mediaType, language, category);
         if (resource != null) {
             return resource;
         }
 
-        final Path targetDir = store.getStorageDir(mediaType, language, category);
-        downloader.download(language, name, targetDir);
+        if (downloader.getFileType().getMediaType().equals(mediaType)) {
+            final Path targetDir = store.getStorageDir(mediaType, language, category);
+            downloader.download(language, name, targetDir);
+            return store.find(name, mediaType, language, category);
 
-        return store.find(mediaType, language, category, name);
+        } else {
+            return null;
+        }
     }
 
     private String normalize(String rawName) {

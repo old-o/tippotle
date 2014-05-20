@@ -22,6 +22,15 @@ public enum LanguageEnum implements Language {
 
     private static String capitalize(String s) {
         return Character.toUpperCase(s.charAt(0))
-            + s.toLowerCase().substring(1);
+                + s.toLowerCase().substring(1);
+    }
+
+    public static Language fromCode(String code) {
+        for (Language language : values()) {
+            if (language.getCode().equals(code)) {
+                return language;
+            }
+        }
+        return null;
     }
 }

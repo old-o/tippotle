@@ -3,8 +3,13 @@ package net.doepner.resources;
 import net.doepner.file.FileType;
 import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
+import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
+
+import static net.doepner.log.Log.Level.debug;
 
 /**
  * Finds classpath resources
@@ -12,13 +17,24 @@ import java.net.URL;
 public class ClasspathFinder implements ResourceFinder {
 
     private final String baseLocation;
+    private final Log log;
 
-    public ClasspathFinder(Package basePackage) {
-        baseLocation = '/' + basePackage.getName().replace('.', '/');
+    public ClasspathFinder(LogProvider logProvider) {
+        this(logProvider, MethodHandles.lookup().lookupClass().getPackage());
+    }
+
+    public ClasspathFinder(LogProvider logProvider, Package basePackage) {
+        baseLocation = getLocation(basePackage);
+        log = logProvider.getLog(getClass());
+    }
+
+    private String getLocation(Package pkg) {
+        return '/' + pkg.getName().replace('.', '/');
     }
 
     @Override
-    public URL find(MediaType mediaType, Language language, String category, String name) {
+    public URL find(String name, MediaType mediaType, Language language, String category) {
+
         final String location = baseLocation
                 + '/' + mediaType.getGroupingName()
                 + '/' + pathPart(language)
@@ -26,20 +42,24 @@ public class ClasspathFinder implements ResourceFinder {
                 + '/' + name;
 
         for (FileType fileType : mediaType.getFileTypes()) {
-            final String filePath = location + '.' + fileType.getExtension();
-            final URL resource = getClass().getResource(filePath);
+            final String fileLocation = location + '.' + fileType.getExtension();
+            final URL resource = getClass().getResource(fileLocation);
             if (resource != null) {
+                log.$(Log.Level.info, "Found classpath resource: {}", fileLocation);
                 return resource;
+            } else {
+                log.$(debug, "Classpath resource not found: {}", fileLocation);
             }
         }
+
         return null;
     }
 
     private String pathPart(String category) {
-        return category != null ? category : UNSPECIFIED_PATH_PART;
+        return category == null ? "_" : category;
     }
 
     private String pathPart(Language language) {
-        return language != null ? language.getCode() : UNSPECIFIED_PATH_PART;
+        return language == null ? "_" : language.getCode();
     }
 }

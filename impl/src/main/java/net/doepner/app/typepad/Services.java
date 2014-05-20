@@ -1,10 +1,5 @@
 package net.doepner.app.typepad;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.LinkedList;
-import java.util.List;
-
 import net.doepner.file.PathHelper;
 import net.doepner.file.PathType;
 import net.doepner.file.StdPathHelper;
@@ -20,12 +15,20 @@ import net.doepner.resources.CascadingResourceFinder;
 import net.doepner.resources.ClasspathFinder;
 import net.doepner.resources.FileFinder;
 import net.doepner.resources.GoogleTranslateDownload;
+import net.doepner.resources.ImageCollector;
 import net.doepner.resources.ResourceFinder;
+import net.doepner.resources.StdImageCollector;
+import net.doepner.resources.StdResourceCollector;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.SelectableSpeaker;
 import net.doepner.speech.Speaker;
 import net.doepner.speech.TestableSpeaker;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 
 import static net.doepner.log.Log.Level.warn;
 
@@ -38,6 +41,8 @@ public class Services implements IServices {
     private final TextBuffers buffers;
 
     private final ResourceFinder resourceFinder;
+    private final ImageCollector imageCollector;
+
     private final Emailer emailer;
 
     private final Log log;
@@ -52,8 +57,11 @@ public class Services implements IServices {
 
         resourceFinder = new CascadingResourceFinder(
             new FileFinder(pathHelper, context),
-                new ClasspathFinder(context.getBasePackage()),
+                new ClasspathFinder(context),
                 new GoogleTranslateDownload(context, pathHelper));
+
+        imageCollector = new StdImageCollector(
+                new StdResourceCollector(resourceFinder), 10, context);
 
         speaker = createSpeaker(context, resourceFinder);
         buffers = new TextFiles(pathHelper);
@@ -97,6 +105,11 @@ public class Services implements IServices {
     @Override
     public ResourceFinder getResourceFinder() {
         return resourceFinder;
+    }
+
+    @Override
+    public ImageCollector getImageCollector() {
+        return imageCollector;
     }
 
     @Override
