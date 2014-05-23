@@ -49,12 +49,12 @@ public class Controller {
 
         view.setLanguage(model.getLanguage());
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+        addShutdownHook(new Runnable() {
             @Override
             public void run() {
                 services.saveBuffer(model);
             }
-        }));
+        });
 
         model.addListener(new ChangeListener<Language>() {
             @Override
@@ -89,22 +89,24 @@ public class Controller {
         });
     }
 
-    private void handleTestPositionChange(IModel model, IView view,
-                                          IServices services,
+    private void handleTestPositionChange(IModel model, IView view, IServices services,
                                           Integer before, Integer after) {
 
         final ImageCollector collector = services.getImageCollector();
 
         final Character ch = model.getCharacter(after);
-        final String word = model.getWord(after);
-
         if (not(bothNullOrEqual(ch, model.getCharacter(before)))) {
             view.showCharImages(collector.getImages(String.valueOf(ch)));
             log.$(info, "Current character: {}", ch);
         }
+        final String word = model.getWord(after);
         if (not(bothNullOrEqual(word, model.getWord(before)))) {
             view.showWordImages(collector.getImages(word));
             log.$(info, "Current word: {}", word);
         }
+    }
+
+    private static void addShutdownHook(Runnable runnable) {
+        Runtime.getRuntime().addShutdownHook(new Thread(runnable));
     }
 }

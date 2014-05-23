@@ -26,7 +26,7 @@ public class FileFinder implements ResourceStore {
     }
 
     @Override
-    public URL find(String name, MediaType mediaType, Language language,
+    public URL find(MediaType mediaType, String name, Language language,
                     String category) {
         final Path dir = getStorageDir(mediaType, language, category);
         return getUrl(dir, name, mediaType);

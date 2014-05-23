@@ -2,6 +2,7 @@ package net.doepner.app.typepad.action;
 
 import net.doepner.app.typepad.IModel;
 import net.doepner.app.typepad.IServices;
+import net.doepner.mail.Emailer;
 import net.doepner.ui.ActionId;
 import net.doepner.ui.EmailDialog;
 import net.doepner.ui.IAction;
@@ -13,19 +14,19 @@ public class EmailAction implements IAction {
 
     private final EmailDialog emailDialog;
     private final IModel model;
-    private final IServices services;
+    private Emailer emailer;
 
     public EmailAction(EmailDialog emailDialog, IModel model, IServices services) {
         this.emailDialog = emailDialog;
         this.model = model;
-        this.services = services;
+        emailer = services.getEmailer();
     }
 
     @Override
     public void actionPerformed() {
         final String recipient = emailDialog.getRecipient();
         if (recipient != null) {
-            services.getEmailer().send(model.getText(), recipient, emailDialog.getSubject());
+            emailer.send(model.getText(), recipient, emailDialog.getSubject());
         }
     }
 

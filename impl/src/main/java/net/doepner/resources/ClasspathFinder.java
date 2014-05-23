@@ -34,7 +34,7 @@ public class ClasspathFinder implements ResourceFinder {
     }
 
     @Override
-    public URL find(String name, MediaType mediaType, Language language, String category) {
+    public URL find(MediaType mediaType, String name, Language language, String category) {
 
         final String location = baseLocation
                 + '/' + mediaType.getGroupingName()

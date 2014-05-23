@@ -10,6 +10,6 @@ import java.net.URL;
  */
 public interface ResourceFinder {
 
-    URL find(String name, MediaType mediaType, Language language, String category);
+    URL find(MediaType mediaType, String name, Language language, String category);
 
 }
