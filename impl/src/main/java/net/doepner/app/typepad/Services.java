@@ -30,6 +30,7 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
+import static net.doepner.log.Log.Level.error;
 import static net.doepner.log.Log.Level.warn;
 
 /**
@@ -56,7 +57,7 @@ public class Services implements IServices {
                 context);
 
         resourceFinder = new CascadingResourceFinder(
-            new FileFinder(pathHelper, context),
+                new FileFinder(pathHelper, context),
                 new ClasspathFinder(context),
                 new GoogleTranslateDownload(context, pathHelper));
 
@@ -74,7 +75,7 @@ public class Services implements IServices {
         try {
             return new SmtpEmailer(new SmtpConfig(emailConfigFile), context);
         } catch (IOException e) {
-            log.$(Log.Level.error, e);
+            log.$(error, e);
             return new NoEmailer(context);
         }
     }
@@ -85,8 +86,10 @@ public class Services implements IServices {
         final List<Speaker> speakers = new LinkedList<>();
         final LanguageChanger languageChanger = context.getLanguageChanger();
 
-        addIfFunctional(speakers, new AudioFileSpeaker("google-translate", context, resourceFinder, languageChanger));
-        addIfFunctional(speakers, new ESpeaker(languageChanger));
+        addIfFunctional(speakers, new AudioFileSpeaker("google-translate",
+                context, resourceFinder, languageChanger));
+
+        addIfFunctional(speakers, new ESpeaker(languageChanger, "robbi"));
 
         return new SelectableSpeaker(speakers);
     }
@@ -129,13 +132,13 @@ public class Services implements IServices {
     }
 
     @Override
-    public Emailer getEmailer() {
-        return emailer;
-    }
-
-    @Override
     public void saveBuffer(IModel model) {
         final String text = model.getText().trim();
         buffers.save(text, model.getCurrentBuffer());
+    }
+
+    @Override
+    public Emailer getEmailer() {
+        return emailer;
     }
 }

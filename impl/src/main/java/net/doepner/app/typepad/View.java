@@ -49,6 +49,8 @@ public class View implements IView {
         frame = new SwingFrame(appName, editor, imageSize, frameSize);
 
         emailDialog = new SwingEmailDialog(frame, services.getResourceFinder());
+
+        log.$(Log.Level.info, "View constructed");
     }
 
     @Override
@@ -59,9 +61,12 @@ public class View implements IView {
                     actionDescr, logProvider);
             frame.addAction(uiAction, i);
             uiActions.add(uiAction);
+            log.$(Log.Level.debug, "Added action with action id = '{}' to View", action.getId());
             i++;
         }
         frame.addOtherToolbarComponents();
+
+        log.$(Log.Level.info, "All {} actions set on View", actions.length);
     }
 
     @Override

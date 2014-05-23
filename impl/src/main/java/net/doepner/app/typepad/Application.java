@@ -8,6 +8,7 @@ public class Application {
     private final IView view;
 
     public Application(final IContext context) {
+
         final Services services = new Services(context);
 
         view = new View(context.getAppName(), context, services);

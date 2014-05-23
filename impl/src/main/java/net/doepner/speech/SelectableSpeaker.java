@@ -29,7 +29,5 @@ public class SelectableSpeaker implements Speaker {
 
     public void nextSpeaker() {
         speaker = speakers.get((speakers.indexOf(speaker) + 1) % speakers.size());
-        // identify the current speaker
-        speak("Hallo, ich bin " + getName());
     }
 }

@@ -10,6 +10,7 @@ import java.lang.invoke.MethodHandles;
 import java.net.URL;
 
 import static net.doepner.log.Log.Level.debug;
+import static net.doepner.log.Log.Level.info;
 
 /**
  * Finds classpath resources
@@ -45,7 +46,7 @@ public class ClasspathFinder implements ResourceFinder {
             final String fileLocation = location + '.' + fileType.getExtension();
             final URL resource = getClass().getResource(fileLocation);
             if (resource != null) {
-                log.$(Log.Level.info, "Found classpath resource: {}", fileLocation);
+                log.$(info, "Found classpath resource: {}", fileLocation);
                 return resource;
             } else {
                 log.$(debug, "Classpath resource not found: {}", fileLocation);

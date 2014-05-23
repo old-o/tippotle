@@ -40,17 +40,17 @@ public class FileFinder implements ResourceStore {
         return languageDir.resolve(toDirName(category));
     }
 
-    private Path getDirectory(MediaType mediaType) {
-        final String dirName = mediaType.getGroupingName();
-        return helper.findOrCreate(dirName, PathType.DIRECTORY);
-    }
-
-    private String toDirName(String category) {
+    private static String toDirName(String category) {
         return category != null ? category : "_";
     }
 
-    private String toDirName(Language language) {
+    private static String toDirName(Language language) {
         return language != null ? language.getCode() : "_";
+    }
+
+    private Path getDirectory(MediaType mediaType) {
+        final String dirName = mediaType.getGroupingName();
+        return helper.findOrCreate(dirName, PathType.DIRECTORY);
     }
 
     private URL getUrl(Path dir, String name, MediaType mediaType) {

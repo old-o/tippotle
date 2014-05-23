@@ -23,6 +23,7 @@ public class SoundTestUtil {
 
         final AudioPlayer player = new StdAudioPlayer(
                 new SystemConsoleLogProvider());
+
         final Path path = Paths.get(
 //            "/home/oliver/files/test.m4a");
 //                "C:/Documents and Settings/isdc858/Desktop/example.ogg");

@@ -36,8 +36,7 @@ public class StdImageCollector implements ImageCollector {
     @Override
     public Iterable<Image> getImages(String name) {
         final Collection<Image> images = new LinkedList<>();
-        final Iterable<URL> urls = collector.findAll(image, name, folders);
-        for (URL url : urls) {
+        for (URL url : collector.findAll(image, name, folders)) {
             try {
                 images.add(url == null ? null : ImageIO.read(url));
             } catch (IOException e) {

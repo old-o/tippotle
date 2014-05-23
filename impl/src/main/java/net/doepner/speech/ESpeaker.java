@@ -8,14 +8,16 @@ import java.io.IOException;
 public class ESpeaker implements TestableSpeaker {
 
     private final LanguageProvider languageProvider;
+    private final String name;
 
-    public ESpeaker(LanguageProvider languageProvider) {
+    public ESpeaker(LanguageProvider languageProvider, String name) {
         this.languageProvider = languageProvider;
+        this.name = name;
     }
 
     @Override
     public String getName() {
-        return "robbi";
+        return name;
     }
 
     @Override

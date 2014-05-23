@@ -16,6 +16,11 @@ public class CascadingResourceFinder implements ResourceFinder {
     private final ResourceDownloader downloader;
 
     public CascadingResourceFinder(ResourceStore store,
+                                   ResourceFinder finder) {
+        this(store, finder, null);
+    }
+
+    public CascadingResourceFinder(ResourceStore store,
                                    ResourceFinder finder,
                                    ResourceDownloader downloader) {
         this.store = store;
@@ -24,7 +29,9 @@ public class CascadingResourceFinder implements ResourceFinder {
     }
 
     @Override
-    public URL find(String rawName, MediaType mediaType, Language language, String category) {
+    public URL find(String rawName, MediaType mediaType,
+                    Language language, String category) {
+
         final String name = normalize(rawName);
 
         final URL storedResource = store.find(name, mediaType, language, category);
@@ -37,14 +44,16 @@ public class CascadingResourceFinder implements ResourceFinder {
             return resource;
         }
 
-        if (downloader.getFileType().getMediaType().equals(mediaType)) {
+        if (downloader != null
+                && downloader.getFileType().getMediaType().equals(mediaType)) {
+
             final Path targetDir = store.getStorageDir(mediaType, language, category);
             downloader.download(language, name, targetDir);
             return store.find(name, mediaType, language, category);
-
-        } else {
-            return null;
         }
+
+        //otherwise
+        return null;
     }
 
     private String normalize(String rawName) {
