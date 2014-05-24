@@ -38,6 +38,12 @@ public class AudioFileSpeaker implements TestableSpeaker {
 
     @Override
     public void speak(final String text) {
+        for (String s : text.toLowerCase().split("[^\\w']+")) {
+            speakPart(s);
+        }
+    }
+
+    private void speakPart(String text) {
         final Language language = languageProvider.getLanguage();
         final URL audio = resourceFinder.find(text, MediaTypeEnum.audio, language, getName());
         try {

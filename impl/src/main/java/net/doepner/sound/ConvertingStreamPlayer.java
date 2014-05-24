@@ -1,18 +1,17 @@
 package net.doepner.sound;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine.Info;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 import java.io.IOException;
 
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 
 public class ConvertingStreamPlayer implements AudioStreamPlayer {
-
-    @Override
-    public boolean isPlaybackBlockingThread() {
-        return false;
-    }
 
     @Override
     public void play(final AudioInputStream stream)

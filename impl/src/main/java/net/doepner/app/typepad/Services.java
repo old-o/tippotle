@@ -21,7 +21,7 @@ import net.doepner.resources.StdImageCollector;
 import net.doepner.resources.StdResourceCollector;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
-import net.doepner.speech.SelectableSpeaker;
+import net.doepner.speech.ManagedSpeakers;
 import net.doepner.speech.Speaker;
 import net.doepner.speech.TestableSpeaker;
 
@@ -38,7 +38,7 @@ import static net.doepner.log.Log.Level.warn;
  */
 public class Services implements IServices {
 
-    private final SelectableSpeaker speaker;
+    private final ManagedSpeakers speaker;
     private final TextBuffers buffers;
 
     private final ResourceFinder resourceFinder;
@@ -80,8 +80,8 @@ public class Services implements IServices {
         }
     }
 
-    private SelectableSpeaker createSpeaker(IContext context,
-                                            ResourceFinder resourceFinder) {
+    private ManagedSpeakers createSpeaker(IContext context,
+                                          ResourceFinder resourceFinder) {
 
         final List<Speaker> speakers = new LinkedList<>();
         final LanguageChanger languageChanger = context.getLanguageChanger();
@@ -91,7 +91,7 @@ public class Services implements IServices {
 
         addIfFunctional(speakers, new ESpeaker(languageChanger, "robbi"));
 
-        return new SelectableSpeaker(speakers);
+        return new ManagedSpeakers(speakers);
     }
 
     private void addIfFunctional(List<Speaker> speakers, TestableSpeaker speaker) {

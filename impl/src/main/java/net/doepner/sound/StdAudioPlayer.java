@@ -1,15 +1,14 @@
 package net.doepner.sound;
 
-import java.io.IOException;
-import java.net.URL;
+import net.doepner.log.Log;
+import net.doepner.log.LogProvider;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import java.io.IOException;
+import java.net.URL;
 
 import static javax.sound.sampled.AudioSystem.getAudioFileFormat;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
@@ -35,19 +34,9 @@ public class StdAudioPlayer implements AudioPlayer {
         final AudioFileFormat format = getAudioFileFormat(url);
 
         final AudioStreamPlayer player = isFileTypeSupported(format.getType())
-            ? directPlayer : convertingPlayer;
+                ? directPlayer : convertingPlayer;
 
-        if (player.isPlaybackBlockingThread()) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    play(player, url);
-                }
-            }).start();
-
-        } else {
-            play(player, url);
-        }
+        play(player, url);
     }
 
     private void play(AudioStreamPlayer player, URL url) {

@@ -1,5 +1,6 @@
 package net.doepner.speech;
 
+import javax.swing.SwingWorker;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -7,12 +8,12 @@ import java.util.List;
 /**
  * Delegates to the currently selected speaker (among the available ones)
  */
-public class SelectableSpeaker implements Speaker {
+public class ManagedSpeakers implements Speaker {
 
     private final List<Speaker> speakers;
     private Speaker speaker;
 
-    public SelectableSpeaker(Collection<Speaker> speakers) {
+    public ManagedSpeakers(Collection<Speaker> speakers) {
         this.speakers = new ArrayList<>(speakers);
         nextSpeaker();
     }
@@ -23,8 +24,14 @@ public class SelectableSpeaker implements Speaker {
     }
 
     @Override
-    public void speak(String text) {
-        speaker.speak(text);
+    public void speak(final String text) {
+        new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() {
+                speaker.speak(text);
+                return null;
+            }
+        }.execute();
     }
 
     public void nextSpeaker() {
