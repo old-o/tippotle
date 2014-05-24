@@ -7,7 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Standard implementation of ResourceCollector, based on a wrapped ResourceFinder
+ * Standard implementation of ResourceCollector,
+ * based on a wrapped ResourceFinder
  */
 public class StdResourceCollector implements ResourceCollector {
 
@@ -18,10 +19,10 @@ public class StdResourceCollector implements ResourceCollector {
     }
 
     @Override
-    public Iterable<URL> findAll(MediaType mediaType, String rawName, List<?> categories) {
+    public Iterable<URL> findAll(MediaType mediaType, String name, List<?> categories) {
         final List<URL> list = new LinkedList<>();
         for (Object category : categories) {
-            list.add(finder.find(rawName, mediaType, null, category.toString()));
+            list.add(finder.find(mediaType, name, null, category.toString()));
         }
         return list;
     }

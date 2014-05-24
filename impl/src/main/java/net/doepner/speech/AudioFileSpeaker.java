@@ -1,6 +1,5 @@
 package net.doepner.speech;
 
-import net.doepner.file.MediaTypeEnum;
 import net.doepner.lang.Language;
 import net.doepner.lang.LanguageProvider;
 import net.doepner.log.LogProvider;
@@ -12,20 +11,22 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URL;
 
+import static net.doepner.file.MediaTypeEnum.audio;
+
 /**
  * Speaks by playing audio files
  */
 public class AudioFileSpeaker implements TestableSpeaker {
 
-    private final String name;
+    private final String speakerName;
     private final ResourceFinder resourceFinder;
     private final LanguageProvider languageProvider;
     private final AudioPlayer player;
 
-    public AudioFileSpeaker(String name, LogProvider logProvider,
+    public AudioFileSpeaker(String speakerName, LogProvider logProvider,
                             ResourceFinder resourceFinder,
                             LanguageProvider languageProvider) {
-        this.name = name;
+        this.speakerName = speakerName;
         this.resourceFinder = resourceFinder;
         this.languageProvider = languageProvider;
         player = new StdAudioPlayer(logProvider);
@@ -33,7 +34,7 @@ public class AudioFileSpeaker implements TestableSpeaker {
 
     @Override
     public String getName() {
-        return name;
+        return speakerName;
     }
 
     @Override
@@ -45,9 +46,9 @@ public class AudioFileSpeaker implements TestableSpeaker {
 
     private void speakPart(String text) {
         final Language language = languageProvider.getLanguage();
-        final URL audio = resourceFinder.find(text, MediaTypeEnum.audio, language, getName());
+        final URL audioFile = resourceFinder.find(audio, text, language, speakerName);
         try {
-            player.play(audio);
+            player.play(audioFile);
         } catch (IOException | UnsupportedAudioFileException e) {
             throw new IllegalStateException(e);
         }

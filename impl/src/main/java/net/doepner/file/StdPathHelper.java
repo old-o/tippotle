@@ -35,12 +35,17 @@ public final class StdPathHelper implements PathHelper {
         for (FileType fileType : mediaType.getFileTypes()) {
             final Path path = dir.resolve(sanitize(name) + '.' + fileType.getExtension());
             if (Files.exists(path)) {
-                log.$(info, "findInDir({}, {}, {}) == {}", dir, name, mediaType, path);
+                logFindResult(dir, name, mediaType, path);
                 return path;
             }
         }
-        log.$(debug, "findInDir({}, {}, {}) == null", dir, name, mediaType);
+        logFindResult(dir, name, mediaType, null);
         return null;
+    }
+
+    private void logFindResult(Path dir, String name, MediaType mediaType, Path result) {
+        log.$(result == null ? debug : info, "findInDir({}, {}, {}) == {}",
+                dir, name, mediaType, result);
     }
 
     @Override

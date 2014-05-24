@@ -46,7 +46,7 @@ public class SwingEmailDialog implements EmailDialog {
     }
 
     private Icon getIcon(String name) {
-        return new ImageIcon(finder.find(name, image, null, "email"));
+        return new ImageIcon(finder.find(image, name, null, "email"));
     }
 
     @Override

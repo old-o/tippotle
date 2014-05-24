@@ -129,12 +129,14 @@ public class Services implements IServices {
     public void loadBuffer(IModel model) {
         final String text = buffers.load(model.getCurrentBuffer()).trim();
         model.setText(text);
+        log.$(Log.Level.info, "Loaded buffer {}", model.getCurrentBuffer());
     }
 
     @Override
     public void saveBuffer(IModel model) {
         final String text = model.getText().trim();
         buffers.save(text, model.getCurrentBuffer());
+        log.$(Log.Level.info, "Saved buffer {}", model.getCurrentBuffer());
     }
 
     @Override
