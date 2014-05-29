@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static net.doepner.log.Log.Level.error;
+import static net.doepner.log.Log.Level.info;
 import static net.doepner.log.Log.Level.warn;
 
 /**
@@ -75,7 +76,7 @@ public class Services implements IServices {
         try {
             return new SmtpEmailer(new SmtpConfig(emailConfigFile), context);
         } catch (IOException e) {
-            log.$(error, e);
+            log.as(error, e);
             return new NoEmailer(context);
         }
     }
@@ -100,7 +101,7 @@ public class Services implements IServices {
             speakers.add(speaker);
 
         } catch (IllegalStateException e) {
-            log.$(warn, "Speaker '{}' not functional. Error: {}",
+            log.as(warn, "Speaker '{}' not functional. Error: {}",
                     speaker.getName(), e.getMessage());
         }
     }
@@ -129,14 +130,14 @@ public class Services implements IServices {
     public void loadBuffer(IModel model) {
         final String text = buffers.load(model.getCurrentBuffer()).trim();
         model.setText(text);
-        log.$(Log.Level.info, "Loaded buffer {}", model.getCurrentBuffer());
+        log.as(info, "Loaded buffer {}", model.getCurrentBuffer());
     }
 
     @Override
     public void saveBuffer(IModel model) {
         final String text = model.getText().trim();
         buffers.save(text, model.getCurrentBuffer());
-        log.$(Log.Level.info, "Saved buffer {}", model.getCurrentBuffer());
+        log.as(info, "Saved buffer {}", model.getCurrentBuffer());
     }
 
     @Override

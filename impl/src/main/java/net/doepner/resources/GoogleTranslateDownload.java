@@ -40,7 +40,7 @@ public class GoogleTranslateDownload implements ResourceDownloader {
     public File download(Language language, String name, Path targetDir) {
         try {
             final URL url = getDownloadUrl(name, language);
-            log.$(info, "Retrieving {}", url);
+            log.as(info, "Retrieving {}", url);
 
             final URLConnection c = url.openConnection();
             c.setRequestProperty("User-Agent", USER_AGENT);

@@ -22,6 +22,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import static net.doepner.log.Log.Level.debug;
+import static net.doepner.log.Log.Level.info;
+
 public class View implements IView {
 
     private final SwingFrame frame;
@@ -50,7 +53,7 @@ public class View implements IView {
 
         emailDialog = new SwingEmailDialog(frame, services.getResourceFinder());
 
-        log.$(Log.Level.info, "View constructed");
+        log.as(info, "View constructed");
     }
 
     @Override
@@ -61,12 +64,12 @@ public class View implements IView {
                     actionDescr, logProvider);
             frame.addAction(uiAction, i);
             uiActions.add(uiAction);
-            log.$(Log.Level.debug, "Added action with action id = '{}' to View", action.getId());
+            log.as(debug, "Added action with action id = '{}' to View", action.getId());
             i++;
         }
         frame.addOtherToolbarComponents();
 
-        log.$(Log.Level.info, "All {} actions set on View", actions.length);
+        log.as(info, "All {} actions set on View", actions.length);
     }
 
     @Override

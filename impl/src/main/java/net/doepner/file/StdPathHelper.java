@@ -44,7 +44,7 @@ public final class StdPathHelper implements PathHelper {
     }
 
     private void logFindResult(Path dir, String name, MediaType mediaType, Path result) {
-        log.$(result == null ? debug : info, "findInDir({}, {}, {}) == {}",
+        log.as(result == null ? debug : info, "findInDir({}, {}, {}) == {}",
                 dir, name, mediaType, result);
     }
 

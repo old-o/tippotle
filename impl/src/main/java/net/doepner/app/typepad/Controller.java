@@ -60,7 +60,7 @@ public class Controller {
             @Override
             public void handleChange(Language before, Language after) {
                 view.setLanguage(after);
-                log.$(info, "Language changed from {} to {}", before, after);
+                log.as(info, "Language changed from {} to {}", before, after);
             }
         });
 
@@ -97,12 +97,12 @@ public class Controller {
         final Character ch = model.getCharacter(after);
         if (not(bothNullOrEqual(ch, model.getCharacter(before)))) {
             view.showCharImages(collector.getImages(String.valueOf(ch)));
-            log.$(info, "Current character: {}", ch);
+            log.as(info, "Current character: {}", ch);
         }
         final String word = model.getWord(after);
         if (not(bothNullOrEqual(word, model.getWord(before)))) {
             view.showWordImages(collector.getImages(word));
-            log.$(info, "Current word: {}", word);
+            log.as(info, "Current word: {}", word);
         }
     }
 

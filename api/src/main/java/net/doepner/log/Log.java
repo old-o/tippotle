@@ -11,9 +11,9 @@ public interface Log {
         trace, debug, info, warn, error
     }
 
-    void $(Level level, Throwable t);
+    void as(Level level, Throwable t);
 
-    void $(Level level, String message, Throwable t);
+    void as(Level level, String message, Throwable t);
 
-    void $(Level level, String message, Object... parameters);
+    void as(Level level, String message, Object... parameters);
 }

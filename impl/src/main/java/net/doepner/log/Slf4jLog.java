@@ -14,7 +14,7 @@ public class Slf4jLog implements Log {
     }
 
     @Override
-    public void $(Level level, String message, Object... parameters) {
+    public void as(Level level, String message, Object... parameters) {
         switch (level) {
             case trace:
                 logger.trace(message, parameters);
@@ -36,16 +36,16 @@ public class Slf4jLog implements Log {
 
     @Override
     public void error(Throwable e) {
-        $(Level.error, e);
+        as(Level.error, e);
     }
 
     @Override
-    public void $(Level level, Throwable t) {
-        $(level, "", t);
+    public void as(Level level, Throwable t) {
+        as(level, "", t);
     }
 
     @Override
-    public void $(Level level, String message, Throwable t) {
+    public void as(Level level, String message, Throwable t) {
         switch (level) {
             case trace:
                 logger.trace(message, t);

@@ -46,10 +46,10 @@ public class ClasspathFinder implements ResourceFinder {
             final String fileLocation = location + '.' + fileType.getExtension();
             final URL resource = getClass().getResource(fileLocation);
             if (resource != null) {
-                log.$(info, "Found classpath resource: {}", fileLocation);
+                log.as(info, "Found classpath resource: {}", fileLocation);
                 return resource;
             } else {
-                log.$(debug, "Classpath resource not found: {}", fileLocation);
+                log.as(debug, "Classpath resource not found: {}", fileLocation);
             }
         }
 

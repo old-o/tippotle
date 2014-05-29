@@ -47,7 +47,7 @@ public class StdAudioPlayer implements AudioPlayer {
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            log.$(error, e);
+            log.as(error, e);
         }
     }
 }

@@ -40,7 +40,7 @@ public class SmtpEmailer implements Emailer {
             Transport.send(msg, emailConfig.getUsername(), emailConfig.getPassword());
 
         } catch (MessagingException e) {
-            log.$(error, "Sending email failed", e);
+            log.as(error, "Sending email failed", e);
         }
     }
 }

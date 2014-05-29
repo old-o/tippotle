@@ -54,7 +54,7 @@ public class SwingAction extends AbstractAction implements UiAction {
         final String fileName = (iconName == null ? "unknown" : iconName) + ".png";
         final URL resource = getClass().getResource(fileName);
         if (resource == null) {
-            log.$(error, "Icon image not found: {}", fileName);
+            log.as(error, "Icon image not found: {}", fileName);
             return null;
         } else {
             return new ImageIcon(resource);
