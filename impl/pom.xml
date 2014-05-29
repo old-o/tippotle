@@ -4,20 +4,25 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>typepad-impl</artifactId>
-    <groupId>net.doepner</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>impl</artifactId>
+
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>net.doepner.app.typepad</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
 
     <dependencies>
         <dependency>
-            <artifactId>typepad-api</artifactId>
-            <groupId>net.doepner</groupId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>api</artifactId>
+            <groupId>net.doepner.app.typepad</groupId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <artifactId>typepad-files</artifactId>
-            <groupId>net.doepner</groupId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>files</artifactId>
+            <groupId>net.doepner.app.typepad</groupId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -58,25 +63,10 @@
             <version>1.5.2</version>
             <scope>runtime</scope>
         </dependency>
-
-
     </dependencies>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
