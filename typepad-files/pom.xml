@@ -4,17 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>typepad-files</artifactId>
     <groupId>net.doepner.typepad</groupId>
-    <artifactId>typepad</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>typepad-parent</module>
-        <module>typepad-api</module>
-        <module>typepad-impl</module>
-        <module>typepad-files</module>
-        <module>typepad-dist</module>
-    </modules>
 
 </project>
