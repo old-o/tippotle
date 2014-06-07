@@ -8,7 +8,7 @@
 
     <parent>
         <artifactId>typepad-parent</artifactId>
-        <groupId>net.doepner.typepad</groupId>
+        <groupId>net.doepner.app.typepad</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../typepad-parent/pom.xml</relativePath>
     </parent>

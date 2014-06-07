@@ -8,19 +8,20 @@
 
     <parent>
         <artifactId>typepad-parent</artifactId>
-        <groupId>net.doepner.typepad</groupId>
+        <groupId>net.doepner.app.typepad</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../typepad-parent/pom.xml</relativePath>
     </parent>
 
     <properties>
-        <maven.build.timestamp.format>yyyy-MM-dd_HH-mm</maven.build.timestamp.format>
+        <maven.build.timestamp.format>yyyy-MM-dd_HH-mm
+        </maven.build.timestamp.format>
     </properties>
 
     <dependencies>
         <dependency>
             <artifactId>typepad-impl</artifactId>
-            <groupId>net.doepner.typepad</groupId>
+            <groupId>net.doepner.app.typepad</groupId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -47,7 +48,8 @@
                             </descriptors>
                             <appendAssemblyId>false</appendAssemblyId>
                             <archiverConfig>
-                                <defaultDirectoryMode>0755</defaultDirectoryMode>
+                                <defaultDirectoryMode>0755
+                                </defaultDirectoryMode>
                             </archiverConfig>
                         </configuration>
                     </execution>
