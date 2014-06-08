@@ -10,5 +10,5 @@ import javax.swing.Action;
  */
 public interface UiAction extends Action, ChangeListener<Language> {
 
-    void setLanguage(Language language);
+    // no additional methods
 }

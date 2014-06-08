@@ -30,6 +30,7 @@ public class SwingAction extends AbstractAction implements UiAction {
         this.action = action;
         this.descriptions = descriptions;
         this.log = logProvider.getLog(getClass());
+        updateIcon();
     }
 
     @Override
@@ -39,8 +40,8 @@ public class SwingAction extends AbstractAction implements UiAction {
     }
 
     @Override
-    public void setLanguage(Language language) {
-        final String descr = descriptions.get(action, language);
+    public void handleChange(Language before, Language after) {
+        final String descr = descriptions.get(action, after);
         putValue(Action.SHORT_DESCRIPTION, descr);
         updateIcon();
     }

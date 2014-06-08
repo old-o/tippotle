@@ -61,18 +61,18 @@ import static net.doepner.log.Log.Level.error;
  */
 public class Application {
 
+    private final Log log;
+
     private final SwingFrame frame;
 
-    Application() {
+    public Application() {
         final LogProvider logProvider = new Slf4jLogProvider();
+        log = logProvider.getLog(getClass());
 
-        final Path homeDir = Paths.get(System.getProperty("user.home"));
         final String appName = "Typepad";
-        final String emailConfigFileName = "email.properties";
+        final Path homeDir = Paths.get(System.getProperty("user.home"));
 
         final LanguageChanger languageChanger = new CanadianDeutsch(logProvider);
-
-        final Log log = logProvider.getLog(Main.class);
 
         final PathHelper pathHelper =
                 new StdPathHelper(appName, homeDir, logProvider);
@@ -82,7 +82,6 @@ public class Application {
                 new ClasspathFinder(logProvider),
                 new GoogleTranslateDownload(logProvider, pathHelper));
 
-
         final ManagedSpeakers managedSpeakers = new ManagedSpeakers(
                 logProvider,
                 new AudioFileSpeaker("google-translate",
@@ -90,31 +89,21 @@ public class Application {
                 new ESpeaker(languageChanger, "robbi")
         );
 
-
         final ImageCollector imageCollector = new StdImageCollector(
                 new StdResourceCollector(resourceFinder), 10, logProvider);
 
         final TextBuffers buffers = new TextFiles(logProvider, pathHelper);
 
-        Emailer result;
-        final Path emailConfigFile = pathHelper.findOrCreate(
-                emailConfigFileName, PathType.FILE);
-        try {
-            result = new SmtpEmailer(new SmtpConfig(emailConfigFile), logProvider);
-        } catch (IOException e) {
-            log.as(error, e);
-            result = new NoEmailer(logProvider);
-        }
-        final Emailer emailer = result;
+        final Path configFile = pathHelper.findOrCreate("email.properties", PathType.FILE);
+        final Emailer emailer = createEmailer(logProvider, configFile);
 
         final StyledDocument doc = new DefaultStyledDocument();
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
         final JTextPane textPane = new JTextPane(doc);
         textPane.setFont(new Font("serif", Font.PLAIN, 40));
 
-        final TextModel textModel = new DocTextModel(doc);
-
         final SwingEditor editor = new SwingEditor(textPane);
+        final TextModel textModel = new DocTextModel(doc);
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);
@@ -135,8 +124,16 @@ public class Application {
                 new EmailAction(emailDialog, textModel, emailer),
                 new SpeakAll(textModel, managedSpeakers));
 
-
         addListeners(managedSpeakers, buffers, textModel);
+    }
+
+    private Emailer createEmailer(LogProvider logProvider, Path configFile) {
+        try {
+            return new SmtpEmailer(new SmtpConfig(configFile), logProvider);
+        } catch (IOException e) {
+            log.as(error, e);
+            return new NoEmailer(logProvider);
+        }
     }
 
     private void addListeners(final ManagedSpeakers managedSpeakers,
