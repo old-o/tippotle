@@ -1,16 +1,13 @@
 package net.doepner.ui;
 
 import net.doepner.event.ChangeListener;
-import net.doepner.ui.text.FontChooser;
 
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import java.awt.Component;
+import javax.swing.text.JTextComponent;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 
@@ -22,9 +19,9 @@ import static javax.swing.KeyStroke.getKeyStroke;
  */
 public class SwingEditor implements Editor {
 
-    private final JTextPane editor;
+    private final JTextComponent editor;
 
-    public SwingEditor(JTextPane editor) {
+    public SwingEditor(JTextComponent editor) {
         this.editor = editor;
         editor.setCaret(new BlockCaret(new SwingCaretContext(editor)));
     }
@@ -59,13 +56,5 @@ public class SwingEditor implements Editor {
         if (newSize > 0) {
             editor.setFont(f.deriveFont((float) newSize));
         }
-    }
-
-    public Component createScrollPane() {
-        return new JScrollPane(editor);
-    }
-
-    public Component createFontChooser() {
-        return new FontChooser(editor);
     }
 }

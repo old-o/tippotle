@@ -35,11 +35,6 @@ public class Slf4jLog implements Log {
     }
 
     @Override
-    public void error(Throwable e) {
-        as(Level.error, e);
-    }
-
-    @Override
     public void as(Level level, Throwable t) {
         as(level, "", t);
     }

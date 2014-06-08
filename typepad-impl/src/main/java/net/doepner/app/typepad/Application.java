@@ -38,13 +38,16 @@ import net.doepner.text.TextListener;
 import net.doepner.text.TextModel;
 import net.doepner.text.WordExtractor;
 import net.doepner.text.WordProvider;
+import net.doepner.ui.Editor;
 import net.doepner.ui.EmailDialog;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingEmailDialog;
 import net.doepner.ui.text.AlphaNumStyler;
 import net.doepner.ui.text.DocTextModel;
+import net.doepner.ui.text.FontChooser;
 import net.doepner.ui.text.TextStyler;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
@@ -57,7 +60,7 @@ import java.nio.file.Paths;
 import static net.doepner.log.Log.Level.error;
 
 /**
- * TODO: Document this!
+ * Wires up the application
  */
 public class Application {
 
@@ -102,19 +105,22 @@ public class Application {
         final JTextPane textPane = new JTextPane(doc);
         textPane.setFont(new Font("serif", Font.PLAIN, 40));
 
-        final SwingEditor editor = new SwingEditor(textPane);
+        final Editor editor = new SwingEditor(textPane);
         final TextModel textModel = new DocTextModel(doc);
-
-        final Dimension frameSize = new Dimension(800, 600);
-        final Dimension imageSize = new Dimension(100, 100);
 
         final WordProvider wordProvider = new WordExtractor(logProvider, textModel);
 
         final EmailDialog emailDialog = new SwingEmailDialog(resourceFinder);
 
+        final Dimension frameSize = new Dimension(800, 600);
+        final Dimension imageSize = new Dimension(100, 100);
+
         frame = new SwingFrame(logProvider,
                 appName, editor, languageChanger, wordProvider, imageCollector,
-                imageSize, frameSize, new ActionDescriptions(),
+                new FontChooser(textPane),
+                new JScrollPane(textPane),
+                imageSize, frameSize,
+                new ActionDescriptions(),
                 new SwitchLanguage(languageChanger),
                 new SpeakWord(editor, wordProvider, managedSpeakers),
                 new ResizeFont(-1, editor),

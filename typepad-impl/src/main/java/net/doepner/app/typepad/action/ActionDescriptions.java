@@ -2,6 +2,7 @@ package net.doepner.app.typepad.action;
 
 import net.doepner.i18n.L10n;
 import net.doepner.i18n.L10nMapper;
+import net.doepner.i18n.L10nRegistry;
 import net.doepner.lang.Language;
 import net.doepner.ui.ActionId;
 import net.doepner.ui.IAction;
@@ -22,7 +23,7 @@ import static net.doepner.lang.LanguageEnum.DEUTSCH;
  */
 public class ActionDescriptions implements L10n<IAction, String> {
 
-    private final L10nMapper<ActionId, String> byId = new L10nMapper<>();
+    private final L10nRegistry<ActionId, String> byId = new L10nMapper<>();
 
     {
         de(SWITCH_BUFFER, "Textspeicher wechseln");
@@ -33,7 +34,6 @@ public class ActionDescriptions implements L10n<IAction, String> {
         de(SWITCH_SPEAKER, "Sprecher wechseln");
         de(EMAIL, "Email versenden");
         de(SPEAK_ALL, "Ganzen Text vorlesen");
-
 
         en(SWITCH_BUFFER, "Switch buffer");
         en(SWITCH_LANGUAGE, "Switch language");

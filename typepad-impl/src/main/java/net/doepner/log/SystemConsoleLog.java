@@ -8,11 +8,6 @@ public class SystemConsoleLog implements Log {
     @Override
     public void as(Level level, String message, Throwable t) {
         System.err.println(message);
-        error(t);
-    }
-
-    @Override
-    public void error(Throwable t) {
         t.printStackTrace(System.err);
     }
 

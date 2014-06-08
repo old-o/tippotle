@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static net.doepner.file.MediaTypeEnum.image;
+import static net.doepner.log.Log.Level.error;
 
 /**
  * Finds batches of images
@@ -40,7 +41,7 @@ public class StdImageCollector implements ImageCollector {
             try {
                 images.add(url == null ? null : ImageIO.read(url));
             } catch (IOException e) {
-                log.error(e);
+                log.as(error, e);
             }
         }
         return images;

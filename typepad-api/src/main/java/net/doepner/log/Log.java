@@ -5,8 +5,6 @@ package net.doepner.log;
  */
 public interface Log {
 
-    void error(Throwable e);
-
     enum Level {
         trace, debug, info, warn, error
     }
