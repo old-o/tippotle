@@ -1,7 +1,7 @@
 package net.doepner.app.typepad.action;
 
-import net.doepner.app.typepad.IModel;
 import net.doepner.speech.Speaker;
+import net.doepner.text.TextProvider;
 import net.doepner.ui.IAction;
 
 /**
@@ -9,17 +9,18 @@ import net.doepner.ui.IAction;
  */
 public class SpeakAll implements IAction {
 
-    private final IModel model;
+    private final TextProvider textProvider;
     private final Speaker speaker;
 
-    public SpeakAll(IModel model, Speaker speaker) {
-        this.model = model;
+    public SpeakAll(TextProvider textProvider,
+                    Speaker speaker) {
+        this.textProvider = textProvider;
         this.speaker = speaker;
     }
 
     @Override
     public void actionPerformed() {
-        final String text = model.getText();
+        final String text = textProvider.getText();
         if (text != null && !text.isEmpty()) {
             speaker.speak(text);
         }

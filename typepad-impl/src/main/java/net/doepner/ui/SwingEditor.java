@@ -1,11 +1,7 @@
 package net.doepner.ui;
 
 import net.doepner.event.ChangeListener;
-import net.doepner.text.TextModel;
-import net.doepner.ui.text.AlphaNumStyler;
-import net.doepner.ui.text.DocTextModel;
 import net.doepner.ui.text.FontChooser;
-import net.doepner.ui.text.TextStyler;
 
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -14,8 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.StyledDocument;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -30,12 +24,9 @@ public class SwingEditor implements Editor {
 
     private final JTextPane editor;
 
-    public SwingEditor(Font editorFont) {
-        final StyledDocument doc = new DefaultStyledDocument();
-        editor = new JTextPane(doc);
-        editor.setFont(editorFont);
+    public SwingEditor(JTextPane editor) {
+        this.editor = editor;
         editor.setCaret(new BlockCaret(new SwingCaretContext(editor)));
-        doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
     }
 
     public void addAction(Action action, int i) {
@@ -54,11 +45,6 @@ public class SwingEditor implements Editor {
                 tpl.handleChange(null, e.getDot());
             }
         });
-    }
-
-    @Override
-    public TextModel getTextModel() {
-        return new DocTextModel(editor.getStyledDocument());
     }
 
     @Override

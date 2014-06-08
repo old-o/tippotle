@@ -5,7 +5,9 @@ package net.doepner.file;
  */
 public interface TextBuffers {
 
-    void save(String text, int i);
+    void save(String text);
 
-    String load(int i);
+    String load();
+
+    void nextBuffer();
 }

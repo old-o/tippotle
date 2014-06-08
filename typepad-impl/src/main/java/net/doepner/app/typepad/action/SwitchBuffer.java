@@ -1,29 +1,27 @@
 package net.doepner.app.typepad.action;
 
-import net.doepner.app.typepad.IModel;
-import net.doepner.app.typepad.IServices;
+import net.doepner.file.TextBuffers;
+import net.doepner.log.LogProvider;
+import net.doepner.text.TextModel;
 import net.doepner.ui.IAction;
 
 public class SwitchBuffer implements IAction {
 
-    private final IModel model;
-    private final IServices services;
+    private final TextModel model;
+    private final TextBuffers buffers;
 
-    public SwitchBuffer(IModel model, IServices services) {
+    public SwitchBuffer(LogProvider logProvider,
+                        TextModel model, TextBuffers buffers) {
         this.model = model;
-        this.services = services;
-        loadText();
+        this.buffers = buffers;
+        loadBuffer();
     }
 
     @Override
     public void actionPerformed() {
-        services.saveBuffer(model);
-        model.nextBuffer();
-        loadText();
-    }
-
-    private void loadText() {
-        services.loadBuffer(model);
+        saveBuffer();
+        buffers.nextBuffer();
+        loadBuffer();
     }
 
     @Override
@@ -34,5 +32,14 @@ public class SwitchBuffer implements IAction {
     @Override
     public String getIconName() {
         return getId().getIconName();
+    }
+
+    private void loadBuffer() {
+        model.setText(buffers.load().trim());
+
+    }
+
+    private void saveBuffer() {
+        buffers.save(model.getText().trim());
     }
 }

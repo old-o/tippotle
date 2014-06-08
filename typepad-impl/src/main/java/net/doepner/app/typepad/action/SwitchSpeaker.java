@@ -1,6 +1,6 @@
 package net.doepner.app.typepad.action;
 
-import net.doepner.app.typepad.IServices;
+import net.doepner.speech.ManagedSpeakers;
 import net.doepner.ui.IAction;
 
 /**
@@ -8,15 +8,15 @@ import net.doepner.ui.IAction;
  */
 public class SwitchSpeaker implements IAction {
 
-    private final IServices services;
+    private final ManagedSpeakers speakers;
 
-    public SwitchSpeaker(IServices services) {
-        this.services = services;
+    public SwitchSpeaker(ManagedSpeakers speakers) {
+        this.speakers = speakers;
     }
 
     @Override
     public void actionPerformed() {
-        services.switchSpeaker();
+        speakers.nextSpeaker();
     }
 
     @Override
@@ -26,6 +26,6 @@ public class SwitchSpeaker implements IAction {
 
     @Override
     public String getIconName() {
-        return services.getSpeaker().getName();
+        return speakers.getName();
     }
 }

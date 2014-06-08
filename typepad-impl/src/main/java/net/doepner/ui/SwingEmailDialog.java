@@ -1,6 +1,5 @@
 package net.doepner.ui;
 
-import net.doepner.app.typepad.ui.SwingFrame;
 import net.doepner.resources.ResourceFinder;
 
 import javax.swing.Icon;
@@ -14,11 +13,9 @@ import static net.doepner.file.MediaTypeEnum.image;
  */
 public class SwingEmailDialog implements EmailDialog {
 
-    private final SwingFrame frame;
     private final ResourceFinder finder;
 
-    public SwingEmailDialog(SwingFrame frame, ResourceFinder finder) {
-        this.frame = frame;
+    public SwingEmailDialog(ResourceFinder finder) {
         this.finder = finder;
     }
 
@@ -38,7 +35,7 @@ public class SwingEmailDialog implements EmailDialog {
         };
 
         final int choice = JOptionPane.showOptionDialog(
-                frame.getMainComponent(), "Recipient?", "Send email ...",
+                null, "Recipient?", "Send email ...",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 options, options[0]);
 
