@@ -15,4 +15,7 @@ public interface EmailConfig {
 
     String getPassword();
 
+    String[] getRecipientNames();
+
+    String getEmailAddress(String recipient);
 }

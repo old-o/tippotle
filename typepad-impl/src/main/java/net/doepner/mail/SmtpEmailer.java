@@ -3,12 +3,12 @@ package net.doepner.mail;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
+import static javax.mail.Message.RecipientType.TO;
 import static net.doepner.log.Log.Level.error;
 
 /**
@@ -33,7 +33,7 @@ public class SmtpEmailer implements Emailer {
             final MimeMessage msg = new MimeMessage(session);
 
             msg.setFrom(emailConfig.getSender());
-            msg.setRecipients(Message.RecipientType.TO, recipient);
+            msg.setRecipients(TO, emailConfig.getEmailAddress(recipient));
             msg.setSubject(subject);
             msg.setText(text);
 
@@ -42,5 +42,10 @@ public class SmtpEmailer implements Emailer {
         } catch (MessagingException e) {
             log.as(error, "Sending email failed", e);
         }
+    }
+
+    @Override
+    public String[] getAvailableRecipients() {
+        return emailConfig.getRecipientNames();
     }
 }

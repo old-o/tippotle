@@ -69,8 +69,15 @@ public class Application {
     private final SwingFrame frame;
 
     public Application() {
+
         final LogProvider logProvider = new Slf4jLogProvider();
         log = logProvider.getLog(getClass());
+
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            public void uncaughtException(Thread t, Throwable e) {
+                log.as(error, e);
+            }
+        });
 
         final String appName = "Typepad";
         final Path homeDir = Paths.get(System.getProperty("user.home"));

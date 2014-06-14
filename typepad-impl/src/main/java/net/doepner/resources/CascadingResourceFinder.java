@@ -57,6 +57,8 @@ public class CascadingResourceFinder implements ResourceFinder {
     }
 
     private String normalize(String rawName) {
-        return rawName.toLowerCase().replaceAll("\\s+", " ");
+        return rawName.toLowerCase()
+                .replaceAll("\\s+", " ")
+                .replaceAll("\\W", "_");
     }
 }

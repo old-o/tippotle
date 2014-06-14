@@ -20,26 +20,19 @@ public class SwingEmailDialog implements EmailDialog {
     }
 
     @Override
-    public String getRecipient() {
+    public String chooseRecipient(String[] recipients) {
 
-        // TODO: Make the recipient list configurable
-
-        final Icon[] options = {
-                getIcon("oliver"),
-                getIcon("heather"),
-        };
-
-        final String[] addresses = {
-                "odoepner@gmail.com",
-                "hldoepner@gmail.com"
-        };
+        final Icon[] options = new Icon[recipients.length];
+        for (int i = 0; i < options.length; i++) {
+            options[i] = getIcon(recipients[i]);
+        }
 
         final int choice = JOptionPane.showOptionDialog(
                 null, "Recipient?", "Send email ...",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 options, options[0]);
 
-        return choice == JOptionPane.CLOSED_OPTION ? null : addresses[choice];
+        return choice == JOptionPane.CLOSED_OPTION ? null : recipients[choice];
     }
 
     private Icon getIcon(String name) {

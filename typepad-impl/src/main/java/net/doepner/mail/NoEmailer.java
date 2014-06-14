@@ -22,4 +22,9 @@ public class NoEmailer implements Emailer {
         log.as(warn, "Not sending email '{}' to {}. No emailer active!",
                 subject, recipient);
     }
+
+    @Override
+    public String[] getAvailableRecipients() {
+        return new String[0];
+    }
 }

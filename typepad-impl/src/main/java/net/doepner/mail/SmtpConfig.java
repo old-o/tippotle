@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -37,5 +39,21 @@ public class SmtpConfig implements EmailConfig {
     @Override
     public String getPassword() {
         return props.getProperty("mail.smtp.password");
+    }
+
+    @Override
+    public String[] getRecipientNames() {
+        final List<String> list = new ArrayList<>();
+        for (String name : props.stringPropertyNames()) {
+            if (name.startsWith("mail.recipient.")) {
+                list.add(name.substring("mail.recipient.".length()));
+            }
+        }
+        return list.toArray(new String[list.size()]);
+    }
+
+    @Override
+    public String getEmailAddress(String recipient) {
+        return props.getProperty("mail.recipient." + recipient);
     }
 }

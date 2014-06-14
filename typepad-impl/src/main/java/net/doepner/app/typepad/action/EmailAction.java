@@ -25,7 +25,9 @@ public class EmailAction implements IAction {
 
     @Override
     public void actionPerformed() {
-        final String recipient = emailDialog.getRecipient();
+        final String recipient = emailDialog.chooseRecipient(
+                emailer.getAvailableRecipients());
+
         if (recipient != null) {
             emailer.send(textProvider.getText(), recipient, emailDialog.getSubject());
         }
