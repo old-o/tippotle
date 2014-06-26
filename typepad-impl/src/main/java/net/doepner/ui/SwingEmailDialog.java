@@ -6,6 +6,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import static javax.swing.JOptionPane.CLOSED_OPTION;
+import static javax.swing.JOptionPane.DEFAULT_OPTION;
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import static net.doepner.file.MediaTypeEnum.image;
 
 /**
@@ -24,18 +27,18 @@ public class SwingEmailDialog implements EmailDialog {
 
         final Icon[] options = new Icon[recipients.length];
         for (int i = 0; i < options.length; i++) {
-            options[i] = getIcon(recipients[i]);
+            options[i] = createIcon(recipients[i]);
         }
 
-        final int choice = JOptionPane.showOptionDialog(
-                null, "Recipient?", "Send email ...",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+        final int choice = JOptionPane.showOptionDialog(null,
+                "Recipient?", "Send email ...",
+                DEFAULT_OPTION, QUESTION_MESSAGE, null,
                 options, options[0]);
 
-        return choice == JOptionPane.CLOSED_OPTION ? null : recipients[choice];
+        return choice == CLOSED_OPTION ? null : recipients[choice];
     }
 
-    private Icon getIcon(String name) {
+    private Icon createIcon(String name) {
         return new ImageIcon(finder.find(image, name, null, "email"));
     }
 
