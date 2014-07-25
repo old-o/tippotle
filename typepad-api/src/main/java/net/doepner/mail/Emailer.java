@@ -5,7 +5,7 @@ package net.doepner.mail;
  */
 public interface Emailer {
 
-    void send(String text, String recipient, String subject);
+    void send(String recipient, String subject, String text);
 
     String[] getAvailableRecipients();
 }

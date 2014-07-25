@@ -25,6 +25,9 @@
                 <include>*</include>
             </includes>
             <useProjectArtifact>true</useProjectArtifact>
+            <outputFileNameMapping>
+                ${artifact.groupId}_${artifact.artifactId}-${artifact.version}.${artifact.extension}
+            </outputFileNameMapping>
             <outputDirectory>lib</outputDirectory>
         </dependencySet>
 

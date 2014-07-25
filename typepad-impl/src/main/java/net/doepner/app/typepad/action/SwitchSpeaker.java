@@ -1,6 +1,6 @@
 package net.doepner.app.typepad.action;
 
-import net.doepner.speech.ManagedSpeakers;
+import net.doepner.speech.IterableSpeakers;
 import net.doepner.ui.IAction;
 
 /**
@@ -8,9 +8,9 @@ import net.doepner.ui.IAction;
  */
 public class SwitchSpeaker implements IAction {
 
-    private final ManagedSpeakers speakers;
+    private final IterableSpeakers speakers;
 
-    public SwitchSpeaker(ManagedSpeakers speakers) {
+    public SwitchSpeaker(IterableSpeakers speakers) {
         this.speakers = speakers;
     }
 

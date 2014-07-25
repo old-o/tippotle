@@ -25,7 +25,7 @@ public class SmtpEmailer implements Emailer {
     }
 
     @Override
-    public void send(String text, String recipient, String subject) {
+    public void send(String recipient, String subject, String text) {
 
         final Session session = Session.getInstance(emailConfig.getProperties(), null);
 

@@ -33,7 +33,9 @@ import net.doepner.resources.StdImageCollector;
 import net.doepner.resources.StdResourceCollector;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
+import net.doepner.speech.IterableSpeakers;
 import net.doepner.speech.ManagedSpeakers;
+import net.doepner.speech.Speaker;
 import net.doepner.text.TextListener;
 import net.doepner.text.TextModel;
 import net.doepner.text.WordExtractor;
@@ -93,7 +95,7 @@ public class Application {
                 new ClasspathFinder(logProvider),
                 new GoogleTranslateDownload(logProvider, pathHelper));
 
-        final ManagedSpeakers managedSpeakers = new ManagedSpeakers(
+        final IterableSpeakers speakers = new ManagedSpeakers(
                 logProvider,
                 new AudioFileSpeaker("google-translate",
                         logProvider, resourceFinder, languageChanger),
@@ -131,15 +133,15 @@ public class Application {
                 imageSize, frameSize,
                 new ActionDescriptions(),
                 new SwitchLanguage(languageChanger),
-                new SpeakWord(editor, wordProvider, managedSpeakers),
+                new SpeakWord(editor, wordProvider, speakers),
                 new ResizeFont(-1, editor),
                 new ResizeFont(+1, editor),
                 new SwitchBuffer(logProvider, textModel, buffers),
-                new SwitchSpeaker(managedSpeakers),
+                new SwitchSpeaker(speakers),
                 new EmailAction(emailDialog, textModel, emailer),
-                new SpeakAll(textModel, managedSpeakers));
+                new SpeakAll(textModel, speakers));
 
-        addListeners(managedSpeakers, buffers, textModel);
+        addListeners(speakers, buffers, textModel);
     }
 
     private Emailer createEmailer(LogProvider logProvider, Path configFile) {
@@ -151,7 +153,7 @@ public class Application {
         }
     }
 
-    private void addListeners(final ManagedSpeakers managedSpeakers,
+    private void addListeners(final Speaker speaker,
                               final TextBuffers buffers,
                               final TextModel textModel) {
 
@@ -168,7 +170,7 @@ public class Application {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        managedSpeakers.speak(text);
+                        speaker.speak(text);
                     }
                 }).start();
             }

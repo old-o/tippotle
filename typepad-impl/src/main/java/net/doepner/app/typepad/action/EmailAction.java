@@ -29,7 +29,7 @@ public class EmailAction implements IAction {
                 emailer.getAvailableRecipients());
 
         if (recipient != null) {
-            emailer.send(textProvider.getText(), recipient, emailDialog.getSubject());
+            emailer.send(recipient, emailDialog.getSubject(), textProvider.getText());
         }
     }
 

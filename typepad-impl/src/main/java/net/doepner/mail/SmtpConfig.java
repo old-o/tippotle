@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -13,12 +13,18 @@ import java.util.Properties;
  */
 public class SmtpConfig implements EmailConfig {
 
-    private final Properties props = new Properties();
+    private final Properties props;
+
+    private final String recipientPropertyPrefix = "mail.recipient.";
+    private String[] recipientNames;
 
     public SmtpConfig(Path propertiesFile) throws IOException {
+        final Properties props = new Properties();
         try (InputStream stream = Files.newInputStream(propertiesFile)) {
             props.load(stream);
         }
+        recipientNames = getRecipientNames(props, recipientPropertyPrefix);
+        this.props = props;
     }
 
     @Override
@@ -43,10 +49,15 @@ public class SmtpConfig implements EmailConfig {
 
     @Override
     public String[] getRecipientNames() {
-        final List<String> list = new ArrayList<>();
+        return recipientNames;
+    }
+
+    private static String[] getRecipientNames(Properties props,
+                                              String propertyPrefix) {
+        final List<String> list = new LinkedList<>();
         for (String name : props.stringPropertyNames()) {
-            if (name.startsWith("mail.recipient.")) {
-                list.add(name.substring("mail.recipient.".length()));
+            if (name.startsWith(propertyPrefix)) {
+                list.add(name.substring(propertyPrefix.length()));
             }
         }
         return list.toArray(new String[list.size()]);
@@ -54,6 +65,6 @@ public class SmtpConfig implements EmailConfig {
 
     @Override
     public String getEmailAddress(String recipient) {
-        return props.getProperty("mail.recipient." + recipient);
+        return props.getProperty(recipientPropertyPrefix + recipient);
     }
 }

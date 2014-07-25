@@ -18,7 +18,7 @@ public class NoEmailer implements Emailer {
     }
 
     @Override
-    public void send(String text, String recipient, String subject) {
+    public void send(String recipient, String subject, String text) {
         log.as(warn, "Not sending email '{}' to {}. No emailer active!",
                 subject, recipient);
     }

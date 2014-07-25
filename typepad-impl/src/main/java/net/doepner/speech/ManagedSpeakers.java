@@ -14,7 +14,7 @@ import static net.doepner.util.ComparisonUtil.not;
 /**
  * Delegates to the currently selected speaker (among the available ones)
  */
-public class ManagedSpeakers implements Speaker {
+public class ManagedSpeakers implements IterableSpeakers {
 
     private final Iterable<Speaker> speakers;
 
@@ -56,6 +56,7 @@ public class ManagedSpeakers implements Speaker {
         }.execute();
     }
 
+    @Override
     public void nextSpeaker() {
         if (speakerIter == null || not(speakerIter.hasNext())) {
             speakerIter = speakers.iterator();

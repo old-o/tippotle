@@ -8,7 +8,7 @@
 
     <parent>
         <artifactId>typepad-parent</artifactId>
-        <groupId>net.doepner.app.typepad</groupId>
+        <groupId>net.doepner</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../typepad-parent/pom.xml</relativePath>
     </parent>
@@ -16,12 +16,12 @@
     <dependencies>
         <dependency>
             <artifactId>typepad-api</artifactId>
-            <groupId>net.doepner.app.typepad</groupId>
+            <groupId>net.doepner</groupId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <artifactId>typepad-files</artifactId>
-            <groupId>net.doepner.app.typepad</groupId>
+            <groupId>net.doepner</groupId>
             <version>${project.version}</version>
         </dependency>
 
