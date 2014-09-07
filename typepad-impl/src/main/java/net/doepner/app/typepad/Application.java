@@ -25,8 +25,9 @@ import net.doepner.mail.SmtpConfig;
 import net.doepner.mail.SmtpEmailer;
 import net.doepner.resources.CascadingResourceFinder;
 import net.doepner.resources.ClasspathFinder;
+import net.doepner.resources.FileDownload;
 import net.doepner.resources.FileFinder;
-import net.doepner.resources.GoogleTranslateDownload;
+import net.doepner.resources.GoogleTranslateUrls;
 import net.doepner.resources.ImageCollector;
 import net.doepner.resources.ResourceFinder;
 import net.doepner.resources.StdImageCollector;
@@ -97,7 +98,7 @@ public class Application {
         final ResourceFinder resourceFinder = new CascadingResourceFinder(
                 new FileFinder(pathHelper, logProvider),
                 new ClasspathFinder(logProvider),
-                new GoogleTranslateDownload(logProvider, pathHelper));
+                new FileDownload(logProvider, pathHelper, new GoogleTranslateUrls()));
 
         final AudioPlayer audioPlayer = new StdAudioPlayer(logProvider,
                 new DirectStreamPlayer(),

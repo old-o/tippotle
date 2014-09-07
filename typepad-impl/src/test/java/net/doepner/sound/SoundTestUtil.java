@@ -31,8 +31,8 @@ public class SoundTestUtil {
 //                "C:/Documents and Settings/isdc858/Desktop/blah.mp3");
 //                "C:/WINDOWS/Media/Windows XP Startup.wav");
 //                "/home/oliver/bubba/storage/music/aztec_camera/knife/all_i_need_is_everything.ogg"
-                "/home/oliver/bubba/storage/music/crash_test_dummies/god_shuffled_his_feet/mmm_mmm_mmm_mmm.ogg"
-//                "/home/oliver/bubba/storage/music/peter_bjorn_john/Peter_Bjorn_and_John_-_Young_Folks.mp3"
+//                "/home/oliver/bubba/storage/music/crash_test_dummies/god_shuffled_his_feet/mmm_mmm_mmm_mmm.ogg"
+                "/home/oliver/bubba/storage/music/peter_bjorn_john/Peter_Bjorn_and_John_-_Young_Folks.mp3"
         );
 //                  "/yazoo/Upstairs_At_Eric_s/01-Don_t_Go.ogg");
 //                "/arbeit/an_den_deutschen_mond/ich_stand_auf_hohem_berge.wav");
