@@ -39,7 +39,7 @@ public class GoogleTranslateDownload implements ResourceDownloader {
     @Override
     public File download(Language language, String name, Path targetDir) {
         try {
-            final URL url = getDownloadUrl(name, language);
+            final URL url = getDownloadUrl(name.replaceAll("_", " "), language);
             log.as(info, "Retrieving {}", url);
 
             final URLConnection c = url.openConnection();

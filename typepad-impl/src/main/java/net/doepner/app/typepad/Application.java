@@ -31,6 +31,10 @@ import net.doepner.resources.ImageCollector;
 import net.doepner.resources.ResourceFinder;
 import net.doepner.resources.StdImageCollector;
 import net.doepner.resources.StdResourceCollector;
+import net.doepner.sound.AudioPlayer;
+import net.doepner.sound.ConvertingStreamPlayer;
+import net.doepner.sound.DirectStreamPlayer;
+import net.doepner.sound.StdAudioPlayer;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.IterableSpeakers;
@@ -95,10 +99,14 @@ public class Application {
                 new ClasspathFinder(logProvider),
                 new GoogleTranslateDownload(logProvider, pathHelper));
 
+        final AudioPlayer audioPlayer = new StdAudioPlayer(logProvider,
+                new DirectStreamPlayer(),
+                new ConvertingStreamPlayer(logProvider));
+
         final IterableSpeakers speakers = new ManagedSpeakers(
                 logProvider,
                 new AudioFileSpeaker("google-translate",
-                        logProvider, resourceFinder, languageChanger),
+                        resourceFinder, languageChanger, audioPlayer),
                 new ESpeaker(languageChanger, "robbi")
         );
 
@@ -121,7 +129,7 @@ public class Application {
 
         final WordProvider wordProvider = new WordExtractor(logProvider, textModel);
 
-        final EmailDialog emailDialog = new SwingEmailDialog(resourceFinder);
+        final EmailDialog emailDialog = new SwingEmailDialog(imageCollector);
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);
@@ -138,7 +146,7 @@ public class Application {
                 new ResizeFont(+1, editor),
                 new SwitchBuffer(logProvider, textModel, buffers),
                 new SwitchSpeaker(speakers),
-                new EmailAction(emailDialog, textModel, emailer),
+                new EmailAction(emailDialog, textModel, emailer, speakers),
                 new SpeakAll(textModel, speakers));
 
         addListeners(speakers, buffers, textModel);

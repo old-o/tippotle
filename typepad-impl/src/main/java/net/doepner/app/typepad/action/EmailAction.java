@@ -1,6 +1,7 @@
 package net.doepner.app.typepad.action;
 
 import net.doepner.mail.Emailer;
+import net.doepner.speech.Speaker;
 import net.doepner.text.TextProvider;
 import net.doepner.ui.ActionId;
 import net.doepner.ui.EmailDialog;
@@ -14,13 +15,16 @@ public class EmailAction implements IAction {
     private final EmailDialog emailDialog;
     private final TextProvider textProvider;
     private Emailer emailer;
+    private final Speaker speaker;
 
     public EmailAction(EmailDialog emailDialog,
                        TextProvider textProvider,
-                       Emailer emailer) {
+                       Emailer emailer,
+                       Speaker speaker) {
         this.emailDialog = emailDialog;
         this.textProvider = textProvider;
         this.emailer = emailer;
+        this.speaker = speaker;
     }
 
     @Override
@@ -30,6 +34,7 @@ public class EmailAction implements IAction {
 
         if (recipient != null) {
             emailer.send(recipient, emailDialog.getSubject(), textProvider.getText());
+            speaker.speak("Email was sent to " + recipient);
         }
     }
 

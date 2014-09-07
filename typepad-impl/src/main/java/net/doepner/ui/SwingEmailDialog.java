@@ -1,25 +1,39 @@
 package net.doepner.ui;
 
-import net.doepner.resources.ResourceFinder;
+import net.doepner.resources.ImageCollector;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import java.awt.Image;
+import java.util.Iterator;
 
 import static javax.swing.JOptionPane.CLOSED_OPTION;
 import static javax.swing.JOptionPane.DEFAULT_OPTION;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
-import static net.doepner.file.MediaTypeEnum.image;
 
 /**
  * Prompts user to select an email recipient
  */
 public class SwingEmailDialog implements EmailDialog {
 
-    private final ResourceFinder finder;
+    private final ImageCollector collector;
 
-    public SwingEmailDialog(ResourceFinder finder) {
-        this.finder = finder;
+    private final JPanel inputPanel;
+    private final JTextField subjectField;
+
+    public SwingEmailDialog(ImageCollector collector) {
+        this.collector = collector;
+
+        subjectField = new JTextField("Typepad message");
+
+        inputPanel = new JPanel(new BorderLayout());
+        inputPanel.add(new JLabel("Subject: "), BorderLayout.WEST);
+        inputPanel.add(subjectField, BorderLayout.CENTER);
     }
 
     @Override
@@ -31,7 +45,7 @@ public class SwingEmailDialog implements EmailDialog {
         }
 
         final int choice = JOptionPane.showOptionDialog(null,
-                "Recipient?", "Send email ...",
+                inputPanel, "Send email ...",
                 DEFAULT_OPTION, QUESTION_MESSAGE, null,
                 options, options[0]);
 
@@ -39,13 +53,16 @@ public class SwingEmailDialog implements EmailDialog {
     }
 
     private Icon createIcon(String name) {
-        return new ImageIcon(finder.find(image, name, null, "email"));
+        final Iterator<Image> images = collector.getImages(name).iterator();
+        if (images.hasNext()) {
+            return new ImageIcon(images.next());
+        } else {
+            return new ImageIcon();
+        }
     }
 
     @Override
     public String getSubject() {
-        // TODO: Make the subject configurable
-        return "Typepad message";
+        return subjectField.getText();
     }
-
 }

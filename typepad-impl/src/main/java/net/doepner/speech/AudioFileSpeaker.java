@@ -2,10 +2,8 @@ package net.doepner.speech;
 
 import net.doepner.lang.Language;
 import net.doepner.lang.LanguageProvider;
-import net.doepner.log.LogProvider;
 import net.doepner.resources.ResourceFinder;
 import net.doepner.sound.AudioPlayer;
-import net.doepner.sound.StdAudioPlayer;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -21,15 +19,16 @@ public class AudioFileSpeaker implements TestableSpeaker {
     private final String speakerName;
     private final ResourceFinder resourceFinder;
     private final LanguageProvider languageProvider;
-    private final AudioPlayer player;
+    private final AudioPlayer audioPlayer;
 
-    public AudioFileSpeaker(String speakerName, LogProvider logProvider,
+    public AudioFileSpeaker(String speakerName,
                             ResourceFinder resourceFinder,
-                            LanguageProvider languageProvider) {
+                            LanguageProvider languageProvider,
+                            AudioPlayer audioPlayer) {
         this.speakerName = speakerName;
         this.resourceFinder = resourceFinder;
         this.languageProvider = languageProvider;
-        player = new StdAudioPlayer(logProvider);
+        this.audioPlayer = audioPlayer;
     }
 
     @Override
@@ -39,16 +38,19 @@ public class AudioFileSpeaker implements TestableSpeaker {
 
     @Override
     public void speak(final String text) {
+        speakPart(text);
+/*
         for (String s : text.toLowerCase().split("[^\\w']+")) {
             speakPart(s);
         }
+*/
     }
 
     private void speakPart(String text) {
         final Language language = languageProvider.getLanguage();
         final URL audioFile = resourceFinder.find(audio, text, language, speakerName);
         try {
-            player.play(audioFile);
+            audioPlayer.play(audioFile);
         } catch (IOException | UnsupportedAudioFileException e) {
             throw new IllegalStateException(e);
         }

@@ -20,12 +20,16 @@ import static net.doepner.log.Log.Level.error;
  */
 public class StdAudioPlayer implements AudioPlayer {
 
-    private final AudioStreamPlayer directPlayer = new DirectStreamPlayer();
-    private final AudioStreamPlayer convertingPlayer = new ConvertingStreamPlayer();
+    private final AudioStreamPlayer directPlayer;
+    private final AudioStreamPlayer convertingPlayer;
 
     private final Log log;
 
-    public StdAudioPlayer(LogProvider logProvider) {
+    public StdAudioPlayer(LogProvider logProvider,
+                          AudioStreamPlayer directPlayer,
+                          AudioStreamPlayer convertingPlayer) {
+        this.directPlayer = directPlayer;
+        this.convertingPlayer = convertingPlayer;
         this.log = logProvider.getLog(getClass());
     }
 

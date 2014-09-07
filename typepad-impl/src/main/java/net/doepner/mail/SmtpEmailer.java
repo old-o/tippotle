@@ -10,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 import static javax.mail.Message.RecipientType.TO;
 import static net.doepner.log.Log.Level.error;
+import static net.doepner.log.Log.Level.info;
 
 /**
  * Sends simple emails by SMTP
@@ -33,11 +34,13 @@ public class SmtpEmailer implements Emailer {
             final MimeMessage msg = new MimeMessage(session);
 
             msg.setFrom(emailConfig.getSender());
-            msg.setRecipients(TO, emailConfig.getEmailAddress(recipient));
+            final String toAddress = emailConfig.getEmailAddress(recipient);
+            msg.setRecipients(TO, toAddress);
             msg.setSubject(subject);
             msg.setText(text);
 
             Transport.send(msg, emailConfig.getUsername(), emailConfig.getPassword());
+            log.as(info, "Sent email regarding '{}' to {}", subject, toAddress);
 
         } catch (MessagingException e) {
             log.as(error, "Sending email failed", e);
