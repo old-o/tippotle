@@ -114,7 +114,7 @@ public class Application {
         final ImageCollector imageCollector = new StdImageCollector(
                 new StdResourceCollector(resourceFinder), 10, logProvider);
 
-        final TextBuffers buffers = new TextFiles(logProvider, pathHelper);
+        final TextBuffers buffers = new TextFiles(logProvider, pathHelper, 5);
 
         final Path configFile = pathHelper.findOrCreate("email.properties", PathType.FILE);
         final Emailer emailer = createEmailer(logProvider, configFile);

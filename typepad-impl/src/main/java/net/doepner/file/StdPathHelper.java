@@ -14,6 +14,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static net.doepner.file.PathType.DIRECTORY;
 import static net.doepner.log.Log.Level.debug;
 import static net.doepner.log.Log.Level.info;
 
@@ -26,12 +27,12 @@ public final class StdPathHelper implements PathHelper {
                          LogProvider logProvider) {
         log = logProvider.getLog(getClass());
         appDir = homeDir.resolve("." + appName.toLowerCase());
-        createIfNecessary(appDir, PathType.DIRECTORY);
+        createIfNecessary(appDir, DIRECTORY);
     }
 
     @Override
     public Path findInDir(Path dir, String name, MediaType mediaType) {
-        createIfNecessary(dir, PathType.DIRECTORY);
+        createIfNecessary(dir, DIRECTORY);
         for (FileType fileType : mediaType.getFileTypes()) {
             final Path path = dir.resolve(sanitize(name) + '.' + fileType.getExtension());
             if (Files.exists(path)) {

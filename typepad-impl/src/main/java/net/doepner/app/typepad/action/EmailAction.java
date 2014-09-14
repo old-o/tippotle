@@ -14,6 +14,7 @@ public class EmailAction implements IAction {
 
     private final EmailDialog emailDialog;
     private final TextProvider textProvider;
+
     private Emailer emailer;
     private final Speaker speaker;
 

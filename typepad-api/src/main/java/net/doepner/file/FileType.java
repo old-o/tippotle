@@ -1,7 +1,7 @@
 package net.doepner.file;
 
 /**
- * TODO: Document this!
+ * A file type
  */
 public interface FileType {
 
