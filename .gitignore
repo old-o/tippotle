@@ -12,3 +12,14 @@ target
 *.war
 *.ear
 
+
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/.name
+.idea/libraries
+.idea/copyright
+.idea/scopes
