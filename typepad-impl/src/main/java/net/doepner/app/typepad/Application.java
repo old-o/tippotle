@@ -150,6 +150,17 @@ public class Application {
                 new EmailAction(emailDialog, textModel, emailer, speakers),
                 new SpeakAll(textModel, speakers));
 
+/*
+        // You should work with UI (including installing L&F) inside Event Dispatch Thread (EDT)
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // Install WebLaF as application L&F
+                WebLookAndFeel.install();
+            }
+        });
+*/
+
         addListeners(speakers, buffers, textModel);
     }
 
