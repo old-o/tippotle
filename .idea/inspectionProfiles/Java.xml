@@ -1133,7 +1133,7 @@
       <option name="m_maxLength" value="32" />
     </inspection_tool>
     <inspection_tool class="InstanceVariableOfConcreteClass" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="InstanceVariableUninitializedUse" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="InstanceVariableUninitializedUse" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="m_ignorePrimitives" value="false" />
       <option name="annotationNamesString" value="" />
     </inspection_tool>
@@ -2405,7 +2405,7 @@
     </inspection_tool>
     <inspection_tool class="ValidExternallyBoundObject" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="VarargParameter" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="VariableNotUsedInsideIf" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="VariableNotUsedInsideIf" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="VoidExpressionJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="VoidMethodAnnotatedWithGET" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="VolatileArrayField" enabled="true" level="WARNING" enabled_by_default="true" />
