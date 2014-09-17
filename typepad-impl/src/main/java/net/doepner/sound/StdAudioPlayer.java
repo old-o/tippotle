@@ -18,7 +18,7 @@ import static net.doepner.log.Log.Level.error;
 /**
  * Default audio player that delegates to the appropriate stream player
  */
-public class StdAudioPlayer implements AudioPlayer {
+public final class StdAudioPlayer implements AudioPlayer {
 
     private final AudioStreamPlayer directPlayer;
     private final AudioStreamPlayer convertingPlayer;
@@ -49,7 +49,7 @@ public class StdAudioPlayer implements AudioPlayer {
             player.play(stream);
 
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         } catch (IOException e) {
             log.as(error, e);
         }

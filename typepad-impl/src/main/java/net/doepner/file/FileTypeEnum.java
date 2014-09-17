@@ -22,7 +22,7 @@ public enum FileTypeEnum implements FileType {
 
     private final MediaTypeEnum mediaType;
 
-    private FileTypeEnum(MediaTypeEnum mediaType) {
+    FileTypeEnum(MediaTypeEnum mediaType) {
         this.mediaType = mediaType;
     }
 

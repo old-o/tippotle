@@ -3,6 +3,7 @@ package net.doepner.resources;
 import net.doepner.file.MediaType;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Standard implementation of ResourceCollector,
  * based on a wrapped ResourceFinder
  */
-public class StdResourceCollector implements ResourceCollector {
+public final class StdResourceCollector implements ResourceCollector {
 
     private ResourceFinder finder;
 
@@ -20,8 +21,8 @@ public class StdResourceCollector implements ResourceCollector {
 
     @Override
     public Iterable<URL> findAll(MediaType mediaType, String name, List<?> categories) {
-        final List<URL> list = new LinkedList<>();
-        for (Object category : categories) {
+        final Collection<URL> list = new LinkedList<>();
+        for (final Object category : categories) {
             list.add(finder.find(mediaType, name, null, category.toString()));
         }
         return list;

@@ -13,18 +13,18 @@ import java.util.Properties;
  */
 public class SmtpConfig implements EmailConfig {
 
+    private static final String RECIPIENT_PROPERTY_PREFIX = "mail.recipient.";
+
+    private final String[] recipientNames;
     private final Properties props;
 
-    private final String recipientPropertyPrefix = "mail.recipient.";
-    private String[] recipientNames;
-
     public SmtpConfig(Path propertiesFile) throws IOException {
-        final Properties props = new Properties();
+        final Properties properties = new Properties();
         try (InputStream stream = Files.newInputStream(propertiesFile)) {
-            props.load(stream);
+            properties.load(stream);
         }
-        recipientNames = getRecipientNames(props, recipientPropertyPrefix);
-        this.props = props;
+        recipientNames = getRecipientNames(properties, RECIPIENT_PROPERTY_PREFIX);
+        props = properties;
     }
 
     @Override
@@ -65,6 +65,6 @@ public class SmtpConfig implements EmailConfig {
 
     @Override
     public String getEmailAddress(String recipient) {
-        return props.getProperty(recipientPropertyPrefix + recipient);
+        return props.getProperty(RECIPIENT_PROPERTY_PREFIX + recipient);
     }
 }

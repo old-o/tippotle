@@ -7,7 +7,7 @@ import static net.doepner.log.Log.Level.info;
 import static net.doepner.text.CharConditions.IS_NUMBER_PART;
 import static net.doepner.text.CharConditions.IS_WORD_PART;
 
-public class WordExtractor implements WordProvider {
+public final class WordExtractor implements WordProvider {
 
     private final Log log;
     private final TextProvider textProvider;

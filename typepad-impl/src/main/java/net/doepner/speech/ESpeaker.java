@@ -5,7 +5,9 @@ import net.doepner.lang.LanguageProvider;
 import java.io.IOException;
 
 
-public class ESpeaker implements TestableSpeaker {
+public final class ESpeaker implements TestableSpeaker {
+
+    private static final String ESPEAK_COMMAND = "espeak";
 
     private final LanguageProvider languageProvider;
     private final String name;
@@ -25,14 +27,16 @@ public class ESpeaker implements TestableSpeaker {
         try {
             doSpeak(text);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
     @Override
     public void test() {
         try {
-            Runtime.getRuntime().exec(new String[]{"espeak", "-h"});
+            Runtime.getRuntime().exec(new String[]{
+                    ESPEAK_COMMAND,
+                    "-h"});
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -40,7 +44,9 @@ public class ESpeaker implements TestableSpeaker {
 
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
-                "espeak", "-v", languageProvider.getLanguage().getCode(), text
+                ESPEAK_COMMAND, "-v",
+                languageProvider.getLanguage().getCode(),
+                text
         });
     }
 }

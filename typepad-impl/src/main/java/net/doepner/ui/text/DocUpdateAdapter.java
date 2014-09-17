@@ -12,21 +12,21 @@ public abstract class DocUpdateAdapter implements DocumentListener {
     protected abstract void handleUpdate(DocumentEvent e);
 
     @Override
-    public void insertUpdate(DocumentEvent e) {
+    public final void insertUpdate(DocumentEvent e) {
         handleUpdate(e);
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public final void removeUpdate(DocumentEvent e) {
         // nothing to do
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public final void changedUpdate(DocumentEvent e) {
         // nothing to do
     }
 
-    protected String getText(DocumentEvent e) {
+    protected static String getText(DocumentEvent e) {
         try {
             return e.getDocument().getText(e.getOffset(), e.getLength());
         } catch (BadLocationException ble) {

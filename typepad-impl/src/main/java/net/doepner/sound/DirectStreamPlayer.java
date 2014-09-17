@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Plays supported audio files directly
  */
-public class DirectStreamPlayer implements AudioStreamPlayer {
+public final class DirectStreamPlayer implements AudioStreamPlayer {
 
     @Override
     public void play(AudioInputStream stream)

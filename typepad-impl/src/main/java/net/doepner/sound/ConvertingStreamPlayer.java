@@ -15,12 +15,18 @@ import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static net.doepner.log.Log.Level.debug;
 
-public class ConvertingStreamPlayer implements AudioStreamPlayer {
+/**
+ * Converts and plays audio stream (based on conversion
+ * support found in the Java audio system)
+ */
+public final class ConvertingStreamPlayer implements AudioStreamPlayer {
 
     private final Log log;
+    private final int bufferSize;
 
-    public ConvertingStreamPlayer(LogProvider logProvider) {
+    public ConvertingStreamPlayer(LogProvider logProvider, int bufferSize) {
         log = logProvider.getLog(getClass());
+        this.bufferSize = bufferSize;
     }
 
     @Override
@@ -47,14 +53,14 @@ public class ConvertingStreamPlayer implements AudioStreamPlayer {
         log.as(debug, "Playing ended ...");
     }
 
-    private AudioFormat getOutFormat(AudioFormat inFormat) {
+    private static AudioFormat getOutFormat(AudioFormat inFormat) {
         final int ch = inFormat.getChannels();
         final float rate = inFormat.getSampleRate();
         return new AudioFormat(PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);
     }
 
     private void stream(AudioInputStream in, SourceDataLine line) throws IOException {
-        final byte[] buffer = new byte[65536];
+        final byte[] buffer = new byte[bufferSize];
         for (int n = 0; n != -1; n = in.read(buffer, 0, buffer.length)) {
             line.write(buffer, 0, n);
         }

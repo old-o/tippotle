@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 /**
  * Logs using an slf4j logger
  */
-public class Slf4jLog implements Log {
+public final class Slf4jLog implements Log {
 
     private final Logger logger;
 

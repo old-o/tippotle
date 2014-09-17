@@ -15,14 +15,14 @@ import static net.doepner.log.Log.Level.info;
 /**
  * Sends simple emails by SMTP
  */
-public class SmtpEmailer implements Emailer {
+public final class SmtpEmailer implements Emailer {
 
     private final EmailConfig emailConfig;
     private final Log log;
 
     public SmtpEmailer(EmailConfig emailConfig, LogProvider logProvider) {
         this.emailConfig = emailConfig;
-        this.log = logProvider.getLog(getClass());
+        log = logProvider.getLog(getClass());
     }
 
     @Override

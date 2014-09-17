@@ -4,9 +4,9 @@ import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
 
 import javax.swing.SwingWorker;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import static net.doepner.log.Log.Level.warn;
 import static net.doepner.util.ComparisonUtil.not;
@@ -14,7 +14,7 @@ import static net.doepner.util.ComparisonUtil.not;
 /**
  * Delegates to the currently selected speaker (among the available ones)
  */
-public class ManagedSpeakers implements IterableSpeakers {
+public final class ManagedSpeakers implements IterableSpeakers {
 
     private final Iterable<Speaker> speakers;
 
@@ -25,7 +25,7 @@ public class ManagedSpeakers implements IterableSpeakers {
                            TestableSpeaker... speakers) {
         final Log log = logProvider.getLog(getClass());
 
-        final List<Speaker> speakerList = new LinkedList<>();
+        final Collection<Speaker> speakerList = new LinkedList<>();
         for (TestableSpeaker speaker : speakers) {
             try {
                 speaker.test();

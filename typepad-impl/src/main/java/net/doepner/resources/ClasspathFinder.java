@@ -15,7 +15,7 @@ import static net.doepner.log.Log.Level.info;
 /**
  * Finds classpath resources
  */
-public class ClasspathFinder implements ResourceFinder {
+public final class ClasspathFinder implements ResourceFinder {
 
     private final String baseLocation;
     private final Log log;
@@ -29,7 +29,7 @@ public class ClasspathFinder implements ResourceFinder {
         log = logProvider.getLog(getClass());
     }
 
-    private String getLocation(Package pkg) {
+    private static String getLocation(Package pkg) {
         return '/' + pkg.getName().replace('.', '/');
     }
 
@@ -56,11 +56,11 @@ public class ClasspathFinder implements ResourceFinder {
         return null;
     }
 
-    private String pathPart(String category) {
+    private static String pathPart(String category) {
         return category == null ? "_" : category;
     }
 
-    private String pathPart(Language language) {
+    private static String pathPart(Language language) {
         return language == null ? "_" : language.getCode();
     }
 }

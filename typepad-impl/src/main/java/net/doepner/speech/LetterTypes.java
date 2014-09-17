@@ -8,7 +8,8 @@ import net.doepner.text.CharConditions;
  */
 public class LetterTypes {
 
-    public static final CharCondition VOWEL = CharConditions.in("aeiouüöäy");
+    public static final CharCondition VOWEL =
+            CharConditions.in("aeiouüöäy");
 
     public static final CharCondition ASPIRATED_PLOSIVE =
             CharConditions.in("ptk");
@@ -19,5 +20,6 @@ public class LetterTypes {
     public static final CharCondition FRICATIVE =
             CharConditions.in("wsfhzxvß");
 
-    public static final CharCondition NASAL = CharConditions.in("mn");
+    public static final CharCondition NASAL =
+            CharConditions.in("mn");
 }

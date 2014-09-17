@@ -14,7 +14,7 @@ import java.net.URLEncoder;
  * Constructs URLs for spoken word from Google Translate site,
  * with language-specific pronunciation
  */
-public class GoogleTranslateUrls implements UrlProvider {
+public final class GoogleTranslateUrls implements UrlProvider {
 
     private static final String USER_AGENT = "Mozilla/5.0 (X11; Linux i686; rv:21.0) " +
             "Gecko/20100101 Firefox/21.0 Iceweasel/21.0";
@@ -35,11 +35,11 @@ public class GoogleTranslateUrls implements UrlProvider {
         return FileTypeEnum.mp3;
     }
 
-    private String urlEncode(String text) {
+    private static String urlEncode(String text) {
         try {
             return URLEncoder.encode(text, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 }

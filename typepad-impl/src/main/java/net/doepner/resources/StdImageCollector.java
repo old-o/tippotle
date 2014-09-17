@@ -18,7 +18,7 @@ import static net.doepner.log.Log.Level.error;
 /**
  * Finds batches of images
  */
-public class StdImageCollector implements ImageCollector {
+public final class StdImageCollector implements ImageCollector {
 
     private final List<String> folders;
     private final ResourceCollector collector;

@@ -17,7 +17,7 @@ import static net.doepner.log.Log.Level.info;
 /**
  * Downloads files from URLs to the local filesystem
  */
-public class FileDownload implements ResourceDownloader {
+public final class FileDownload implements ResourceDownloader {
 
     private final Log log;
     private final PathHelper pathHelper;
@@ -43,7 +43,7 @@ public class FileDownload implements ResourceDownloader {
             return pathHelper.writeFile(name, targetDir, c.getInputStream(), getFileType());
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 

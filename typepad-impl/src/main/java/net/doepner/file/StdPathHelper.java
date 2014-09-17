@@ -61,9 +61,9 @@ public final class StdPathHelper implements PathHelper {
         final ReadableByteChannel rbc = Channels.newChannel(stream);
         final File file = targetDir.resolve(sanitize(name) + '.' + fileType.getExtension()).toFile();
 
-        try (final FileOutputStream fos = new FileOutputStream(file)) {
-            final FileChannel channel = fos.getChannel();
-            channel.transferFrom(rbc, 0, Long.MAX_VALUE);
+        try (final FileOutputStream fos = new FileOutputStream(file);
+             final FileChannel channel = fos.getChannel()) {
+            channel.transferFrom(rbc, 0L, Long.MAX_VALUE);
         }
         return file;
     }

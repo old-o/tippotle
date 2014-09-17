@@ -7,8 +7,11 @@ import java.util.Map;
 
 /**
  * Localization map for objects of certain type
+ *
+ * @param <K> Key type
+ * @param <V> Value type
  */
-public class L10nMapper<K, V> implements L10nRegistry<K, V> {
+public final class L10nMapper<K, V> implements L10nRegistry<K, V> {
 
     private final Map<Language, Map<K, V>> map = new HashMap<>();
 

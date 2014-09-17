@@ -9,7 +9,7 @@ import net.doepner.log.LogProvider;
 
 import static net.doepner.log.Log.Level.info;
 
-public class CanadianDeutsch implements LanguageChanger {
+public final class CanadianDeutsch implements LanguageChanger {
 
     private final Log log;
 

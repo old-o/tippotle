@@ -14,7 +14,7 @@ import static net.doepner.file.MediaTypeEnum.audio;
 /**
  * Speaks by playing audio files
  */
-public class AudioFileSpeaker implements TestableSpeaker {
+public final class AudioFileSpeaker implements TestableSpeaker {
 
     private final String speakerName;
     private final ResourceFinder resourceFinder;
@@ -58,7 +58,7 @@ public class AudioFileSpeaker implements TestableSpeaker {
 
     @Override
     public void test() {
-        speak(getName());
+        speak(speakerName);
     }
 }
 

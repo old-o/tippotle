@@ -9,7 +9,9 @@ import static net.doepner.log.Log.Level.warn;
  * Sends no emails, just logs warnings
  * (use it when email setup failed)
  */
-public class NoEmailer implements Emailer {
+public final class NoEmailer implements Emailer {
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private final Log log;
 
@@ -25,6 +27,6 @@ public class NoEmailer implements Emailer {
 
     @Override
     public String[] getAvailableRecipients() {
-        return new String[0];
+        return EMPTY_STRING_ARRAY;
     }
 }

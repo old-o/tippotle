@@ -11,7 +11,11 @@ import java.awt.FontMetrics;
  * document of the text component, relative to the current
  * caret position
  */
-public class SwingCaretContext implements CaretContext {
+public final class SwingCaretContext implements CaretContext {
+
+    private static final long serialVersionUID = 1L;
+
+    private static final String CARET_WIDTH_PROPERTY = "caretWidth";
 
     private final JTextComponent component;
 
@@ -21,6 +25,7 @@ public class SwingCaretContext implements CaretContext {
         }
         this.component = component;
         this.component.addCaretListener(new CaretListener() {
+            @Override
             public void caretUpdate(CaretEvent e) {
                 updateCaretWidth();
             }
@@ -30,21 +35,21 @@ public class SwingCaretContext implements CaretContext {
 
     private void updateCaretWidth() {
         final Integer width = getWidth(component.getCaretPosition());
-        component.putClientProperty("caretWidth", width);
+        component.putClientProperty(CARET_WIDTH_PROPERTY, width);
     }
 
     @Override
     public int getCaretWidth() {
-        final Object caretWidth = component.getClientProperty("caretWidth");
-        return caretWidth instanceof Integer ? (int) caretWidth : 3;
+        final Object caretWidth = component.getClientProperty(CARET_WIDTH_PROPERTY);
+        return caretWidth instanceof Integer ? ((Integer) caretWidth).intValue() : 3;
     }
 
     private Integer getWidth(int pos) {
         final String text = component.getText();
         if (pos >= 0 && pos < text.length()) {
             final String currentCharacter = String.valueOf(text.charAt(pos));
-            final FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
-            return fontMetrics.stringWidth(currentCharacter);
+            final FontMetrics metrics = component.getFontMetrics(component.getFont());
+            return metrics.stringWidth(currentCharacter);
         } else {
             return null;
         }

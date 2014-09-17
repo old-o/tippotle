@@ -5,11 +5,12 @@ import net.doepner.lang.Language;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.regex.Pattern;
 
 /**
  * Finds files in classpath, file system or online
  */
-public class CascadingResourceFinder implements ResourceFinder {
+public final class CascadingResourceFinder implements ResourceFinder {
 
     private final ResourceStore store;
     private final ResourceFinder finder;
@@ -56,9 +57,12 @@ public class CascadingResourceFinder implements ResourceFinder {
         return null;
     }
 
-    private String normalize(String rawName) {
-        return rawName.toLowerCase()
-                .replaceAll("\\s+", " ")
-                .replaceAll("\\W", "_");
+    private static final Pattern WHITESPACE = Pattern.compile("\\s+");
+    private static final Pattern NON_WORD_CHARS = Pattern.compile("\\W");
+
+    private static String normalize(String rawName) {
+        final String whitespaceCleaned =
+                WHITESPACE.matcher(rawName.toLowerCase()).replaceAll(" ");
+        return NON_WORD_CHARS.matcher(whitespaceCleaned).replaceAll("_");
     }
 }

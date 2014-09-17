@@ -1,5 +1,8 @@
 package net.doepner.lang;
 
+/**
+ * Enumerates supported languages
+ */
 public enum LanguageEnum implements Language {
 
     CANADIAN("en-ca"),
@@ -7,7 +10,7 @@ public enum LanguageEnum implements Language {
 
     private final String code;
 
-    private LanguageEnum(String code) {
+    LanguageEnum(String code) {
         this.code = code;
     }
 
@@ -16,6 +19,7 @@ public enum LanguageEnum implements Language {
         return code;
     }
 
+    @Override
     public String toString() {
         return capitalize(name());
     }

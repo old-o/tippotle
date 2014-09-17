@@ -53,7 +53,8 @@ public class FontChooser extends JComboBox<Font> {
         private final ListCellRenderer<Object> renderer =
                 new DefaultListCellRenderer();
 
-        public Component getListCellRendererComponent(
+        @Override
+        public final Component getListCellRendererComponent(
                 JList<? extends Font> list, Font font, int index,
                 boolean isSelected, boolean cellHasFocus) {
 
@@ -66,7 +67,7 @@ public class FontChooser extends JComboBox<Font> {
     }
 
     private static void setFontPreserveSize(final Component comp, Font font) {
-        final float size = comp.getFont().getSize();
+        final float size = (float) comp.getFont().getSize();
         comp.setFont(font.deriveFont(size));
     }
 }

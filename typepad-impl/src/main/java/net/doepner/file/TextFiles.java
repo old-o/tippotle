@@ -14,7 +14,7 @@ import static net.doepner.log.Log.Level.info;
 /**
  * Implements text buffers using file system storage
  */
-public class TextFiles implements TextBuffers {
+public final class TextFiles implements TextBuffers {
 
     private final int maxBuffer;
 
