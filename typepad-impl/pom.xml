@@ -31,6 +31,21 @@
             <version>1.5.2</version>
         </dependency>
 
+        <!--
+                <dependency>
+                    <groupId>de.sciss</groupId>
+                    <artifactId>weblaf-ui</artifactId>
+                    <version>1.28</version>
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>slf4j-simple</artifactId>
+                            <groupId>org.slf4j</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+        -->
+
+
         <!-- runtime dependencies (not required for compilation) -->
 
         <dependency>
