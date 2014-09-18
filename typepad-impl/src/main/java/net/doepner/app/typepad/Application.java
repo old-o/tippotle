@@ -56,7 +56,6 @@ import net.doepner.ui.text.TextStyler;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.UIManager;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
 import java.awt.Dimension;
@@ -70,20 +69,13 @@ import static net.doepner.log.Log.Level.error;
 /**
  * Wires up the application
  */
-public class Application {
+public final class Application {
 
     private final Log log;
 
     private final SwingFrame frame;
 
     public Application() {
-
-        try {
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         final LogProvider logProvider = new Slf4jLogProvider();
         log = logProvider.getLog(getClass());
@@ -184,9 +176,9 @@ public class Application {
         }
     }
 
-    private void addListeners(final Speaker speaker,
-                              final TextBuffers buffers,
-                              final TextModel textModel) {
+    private static void addListeners(final Speaker speaker,
+                                     final TextBuffers buffers,
+                                     final TextModel textModel) {
 
         addShutdownHook(new Runnable() {
             @Override
