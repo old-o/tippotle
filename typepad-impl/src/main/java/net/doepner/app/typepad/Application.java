@@ -56,6 +56,7 @@ import net.doepner.ui.text.TextStyler;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
 import java.awt.Dimension;
@@ -77,11 +78,19 @@ public class Application {
 
     public Application() {
 
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         final LogProvider logProvider = new Slf4jLogProvider();
         log = logProvider.getLog(getClass());
 
         Thread.setDefaultUncaughtExceptionHandler(
                 new Thread.UncaughtExceptionHandler() {
+                    @Override
                     public void uncaughtException(Thread t, Throwable e) {
                         log.as(error, e);
                     }
@@ -149,6 +158,8 @@ public class Application {
                 new SwitchSpeaker(speakers),
                 new EmailAction(emailDialog, textModel, emailer, speakers),
                 new SpeakAll(textModel, speakers));
+
+
 
 /*
         // You should work with UI (including installing L&F) inside Event Dispatch Thread (EDT)

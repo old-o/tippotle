@@ -21,8 +21,14 @@ import static net.doepner.log.Log.Level.debug;
  */
 public final class ConvertingStreamPlayer implements AudioStreamPlayer {
 
+    private static final int DEFAULT_BUFFER_SIZE = 65536;
+
     private final Log log;
     private final int bufferSize;
+
+    public ConvertingStreamPlayer(LogProvider logProvider) {
+        this(logProvider, DEFAULT_BUFFER_SIZE);
+    }
 
     public ConvertingStreamPlayer(LogProvider logProvider, int bufferSize) {
         log = logProvider.getLog(getClass());
