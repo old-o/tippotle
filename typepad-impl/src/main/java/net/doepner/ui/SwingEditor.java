@@ -23,7 +23,7 @@ public class SwingEditor implements Editor {
 
     public SwingEditor(JTextComponent editor) {
         this.editor = editor;
-        editor.setCaret(new BlockCaret(new SwingCaretContext(editor)));
+        editor.setCaret(new BlockCaret(new BlockCaretContext(editor)));
     }
 
     public void addAction(Action action, int i) {

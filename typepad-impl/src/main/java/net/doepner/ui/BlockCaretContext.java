@@ -11,7 +11,7 @@ import java.awt.FontMetrics;
  * document of the text component, relative to the current
  * caret position
  */
-public final class SwingCaretContext implements CaretContext {
+public final class BlockCaretContext implements CaretContext {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public final class SwingCaretContext implements CaretContext {
 
     private final JTextComponent component;
 
-    public SwingCaretContext(final JTextComponent component) {
+    public BlockCaretContext(final JTextComponent component) {
         if (component == null) {
             throw new IllegalArgumentException("component must not be null");
         }
