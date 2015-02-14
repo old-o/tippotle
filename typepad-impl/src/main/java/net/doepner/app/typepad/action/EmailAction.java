@@ -40,11 +40,6 @@ public class EmailAction implements IAction {
     }
 
     @Override
-    public String getIconName() {
-        return getId().getIconName();
-    }
-
-    @Override
     public ActionId getId() {
         return ActionEnum.EMAIL;
     }

@@ -19,7 +19,7 @@ public final class ManagedSpeakers implements IterableSpeakers {
     private final Iterable<Speaker> speakers;
 
     private Iterator<Speaker> speakerIter;
-    private Speaker speaker;
+    private Speaker currentSpeaker;
 
     public ManagedSpeakers(LogProvider logProvider,
                            TestableSpeaker... speakers) {
@@ -42,7 +42,14 @@ public final class ManagedSpeakers implements IterableSpeakers {
 
     @Override
     public String getName() {
-        return speaker == null ? "unknown" : speaker.getName();
+        return currentSpeaker == null ? "unknown" : currentSpeaker.getName();
+    }
+
+    @Override
+    public void stopAll() {
+        for (Speaker speaker : speakers) {
+            speaker.stopAll();
+        }
     }
 
     @Override
@@ -50,7 +57,7 @@ public final class ManagedSpeakers implements IterableSpeakers {
         new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() {
-                speaker.speak(text);
+                currentSpeaker.speak(text);
                 return null;
             }
         }.execute();
@@ -61,6 +68,6 @@ public final class ManagedSpeakers implements IterableSpeakers {
         if (speakerIter == null || not(speakerIter.hasNext())) {
             speakerIter = speakers.iterator();
         }
-        speaker = speakerIter.next();
+        currentSpeaker = speakerIter.next();
     }
 }

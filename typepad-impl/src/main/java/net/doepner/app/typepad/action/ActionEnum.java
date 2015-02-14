@@ -14,7 +14,8 @@ public enum ActionEnum implements ActionId {
     SPEAK_WORD("volume"),
     SWITCH_SPEAKER,
     EMAIL("email"),
-    SPEAK_ALL("speech-bubble");
+    SPEAK_ALL("speech-bubble"),
+    STOP_AUDIO("stop-audio");
 
     private final String iconName;
 

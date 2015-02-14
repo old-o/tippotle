@@ -9,12 +9,12 @@ import net.doepner.log.LogProvider;
 import net.doepner.resources.ImageCollector;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Editor;
+import net.doepner.ui.FontChooser;
 import net.doepner.ui.IAction;
 import net.doepner.ui.ImageContainer;
 import net.doepner.ui.SwingAction;
 import net.doepner.ui.UiAction;
 import net.doepner.ui.images.ImagePanel;
-import net.doepner.ui.text.FontChooser;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;

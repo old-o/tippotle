@@ -29,11 +29,6 @@ public class SwitchBuffer implements IAction {
         return ActionEnum.SWITCH_BUFFER;
     }
 
-    @Override
-    public String getIconName() {
-        return getId().getIconName();
-    }
-
     private void loadBuffer() {
         model.setText(buffers.load().trim());
 

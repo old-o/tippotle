@@ -11,5 +11,7 @@ public interface IAction extends IdentiedBy<ActionId> {
 
     void actionPerformed();
 
-    String getIconName();
+    default String getIconName() {
+        return getId().getIconName();
+    }
 }

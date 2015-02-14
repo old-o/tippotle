@@ -30,9 +30,4 @@ public class SpeakAll implements IAction {
     public ActionEnum getId() {
         return ActionEnum.SPEAK_ALL;
     }
-
-    @Override
-    public String getIconName() {
-        return getId().getIconName();
-    }
 }

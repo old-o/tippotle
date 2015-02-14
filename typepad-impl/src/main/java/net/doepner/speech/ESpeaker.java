@@ -23,6 +23,11 @@ public final class ESpeaker implements TestableSpeaker {
     }
 
     @Override
+    public void stopAll() {
+
+    }
+
+    @Override
     public void speak(String text) {
         try {
             doSpeak(text);

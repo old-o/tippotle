@@ -5,6 +5,7 @@ import net.doepner.app.typepad.action.EmailAction;
 import net.doepner.app.typepad.action.ResizeFont;
 import net.doepner.app.typepad.action.SpeakAll;
 import net.doepner.app.typepad.action.SpeakWord;
+import net.doepner.app.typepad.action.StopAudioAction;
 import net.doepner.app.typepad.action.SwitchBuffer;
 import net.doepner.app.typepad.action.SwitchLanguage;
 import net.doepner.app.typepad.action.SwitchSpeaker;
@@ -47,11 +48,11 @@ import net.doepner.text.WordExtractor;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Editor;
 import net.doepner.ui.EmailDialog;
+import net.doepner.ui.FontChooser;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingEmailDialog;
 import net.doepner.ui.text.AlphaNumStyler;
 import net.doepner.ui.text.DocTextModel;
-import net.doepner.ui.text.FontChooser;
 import net.doepner.ui.text.TextStyler;
 
 import javax.swing.JScrollPane;
@@ -91,8 +92,6 @@ public final class Application {
         final String appName = "Typepad";
         final Path homeDir = Paths.get(System.getProperty("user.home"));
 
-        final LanguageChanger languageChanger = new CanadianDeutsch(logProvider);
-
         final PathHelper pathHelper =
                 new StdPathHelper(appName, homeDir, logProvider);
 
@@ -105,6 +104,8 @@ public final class Application {
                 new DirectStreamPlayer(),
                 new ConvertingStreamPlayer(logProvider));
 
+        final LanguageChanger languageChanger = new CanadianDeutsch(logProvider);
+
         final IterableSpeakers speakers = new ManagedSpeakers(
                 logProvider,
                 new AudioFileSpeaker("google-translate",
@@ -115,23 +116,29 @@ public final class Application {
         final ImageCollector imageCollector = new StdImageCollector(
                 new StdResourceCollector(resourceFinder), 10, logProvider);
 
-        final TextBuffers buffers = new TextFiles(logProvider, pathHelper, 5);
 
         final Path configFile = pathHelper.findOrCreate("email.properties", PathType.FILE);
         final Emailer emailer = createEmailer(logProvider, configFile);
 
+        /* MODEL */
+
+        final TextBuffers buffers = new TextFiles(logProvider, pathHelper, 5);
+
         final StyledDocument doc = new DefaultStyledDocument();
         doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
+
+        final TextModel textModel = new DocTextModel(doc);
+
+        final WordProvider wordProvider = new WordExtractor(logProvider, textModel);
+
+        /* VIEW */
+
+        final EmailDialog emailDialog = new SwingEmailDialog(imageCollector);
 
         final JTextPane textPane = new JTextPane(doc);
         textPane.setFont(new Font("serif", Font.PLAIN, 40));
 
         final Editor editor = new SwingEditor(textPane);
-        final TextModel textModel = new DocTextModel(doc);
-
-        final WordProvider wordProvider = new WordExtractor(logProvider, textModel);
-
-        final EmailDialog emailDialog = new SwingEmailDialog(imageCollector);
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);
@@ -149,7 +156,8 @@ public final class Application {
                 new SwitchBuffer(logProvider, textModel, buffers),
                 new SwitchSpeaker(speakers),
                 new EmailAction(emailDialog, textModel, emailer, speakers),
-                new SpeakAll(textModel, speakers));
+                new SpeakAll(textModel, speakers),
+                new StopAudioAction(speakers));
 
 
 

@@ -43,6 +43,12 @@ public final class StdAudioPlayer implements AudioPlayer {
         play(player, url);
     }
 
+    @Override
+    public void stopAll() {
+        directPlayer.stopAll();
+        convertingPlayer.stopAll();
+    }
+
     private void play(AudioStreamPlayer player, URL url) {
         try (AudioInputStream stream = getAudioInputStream(url)) {
 

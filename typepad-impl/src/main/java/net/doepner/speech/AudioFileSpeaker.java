@@ -37,6 +37,11 @@ public final class AudioFileSpeaker implements TestableSpeaker {
     }
 
     @Override
+    public void stopAll() {
+        audioPlayer.stopAll();
+    }
+
+    @Override
     public void speak(final String text) {
         speakPart(text);
 /*
