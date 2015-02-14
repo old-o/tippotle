@@ -20,7 +20,7 @@ public class SpeakWord implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         final String word = wordProvider.getWord(textCoordinates.getTextPosition());
         if (word != null && !word.isEmpty()) {
             speaker.speak(word);

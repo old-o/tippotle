@@ -15,7 +15,7 @@ public class SwitchSpeaker implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         speakers.nextSpeaker();
     }
 

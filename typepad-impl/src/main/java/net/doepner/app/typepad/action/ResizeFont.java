@@ -14,7 +14,7 @@ public class ResizeFont implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         fontResizable.resizeFont(step);
     }
 

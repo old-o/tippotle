@@ -12,7 +12,7 @@ public class SwitchLanguage implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         langChanger.changeLanguage();
     }
 

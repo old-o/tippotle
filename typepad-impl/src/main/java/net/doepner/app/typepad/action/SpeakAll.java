@@ -19,7 +19,7 @@ public class SpeakAll implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         final String text = textProvider.getText();
         if (text != null && !text.isEmpty()) {
             speaker.speak(text);

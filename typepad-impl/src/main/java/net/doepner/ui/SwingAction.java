@@ -35,7 +35,7 @@ public class SwingAction extends AbstractAction implements UiAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        action.actionPerformed();
+        action.execute();
         updateIcon();
     }
 

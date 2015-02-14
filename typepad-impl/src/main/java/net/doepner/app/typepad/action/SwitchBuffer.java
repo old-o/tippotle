@@ -18,7 +18,7 @@ public class SwitchBuffer implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         saveBuffer();
         buffers.nextBuffer();
         loadBuffer();

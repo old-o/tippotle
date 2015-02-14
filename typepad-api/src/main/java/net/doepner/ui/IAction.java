@@ -9,8 +9,14 @@ import net.doepner.IdentiedBy;
  */
 public interface IAction extends IdentiedBy<ActionId> {
 
-    void actionPerformed();
+    /**
+     * Executes the action
+     */
+    void execute();
 
+    /**
+     * @return The icon name of the action
+     */
     default String getIconName() {
         return getId().getIconName();
     }

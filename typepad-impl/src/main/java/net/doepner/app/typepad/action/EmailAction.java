@@ -29,7 +29,7 @@ public class EmailAction implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         final String recipient = emailDialog.chooseRecipient(
                 emailer.getAvailableRecipients());
 

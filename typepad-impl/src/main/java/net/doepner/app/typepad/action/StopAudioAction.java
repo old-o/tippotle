@@ -18,7 +18,7 @@ public final class StopAudioAction implements IAction {
     }
 
     @Override
-    public void actionPerformed() {
+    public void execute() {
         doInBackground(speakers::stopAll);
     }
 
