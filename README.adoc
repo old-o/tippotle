@@ -4,7 +4,6 @@ Have fun typing words and numbers (mainly for children)
 
 Simplistic text editor with
 
-[options="compact"]
 * Color-coded characters (letters, numbers, etc.)
 * Spell-as-you-type in the currently selected language
 * Switch between languages (currently English and German)
@@ -21,14 +20,12 @@ link="https://travis-ci.org/odoepner/typepad"]
 
 == Technology
 
-[options="compact"]
 * Requires Java 7 (uses NIO.2 for file storage)
 * Uses Java Swing, mainly the JTextPane.
 * Requires [espeak](http://sourceforge.net/projects/espeak/) command in the PATH.
 
 == Planned features
 
-[options="compact"]
 * "Login"-Dialog where computer speaker welcomes and asks user for their name
 * Let computer read the current sentence or line
 * Hand writing recognition (of single letters)
