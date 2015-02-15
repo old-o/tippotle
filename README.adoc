@@ -1,5 +1,4 @@
-typepad
-=======
+= odoepner / typepad
 
 Have fun typing words and numbers (mainly for children)
 
@@ -13,20 +12,18 @@ Simplistic text editor with
 - All actions are available via toolbar and function keys
 - Can automatically show images depicting current word
 
-[![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
+== Build status
 
-[Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad-dist/artifact/net.doepner/typepad-dist/0.0.1-SNAPSHOT/typepad-dist-0.0.1-SNAPSHOT.zip)
+image:https://travis-ci.org/odoepner/typepad.svg?branch=master[
+link="https://travis-ci.org/odoepner/typepad"]
 
-Technology
-----------
+== Technology
 
 - Requires Java 7 (uses NIO.2 for file storage)
 - Uses Java Swing, mainly the JTextPane.
 - Requires [espeak](http://sourceforge.net/projects/espeak/) command in the PATH.
 
-
-Planned features
-----------------
+== Planned features
 
 - "Login"-Dialog where computer speaker welcomes and asks user for their name
 - Let computer read the current sentence or line
