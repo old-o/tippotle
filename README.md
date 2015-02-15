@@ -13,7 +13,7 @@ Simplistic text editor with
 - All actions are available via toolbar and function keys
 - Can automatically show images depicting current word
 
-[!Build Status](https://travis-ci.org/odoepner/typepad.svg?branch=master)
+[!Build Status](https://travis-ci.org/odoepner/typepad.svg?branch=master)](https://travis-ci.org/odoepner/typepad)
 
 [Download latest CI build]()
 
