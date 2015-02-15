@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 for file in $TRAVIS_BUILD_DIR/typepad/typepad-dist/target/*.zip
 do
