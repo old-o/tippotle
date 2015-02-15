@@ -13,9 +13,9 @@ Simplistic text editor with
 - All actions are available via toolbar and function keys
 - Can automatically show images depicting current word
 
-[![Build Status](https://buildhive.cloudbees.com/job/odoepner/job/typepad/badge/icon)](https://buildhive.cloudbees.com/job/odoepner/job/typepad/)
+[![Build Status](https://travis-ci.org/odoepner/typepad.svg?branch=master)
 
-[Download from BuildHive](https://buildhive.cloudbees.com/job/odoepner/job/typepad/lastStableBuild/net.doepner$typepad-dist/artifact/net.doepner/typepad-dist/0.0.1-SNAPSHOT/typepad-dist-0.0.1-SNAPSHOT.zip)
+[Download latest CI build]()
 
 Technology
 ----------
