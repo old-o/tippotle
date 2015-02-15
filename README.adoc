@@ -3,6 +3,7 @@
 Have fun typing words and numbers (mainly for children)
 
 Simplistic text editor with
+
 * Color-coded characters (letters, numbers, etc.)
 * Spell-as-you-type in the currently selected language
 * Switch between languages (currently English and German)
