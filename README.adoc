@@ -18,6 +18,8 @@ Simplistic text editor with
 image:https://travis-ci.org/odoepner/typepad.svg?branch=master[
 link="https://travis-ci.org/odoepner/typepad"]
 
+http://dev.doepner.net/dist/ci-builds/typepad.zip[Download latest build]
+
 == Technology
 
 * Requires Java 7 (uses NIO.2 for file storage)
