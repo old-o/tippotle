@@ -1,1 +1,4 @@
-java -jar lib\typepad-impl-0.0.1-SNAPSHOT.jar
+SET mypath=%~dp0
+cd %mypath:~0,-1%
+
+java -cp lib/* net.doepner.app.typepad.Main

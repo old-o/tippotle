@@ -2,4 +2,4 @@
 
 dir="$(dirname ""$0"")"
 
-java -jar "$dir/lib/typepad-impl-0.0.1-SNAPSHOT.jar"
+java -cp "$dir/lib/*" net.doepner.app.typepad.Main
