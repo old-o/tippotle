@@ -16,30 +16,18 @@ import static net.doepner.log.Log.Level.info;
  */
 public final class TextFiles implements TextBuffers {
 
-    private final int maxBuffer;
-
     private final Log log;
-
     private final PathHelper pathHelper;
 
-    private int currentBufferIndex;
-
     public TextFiles(LogProvider logProvider,
-                     PathHelper pathHelper,
-                     int maxBuffer) {
-        this.maxBuffer = maxBuffer;
+                     PathHelper pathHelper) {
         log = logProvider.getLog(getClass());
         this.pathHelper = pathHelper;
     }
 
     @Override
-    public void nextBuffer() {
-        currentBufferIndex = currentBufferIndex % maxBuffer + 1;
-    }
-
-    @Override
-    public void save(String text) {
-        final Path buffer = getCurrentBuffer();
+    public void save(String text, int i) {
+        final Path buffer = getBuffer(i);
         final byte[] bytes = text.getBytes();
         try {
             write(buffer, bytes);
@@ -50,8 +38,8 @@ public final class TextFiles implements TextBuffers {
     }
 
     @Override
-    public String load() {
-        final Path buffer = getCurrentBuffer();
+    public String load(int i) {
+        final Path buffer = getBuffer(i);
         final byte[] bytes;
         try {
             bytes = readAllBytes(buffer);
@@ -62,7 +50,7 @@ public final class TextFiles implements TextBuffers {
         return new String(bytes);
     }
 
-    private Path getCurrentBuffer() {
-        return pathHelper.findOrCreate(currentBufferIndex + ".txt", FILE);
+    private Path getBuffer(int i) {
+        return pathHelper.findOrCreate(i + ".txt", FILE);
     }
 }

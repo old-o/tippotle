@@ -4,8 +4,6 @@ import net.doepner.file.MediaType;
 import net.doepner.file.PathHelper;
 import net.doepner.file.PathType;
 import net.doepner.lang.Language;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,15 +12,12 @@ import java.nio.file.Path;
 /**
  * Finds a resource on the file system
  */
-public class FileFinder implements ResourceStore {
+public final class FileFinder implements ResourceStore {
 
     private final PathHelper helper;
-    private final Log log;
 
-    public FileFinder(PathHelper helper,
-                      LogProvider logProvider) {
+    public FileFinder(PathHelper helper) {
         this.helper = helper;
-        log = logProvider.getLog(getClass());
     }
 
     @Override
@@ -59,7 +54,7 @@ public class FileFinder implements ResourceStore {
             try {
                 return file.toUri().toURL();
             } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e);
             }
         } else {
             return null;

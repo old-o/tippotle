@@ -2,7 +2,6 @@ package net.doepner.ui.text;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
 
 /**
  * Adapter between document events and text change events
@@ -24,13 +23,5 @@ public abstract class DocUpdateAdapter implements DocumentListener {
     @Override
     public final void changedUpdate(DocumentEvent e) {
         // nothing to do
-    }
-
-    protected static String getText(DocumentEvent e) {
-        try {
-            return e.getDocument().getText(e.getOffset(), e.getLength());
-        } catch (BadLocationException ble) {
-            return "";
-        }
     }
 }

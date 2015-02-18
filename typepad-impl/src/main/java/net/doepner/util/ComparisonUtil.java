@@ -3,8 +3,16 @@ package net.doepner.util;
 /**
  * Utility methods for object comparison
  */
-public class ComparisonUtil {
+public final class ComparisonUtil {
 
+    private ComparisonUtil() {
+        // no instances
+    }
+
+    /**
+     * @param b A boolean value
+     * @return Its negation, i.e. !b
+     */
     public static boolean not(boolean b) {
         return !b;
     }

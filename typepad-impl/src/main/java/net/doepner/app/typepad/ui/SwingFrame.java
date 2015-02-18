@@ -28,6 +28,7 @@ import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,12 +45,12 @@ import static net.doepner.util.ComparisonUtil.not;
 /**
  * Swing frame wrapper (for loose coupling)
  */
-public class SwingFrame {
+public final class SwingFrame {
 
     private final JFrame frame;
 
-    private List<ImagePanel> wordImagePanels = new LinkedList<>();
-    private List<ImagePanel> charImagePanels = new LinkedList<>();
+    private final List<ImagePanel> wordImagePanels = new LinkedList<>();
+    private final List<ImagePanel> charImagePanels = new LinkedList<>();
 
     public SwingFrame(LogProvider logProvider,
                       String appName, Editor editor,
@@ -114,15 +115,15 @@ public class SwingFrame {
         frame.add(wrapper, BorderLayout.CENTER);
     }
 
-    private void setImages(Iterable<Image> images,
-                           Iterable<? extends ImageContainer> panels) {
+    private static void setImages(Iterable<Image> images,
+                                  Iterable<? extends ImageContainer> panels) {
         final Iterator<Image> imageIter = images.iterator();
         for (ImageContainer panel : panels) {
             panel.setImage(imageIter.next());
         }
     }
 
-    private void addImageBar(JPanel wrapper, List<ImagePanel> panels,
+    private void addImageBar(JPanel wrapper, Collection<ImagePanel> panels,
                              int axis, String constraints,
                              Dimension imageSize) {
         final JPanel imageBar = new JPanel();

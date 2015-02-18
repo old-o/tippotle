@@ -6,10 +6,19 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.StyledDocument;
 
-public class TextStyler extends DocUpdateAdapter {
+import static net.doepner.ui.text.DocEvents.getText;
+
+/**
+ * Sets text attributes (currently mainly colors)
+ * only newly inserted text
+ */
+public final class TextStyler extends DocUpdateAdapter {
 
     private final CharStyler charStyler;
 
+    /**
+     * @param charStyler The character styler
+     */
     public TextStyler(CharStyler charStyler) {
         this.charStyler = charStyler;
     }

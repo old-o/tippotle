@@ -3,7 +3,11 @@ package net.doepner.text;
 /**
  * Character condition Constants and util methods
  */
-public class CharConditions {
+public final class CharConditions {
+
+    private CharConditions() {
+        // no instance
+    }
 
     public static CharCondition in(final String chars) {
         return new CharCondition() {

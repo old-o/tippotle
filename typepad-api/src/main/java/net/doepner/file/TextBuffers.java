@@ -5,9 +5,16 @@ package net.doepner.file;
  */
 public interface TextBuffers {
 
-    void save(String text);
+    /**
+     * @param text Text to save
+     * @param i    The index of the buffer to save the text in
+     */
+    void save(String text, int i);
 
-    String load();
+    /**
+     * @param i The index of the buffer to load the text from
+     * @return The loaded text
+     */
+    String load(int i);
 
-    void nextBuffer();
 }

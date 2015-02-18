@@ -6,7 +6,7 @@ import net.doepner.app.typepad.action.ResizeFont;
 import net.doepner.app.typepad.action.SpeakAll;
 import net.doepner.app.typepad.action.SpeakWord;
 import net.doepner.app.typepad.action.StopAudioAction;
-import net.doepner.app.typepad.action.SwitchBuffer;
+import net.doepner.app.typepad.action.SwitchDocument;
 import net.doepner.app.typepad.action.SwitchLanguage;
 import net.doepner.app.typepad.action.SwitchSpeaker;
 import net.doepner.app.typepad.ui.SwingFrame;
@@ -42,8 +42,8 @@ import net.doepner.speech.ESpeaker;
 import net.doepner.speech.IterableSpeakers;
 import net.doepner.speech.ManagedSpeakers;
 import net.doepner.speech.Speaker;
+import net.doepner.text.DocumentModel;
 import net.doepner.text.TextListener;
-import net.doepner.text.TextModel;
 import net.doepner.text.WordExtractor;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Editor;
@@ -52,18 +52,24 @@ import net.doepner.ui.FontChooser;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingEmailDialog;
 import net.doepner.ui.text.AlphaNumStyler;
-import net.doepner.ui.text.DocTextModel;
+import net.doepner.ui.text.DocSwitchListener;
+import net.doepner.ui.text.Documents;
 import net.doepner.ui.text.TextStyler;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Function;
 
 import static net.doepner.log.Log.Level.error;
 
@@ -82,7 +88,7 @@ public final class Application {
         log = logProvider.getLog(getClass());
 
         Thread.setDefaultUncaughtExceptionHandler(
-                new Thread.UncaughtExceptionHandler() {
+                new UncaughtExceptionHandler() {
                     @Override
                     public void uncaughtException(Thread t, Throwable e) {
                         log.as(error, e);
@@ -96,7 +102,7 @@ public final class Application {
                 new StdPathHelper(appName, homeDir, logProvider);
 
         final ResourceFinder resourceFinder = new CascadingResourceFinder(
-                new FileFinder(pathHelper, logProvider),
+                new FileFinder(pathHelper),
                 new ClasspathFinder(logProvider),
                 new FileDownload(logProvider, pathHelper, new GoogleTranslateUrls()));
 
@@ -122,20 +128,31 @@ public final class Application {
 
         /* MODEL */
 
-        final TextBuffers buffers = new TextFiles(logProvider, pathHelper, 5);
+        final TextBuffers buffers = new TextFiles(logProvider, pathHelper);
 
-        final StyledDocument doc = new DefaultStyledDocument();
-        doc.addDocumentListener(new TextStyler(new AlphaNumStyler()));
+        final DocumentListener textStyler = new TextStyler(new AlphaNumStyler());
 
-        final TextModel textModel = new DocTextModel(doc);
+        final Function<String, Document> docInitializer = text -> {
+            final Document doc = new DefaultStyledDocument();
+            doc.addDocumentListener(textStyler);
+            try {
+                doc.insertString(0, text, null);
+            } catch (BadLocationException e) {
+                throw new IllegalStateException(e);
+            }
+            return doc;
+        };
 
-        final WordProvider wordProvider = new WordExtractor(logProvider, textModel);
+        final int docCount = 5;
+        final DocumentModel documentModel = new Documents(docCount, docInitializer, buffers);
+
+        final WordProvider wordProvider = new WordExtractor(logProvider, documentModel);
 
         /* VIEW */
 
         final EmailDialog emailDialog = new SwingEmailDialog(imageCollector);
 
-        final JTextPane textPane = new JTextPane(doc);
+        final JTextPane textPane = new JTextPane();
         textPane.setFont(new Font("serif", Font.PLAIN, 40));
 
         final Editor editor = new SwingEditor(textPane);
@@ -152,11 +169,11 @@ public final class Application {
                 new SwitchLanguage(languageChanger),
                 new SpeakWord(editor, wordProvider, speakers),
                 new ResizeFont(-1, editor),
-                new ResizeFont(+1, editor),
-                new SwitchBuffer(logProvider, textModel, buffers),
+                new ResizeFont(1, editor),
+                new SwitchDocument(documentModel),
                 new SwitchSpeaker(speakers),
-                new EmailAction(emailDialog, textModel, emailer, speakers),
-                new SpeakAll(textModel, speakers),
+                new EmailAction(emailDialog, documentModel, emailer, speakers),
+                new SpeakAll(documentModel, speakers),
                 new StopAudioAction(speakers));
 
 
@@ -172,7 +189,7 @@ public final class Application {
         });
 */
 
-        addListeners(speakers, buffers, textModel);
+        addListeners(speakers, textPane, documentModel);
     }
 
     private Emailer createEmailer(LogProvider logProvider, Path configFile) {
@@ -185,17 +202,18 @@ public final class Application {
     }
 
     private static void addListeners(final Speaker speaker,
-                                     final TextBuffers buffers,
-                                     final TextModel textModel) {
+                                     JTextComponent textComponent,
+                                     final DocumentModel documentModel) {
 
         addShutdownHook(new Runnable() {
             @Override
             public void run() {
-                buffers.save(textModel.getText().trim());
+                // to force saving of current document
+                documentModel.switchDocument();
             }
         });
 
-        textModel.addTextListener(new TextListener() {
+        documentModel.addTextListener(new TextListener() {
             @Override
             public void handleText(final String text) {
                 new Thread(new Runnable() {
@@ -204,6 +222,13 @@ public final class Application {
                         speaker.speak(text);
                     }
                 }).start();
+            }
+        });
+
+        documentModel.addDocSwitchListener(new DocSwitchListener() {
+            @Override
+            public void docSwitched(Document document) {
+                textComponent.setDocument(document);
             }
         });
     }

@@ -11,6 +11,7 @@ import static java.awt.RenderingHints.KEY_ALPHA_INTERPOLATION;
 import static java.awt.RenderingHints.KEY_INTERPOLATION;
 import static java.awt.RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY;
 import static java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR;
+import static java.lang.Float.valueOf;
 import static java.lang.Math.max;
 
 public final class ImagePanel extends JPanel implements ImageContainer {
@@ -27,10 +28,6 @@ public final class ImagePanel extends JPanel implements ImageContainer {
 
     @Override
     protected void paintComponent(Graphics g) {
-        final Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR);
-        g2.setRenderingHint(KEY_ALPHA_INTERPOLATION, VALUE_ALPHA_INTERPOLATION_QUALITY);
-
         super.paintComponent(g);
 
         if (image != null) {
@@ -45,11 +42,15 @@ public final class ImagePanel extends JPanel implements ImageContainer {
 
             final float scale = max(xScale, yScale);
 
-            final int targetWidth = (int) (imageWidth / scale);
-            final int targetHeight = (int) (imageHeight / scale);
+            final int targetWidth = valueOf((float) imageWidth / scale).intValue();
+            final int targetHeight = valueOf((float) imageHeight / scale).intValue();
 
             final int widthMargin = (width - targetWidth) / 2;
             final int heightMargin = (heigth - targetHeight) / 2;
+
+            final Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR);
+            g2.setRenderingHint(KEY_ALPHA_INTERPOLATION, VALUE_ALPHA_INTERPOLATION_QUALITY);
 
             g.drawImage(image, widthMargin, heightMargin, targetWidth, targetHeight, null);
         }

@@ -22,9 +22,10 @@ public final class WordExtractor implements WordProvider {
         if (position == null) {
             return null;
         }
-        final String word = findSequence(IS_WORD_PART, position);
-        final String result = word.length() > 0 ? word : findSequence(IS_NUMBER_PART, position);
-        log.as(info, "Word '{}' at position {}", word, position);
+        final int pos = position.intValue();
+        final String word = findSequence(IS_WORD_PART, pos);
+        final String result = word.isEmpty() ? findSequence(IS_NUMBER_PART, pos) : word;
+        log.as(info, "Word '{}' at position {}", word, pos);
         return result;
     }
 
@@ -33,9 +34,10 @@ public final class WordExtractor implements WordProvider {
         if (position == null) {
             return null;
         }
+        final int pos = position.intValue();
         final String text = textProvider.getText();
-        final char ch = text.length() > position ? text.charAt(position) : ' ';
-        log.as(info, "Character '{}' at position {}", ch, position);
+        final char ch = text.length() > pos ? text.charAt(pos) : ' ';
+        log.as(info, "Character '{}' at position {}", ch, pos);
         return ch;
     }
 
