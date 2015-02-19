@@ -25,7 +25,7 @@ public final class WordExtractor implements WordProvider {
         final int pos = position.intValue();
         final String word = findSequence(IS_WORD_PART, pos);
         final String result = word.isEmpty() ? findSequence(IS_NUMBER_PART, pos) : word;
-        log.as(info, "Word '{}' at position {}", word, pos);
+        log.as(info, "Word '{}' at position {}", result, pos);
         return result;
     }
 

@@ -3,7 +3,7 @@ package net.doepner.sound;
 import net.doepner.log.SystemConsoleLogProvider;
 
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Mixer;
+import javax.sound.sampled.Mixer.Info;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,9 +14,11 @@ import java.nio.file.Paths;
  */
 public class SoundTestUtil {
 
-    public static void main(String[] args) throws InterruptedException, IOException, UnsupportedAudioFileException {
+    public static void main(String[] args)
+            throws InterruptedException, UnsupportedAudioFileException, IOException {
+
         System.out.println("Available mixers:");
-        for (Mixer.Info info : AudioSystem.getMixerInfo()) {
+        for (final Info info : AudioSystem.getMixerInfo()) {
             System.out.println(info.getName());
         }
 

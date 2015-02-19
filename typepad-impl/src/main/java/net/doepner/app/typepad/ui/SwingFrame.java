@@ -31,7 +31,6 @@ import java.awt.Image;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import static java.awt.BorderLayout.EAST;
 import static java.awt.BorderLayout.SOUTH;
@@ -49,8 +48,8 @@ public final class SwingFrame {
 
     private final JFrame frame;
 
-    private final List<ImagePanel> wordImagePanels = new LinkedList<>();
-    private final List<ImagePanel> charImagePanels = new LinkedList<>();
+    private final Collection<ImagePanel> wordImagePanels = new LinkedList<>();
+    private final Collection<ImagePanel> charImagePanels = new LinkedList<>();
 
     public SwingFrame(LogProvider logProvider,
                       String appName, Editor editor,

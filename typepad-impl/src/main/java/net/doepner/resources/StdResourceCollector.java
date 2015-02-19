@@ -13,7 +13,7 @@ import java.util.List;
  */
 public final class StdResourceCollector implements ResourceCollector {
 
-    private ResourceFinder finder;
+    private final ResourceFinder finder;
 
     public StdResourceCollector(ResourceFinder finder) {
         this.finder = finder;

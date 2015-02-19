@@ -30,7 +30,7 @@ public final class StdAudioPlayer implements AudioPlayer {
                           AudioStreamPlayer convertingPlayer) {
         this.directPlayer = directPlayer;
         this.convertingPlayer = convertingPlayer;
-        this.log = logProvider.getLog(getClass());
+        log = logProvider.getLog(getClass());
     }
 
     @Override

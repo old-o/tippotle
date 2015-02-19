@@ -18,6 +18,10 @@ public final class ImagePanel extends JPanel implements ImageContainer {
 
     private Image image;
 
+    public ImagePanel() {
+        image = null;
+    }
+
     @Override
     public void setImage(Image image) {
         if (this.image != image) {

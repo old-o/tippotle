@@ -19,6 +19,7 @@ public final class GoogleTranslateUrls implements UrlProvider {
     private static final String USER_AGENT = "Mozilla/5.0 (X11; Linux i686; rv:21.0) " +
             "Gecko/20100101 Firefox/21.0 Iceweasel/21.0";
 
+    @Override
     public URL getUrl(String name, Language language) throws MalformedURLException {
         return new URL("http://translate.google.com/translate_tts?ie=UTF-8"
                 + (language != null ? "&tl=" + urlEncode(language.getCode()) : "")

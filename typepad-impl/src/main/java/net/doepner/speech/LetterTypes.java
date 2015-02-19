@@ -6,7 +6,7 @@ import net.doepner.text.CharConditions;
 /**
  * See http://en.wikipedia.org/wiki/International_Phonetic_Alphabet#Consonants
  */
-public class LetterTypes {
+public final class LetterTypes {
 
     public static final CharCondition VOWEL =
             CharConditions.in("aeiouüöäy");

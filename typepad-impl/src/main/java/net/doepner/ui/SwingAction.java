@@ -17,7 +17,7 @@ import static net.doepner.log.Log.Level.error;
 /**
  * Simple delegating action wrapper
  */
-public class SwingAction extends AbstractAction implements UiAction {
+public final class SwingAction extends AbstractAction implements UiAction {
 
     private final L10n<IAction, String> descriptions;
     private final IAction action;
@@ -27,9 +27,9 @@ public class SwingAction extends AbstractAction implements UiAction {
     public SwingAction(IAction action,
                        L10n<IAction, String> descriptions,
                        LogProvider logProvider) {
+        log = logProvider.getLog(getClass());
         this.action = action;
         this.descriptions = descriptions;
-        this.log = logProvider.getLog(getClass());
         updateIcon();
     }
 

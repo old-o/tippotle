@@ -33,6 +33,10 @@ public final class CascadingResourceFinder implements ResourceFinder {
     public URL find(MediaType mediaType, String rawName,
                     Language language, String category) {
 
+        if (rawName.trim().isEmpty()) {
+            return null;
+        }
+
         final String name = normalize(rawName);
 
         final URL storedResource = store.find(mediaType, name, language, category);

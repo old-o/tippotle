@@ -1,7 +1,7 @@
 package net.doepner.file;
 
 /**
- * TODO: Document this!
+ * Media type, mainly for audio and image files
  */
 public interface MediaType {
 

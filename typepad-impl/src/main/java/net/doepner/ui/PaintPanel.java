@@ -26,6 +26,7 @@ public class PaintPanel extends JPanel {
 
     PaintPanel() {
         addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
             public void mouseDragged(MouseEvent e) {
                 addPoint(e);
             }

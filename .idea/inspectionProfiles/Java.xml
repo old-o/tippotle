@@ -416,7 +416,7 @@
     <inspection_tool class="ClassLoaderInstantiation" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ClassMayBeInterface" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ClassNameDiffersFromFileName" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="ClassNamePrefixedWithPackageName" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="ClassNamePrefixedWithPackageName" enabled="true" level="INFO" enabled_by_default="true" />
     <inspection_tool class="ClassNameSameAsAncestorName" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="ClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
@@ -708,11 +708,11 @@
     </inspection_tool>
     <inspection_tool class="EnumeratedClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
-      <option name="m_minLength" value="8" />
-      <option name="m_maxLength" value="64" />
+      <option name="m_minLength" value="2" />
+      <option name="m_maxLength" value="32" />
     </inspection_tool>
     <inspection_tool class="EnumeratedConstantNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="m_regex" value="[A-Z][A-Z_]+" />
+      <option name="m_regex" value="[a-zA-Z]+" />
       <option name="m_minLength" value="2" />
       <option name="m_maxLength" value="32" />
     </inspection_tool>
@@ -1174,7 +1174,7 @@
       <option name="m_maxLength" value="32" />
     </inspection_tool>
     <inspection_tool class="InstanceVariableInitialization" enabled="true" level="WEAK WARNING" enabled_by_default="true">
-      <option name="m_ignorePrimitives" value="false" />
+      <option name="m_ignorePrimitives" value="true" />
     </inspection_tool>
     <inspection_tool class="InstanceVariableNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_regex" value="[a-z][A-Za-z\d]*" />
@@ -2038,7 +2038,7 @@
     </inspection_tool>
     <inspection_tool class="SpellCheckingInspection" enabled="true" level="TYPO" enabled_by_default="true">
       <option name="processCode" value="true" />
-      <option name="processLiterals" value="true" />
+      <option name="processLiterals" value="false" />
       <option name="processComments" value="true" />
     </inspection_tool>
     <inspection_tool class="SpringAopErrorsInspection" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -2105,7 +2105,7 @@
     <inspection_tool class="StaticInheritance" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="StaticMethodNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_regex" value="[a-z][A-Za-z\d]*" />
-      <option name="m_minLength" value="4" />
+      <option name="m_minLength" value="2" />
       <option name="m_maxLength" value="32" />
     </inspection_tool>
     <inspection_tool class="StaticMethodOnlyUsedInOneClass" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -2273,7 +2273,9 @@
       <option name="m_allowConstructorAsInitializer" value="false" />
       <option name="m_onlyLookAtBlocks" value="false" />
     </inspection_tool>
-    <inspection_tool class="TooBroadThrows" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="TooBroadThrows" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoreThrown" value="true" />
+    </inspection_tool>
     <inspection_tool class="TrailingSpacesInProperty" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="TransientFieldInNonSerializableClass" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="TransientFieldNotInitialized" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -2494,7 +2496,7 @@
     <inspection_tool class="WaitWithoutCorrespondingNotify" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="WeakerAccess" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="SUGGEST_PACKAGE_LOCAL_FOR_MEMBERS" value="true" />
-      <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="true" />
+      <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="false" />
       <option name="SUGGEST_PRIVATE_FOR_INNERS" value="false" />
     </inspection_tool>
     <inspection_tool class="WebProperties" enabled="true" level="ERROR" enabled_by_default="true" />

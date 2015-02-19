@@ -3,9 +3,9 @@ package net.doepner.ui;
 import javax.swing.SwingWorker;
 
 /**
- * TODO: Document this!
+ * Swing utility methods
  */
-public class SwingUtil {
+public final class SwingUtil {
 
     public static void doInBackground(final Runnable r) {
         new SwingWorker<Void, Void>() {

@@ -8,10 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import static java.util.Arrays.copyOf;
+
 /**
  * SMTP email configuration from properties file
  */
-public class SmtpConfig implements EmailConfig {
+public final class SmtpConfig implements EmailConfig {
 
     private static final String RECIPIENT_PROPERTY_PREFIX = "mail.recipient.";
 
@@ -34,7 +36,7 @@ public class SmtpConfig implements EmailConfig {
 
     @Override
     public Properties getProperties() {
-        return props;
+        return new Properties(props);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class SmtpConfig implements EmailConfig {
 
     @Override
     public String[] getRecipientNames() {
-        return recipientNames;
+        return copyOf(recipientNames, recipientNames.length);
     }
 
     private static String[] getRecipientNames(Properties props,
