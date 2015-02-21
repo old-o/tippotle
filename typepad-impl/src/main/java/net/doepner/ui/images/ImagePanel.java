@@ -2,10 +2,13 @@ package net.doepner.ui.images;
 
 import net.doepner.ui.ImageContainer;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Insets;
 
 import static java.awt.RenderingHints.KEY_ALPHA_INTERPOLATION;
 import static java.awt.RenderingHints.KEY_INTERPOLATION;
@@ -20,6 +23,7 @@ public final class ImagePanel extends JPanel implements ImageContainer {
 
     public ImagePanel() {
         image = null;
+        setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
     }
 
     @Override
@@ -35,11 +39,13 @@ public final class ImagePanel extends JPanel implements ImageContainer {
         super.paintComponent(g);
 
         if (image != null) {
+            final Insets insets = getInsets();
+
             final int imageWidth = image.getWidth(null);
             final int imageHeight = image.getHeight(null);
 
-            final int width = getWidth();
-            final int heigth = getHeight();
+            final int width = getWidth() - insets.left - insets.right;
+            final int heigth = getHeight() - insets.top - insets.bottom;
 
             final float xScale = imageWidth > width ? (float) imageWidth / (float) width : 1.0f;
             final float yScale = imageHeight > heigth ? (float) imageHeight / (float) heigth : 1.0f;
@@ -52,11 +58,14 @@ public final class ImagePanel extends JPanel implements ImageContainer {
             final int widthMargin = (width - targetWidth) / 2;
             final int heightMargin = (heigth - targetHeight) / 2;
 
+            final int x = widthMargin + insets.left;
+            final int y = heightMargin + insets.top;
+
             final Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR);
             g2.setRenderingHint(KEY_ALPHA_INTERPOLATION, VALUE_ALPHA_INTERPOLATION_QUALITY);
 
-            g.drawImage(image, widthMargin, heightMargin, targetWidth, targetHeight, null);
+            g.drawImage(image, x, y, targetWidth, targetHeight, null);
         }
     }
 }

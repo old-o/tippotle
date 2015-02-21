@@ -4,6 +4,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.JTextComponent;
 import java.awt.FontMetrics;
+import java.io.Serializable;
 
 /**
  * Manages and exposes the caret width for a text component
@@ -11,7 +12,7 @@ import java.awt.FontMetrics;
  * document of the text component, relative to the current
  * caret position
  */
-public final class BlockCaretContext implements CaretContext {
+public final class BlockCaretContext implements CaretContext, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,8 +47,8 @@ public final class BlockCaretContext implements CaretContext {
 
     private Integer getWidth(int pos) {
         final String text = component.getText();
-        if (pos >= 0 && pos < text.length()) {
-            final String currentCharacter = String.valueOf(text.charAt(pos));
+        if (pos > 0 && pos <= text.length()) {
+            final String currentCharacter = String.valueOf(text.charAt(pos - 1));
             final FontMetrics metrics = component.getFontMetrics(component.getFont());
             return metrics.stringWidth(currentCharacter);
         } else {

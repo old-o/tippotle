@@ -98,7 +98,7 @@ public final class SwingFrame {
 
                         }
                         final String word = wordProvider.getWord(after);
-                        if (word.length() > 1
+                        if ((word == null || word.trim().length() != 1)
                                 && not(bothNullOrEqual(word, wordProvider.getWord(before)))) {
                             setImages(ic.getImages(word), wordImagePanels);
                         }

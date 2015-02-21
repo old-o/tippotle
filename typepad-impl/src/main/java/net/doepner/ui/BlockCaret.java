@@ -13,12 +13,12 @@ import java.awt.geom.AffineTransform;
  */
 public final class BlockCaret extends DefaultCaret {
 
-    private static final Color COLOR_MASK = new Color(0, 50, 50);
-
+    private final Color colorMask;
     private final CaretContext context;
 
-    public BlockCaret(CaretContext context) {
+    public BlockCaret(CaretContext context, Color colorMask) {
         this.context = context;
+        this.colorMask = colorMask;
     }
 
     @Override
@@ -26,8 +26,8 @@ public final class BlockCaret extends DefaultCaret {
         final Graphics2D g2d = (Graphics2D) g;
         final AffineTransform old = g2d.getTransform();
         final int w = context.getCaretWidth();
-        g.setXORMode(COLOR_MASK);
-        g.translate(w / 2, 0);
+        g.setXORMode(colorMask);
+        g.translate(-w / 2, 0);
         super.paint(g);
         g2d.setTransform(old);
     }
@@ -35,7 +35,8 @@ public final class BlockCaret extends DefaultCaret {
     @Override
     protected synchronized void damage(Rectangle r) {
         if (r != null) {
-            setBounds(r.x, r.y, context.getCaretWidth() + 1, r.height);
+            final int caretWidth = context.getCaretWidth();
+            setBounds(r.x - caretWidth, r.y, caretWidth + 1, r.height);
             repaint();
         }
     }

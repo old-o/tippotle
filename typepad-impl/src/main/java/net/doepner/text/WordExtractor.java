@@ -36,16 +36,16 @@ public final class WordExtractor implements WordProvider {
         }
         final int pos = position.intValue();
         final String text = textProvider.getText();
-        final char ch = text.length() > pos ? text.charAt(pos) : ' ';
+        final char ch = text.length() >= pos && pos > 0 ? text.charAt(pos - 1) : ' ';
         log.as(info, "Character '{}' at position {}", ch, pos);
         return ch;
     }
 
     private String findSequence(CharCondition cond, int position) {
         final int start = getStart(cond, position);
-        final int end = getEnd(cond, position);
+        final int end = getEnd(cond, position - 1);
 
-        return textProvider.getText().substring(start, end);
+        return start < end ? textProvider.getText().substring(start, end) : "";
     }
 
     private int getStart(CharCondition cond, int position) {
@@ -62,7 +62,7 @@ public final class WordExtractor implements WordProvider {
         final String text = textProvider.getText();
 
         int pos = position;
-        while (pos < text.length() && cond.matches(text.charAt(pos))) {
+        while (pos >= 0 && pos < text.length() && cond.matches(text.charAt(pos))) {
             pos++;
         }
         return pos;

@@ -8,6 +8,7 @@ import javax.swing.InputMap;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.JTextComponent;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 
@@ -21,9 +22,10 @@ public final class SwingEditor implements Editor {
 
     private final JTextComponent editor;
 
-    public SwingEditor(JTextComponent editor) {
+    public SwingEditor(JTextComponent editor,
+                       Color caretColorMask) {
         this.editor = editor;
-        editor.setCaret(new BlockCaret(new BlockCaretContext(editor)));
+        editor.setCaret(new BlockCaret(new BlockCaretContext(editor), caretColorMask));
     }
 
     @Override

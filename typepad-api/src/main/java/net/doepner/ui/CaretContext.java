@@ -1,11 +1,9 @@
 package net.doepner.ui;
 
-import java.io.Serializable;
-
 /**
  * Computes caret width
  */
-public interface CaretContext extends Serializable {
+public interface CaretContext {
 
     /**
      * @return The caret width

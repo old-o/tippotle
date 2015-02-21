@@ -63,6 +63,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -155,7 +156,8 @@ public final class Application {
         final JTextPane textPane = new JTextPane();
         textPane.setFont(new Font("serif", Font.PLAIN, 40));
 
-        final Editor editor = new SwingEditor(textPane);
+        final Color caretColorMask = new Color(0, 50, 50);
+        final Editor editor = new SwingEditor(textPane, caretColorMask);
 
         final Dimension frameSize = new Dimension(800, 600);
         final Dimension imageSize = new Dimension(100, 100);
