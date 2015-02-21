@@ -27,7 +27,7 @@ public final class L10nMapper<K, V> implements L10nRegistry<K, V> {
 
     private Map<K, V> getMap(Language language) {
         if (!map.containsKey(language)) {
-            map.put(language, new HashMap<K, V>());
+            map.put(language, new HashMap<>());
         }
         return map.get(language);
     }

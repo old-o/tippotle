@@ -19,6 +19,7 @@ public final class CanadianDeutsch implements LanguageChanger {
 
     public CanadianDeutsch(LogProvider logProvider) {
         log = logProvider.getLog(getClass());
+        deutsch = false;
     }
 
     @Override

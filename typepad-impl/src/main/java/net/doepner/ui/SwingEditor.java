@@ -17,7 +17,7 @@ import static javax.swing.KeyStroke.getKeyStroke;
 /**
  * Swing based text editor component
  */
-public class SwingEditor implements Editor {
+public final class SwingEditor implements Editor {
 
     private final JTextComponent editor;
 
@@ -26,6 +26,7 @@ public class SwingEditor implements Editor {
         editor.setCaret(new BlockCaret(new BlockCaretContext(editor)));
     }
 
+    @Override
     public void addAction(Action action, int i) {
         final InputMap inputMap = editor.getInputMap(WHEN_IN_FOCUSED_WINDOW);
         final ActionMap actionMap = editor.getActionMap();

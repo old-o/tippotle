@@ -19,7 +19,7 @@ import static net.doepner.speech.LetterTypes.VOWEL;
 import static net.doepner.text.CharConditions.DIGIT;
 import static net.doepner.text.CharConditions.LETTER;
 
-public class AlphaNumStyler implements CharStyler {
+public final class AlphaNumStyler implements CharStyler {
 
     private static final AttributeSet DEFAULT = attribs(Color.DARK_GRAY);
 

@@ -19,14 +19,15 @@ public enum ActionEnum implements ActionId {
 
     private final String iconName;
 
-    private ActionEnum() {
+    ActionEnum() {
         this(null);
     }
 
-    private ActionEnum(String iconName) {
+    ActionEnum(String iconName) {
         this.iconName = iconName;
     }
 
+    @Override
     public String getIconName() {
         return iconName;
     }

@@ -19,11 +19,6 @@
             <groupId>net.doepner</groupId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <artifactId>typepad-files</artifactId>
-            <groupId>net.doepner</groupId>
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>javax.mail</groupId>

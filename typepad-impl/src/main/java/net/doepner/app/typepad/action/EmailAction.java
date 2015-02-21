@@ -10,12 +10,12 @@ import net.doepner.ui.IAction;
 /**
  * Sends emails
  */
-public class EmailAction implements IAction {
+public final class EmailAction implements IAction {
 
     private final EmailDialog emailDialog;
     private final TextProvider textProvider;
 
-    private Emailer emailer;
+    private final Emailer emailer;
     private final Speaker speaker;
 
     public EmailAction(EmailDialog emailDialog,

@@ -1,8 +1,13 @@
 package net.doepner.speech;
 
 /**
- * TODO: Document this!
+ * A set of speakers
  */
 public interface IterableSpeakers extends Speaker {
+
+    /**
+     * Switches to the next speaker
+     */
     void nextSpeaker();
+
 }

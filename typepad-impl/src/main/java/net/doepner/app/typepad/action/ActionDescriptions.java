@@ -21,7 +21,7 @@ import static net.doepner.lang.LanguageEnum.DEUTSCH;
 /**
  * Localized action descriptions
  */
-public class ActionDescriptions implements L10n<IAction, String> {
+public final class ActionDescriptions implements L10n<IAction, String> {
 
     private final L10nRegistry<ActionId, String> byId = new L10nMapper<>();
 
@@ -45,11 +45,11 @@ public class ActionDescriptions implements L10n<IAction, String> {
         de(SPEAK_WORD, "Read out the whole text");
     }
 
-    private void en(ActionEnum key, String value) {
+    private void en(ActionId key, String value) {
         byId.put(CANADIAN, key, value);
     }
 
-    private void de(ActionEnum id, String value) {
+    private void de(ActionId id, String value) {
         byId.put(DEUTSCH, id, value);
     }
 
