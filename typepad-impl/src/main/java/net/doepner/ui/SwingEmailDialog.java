@@ -1,7 +1,5 @@
 package net.doepner.ui;
 
-import net.doepner.resources.ImageCollector;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -11,6 +9,7 @@ import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.Iterator;
+import java.util.function.Function;
 
 import static javax.swing.JOptionPane.CLOSED_OPTION;
 import static javax.swing.JOptionPane.DEFAULT_OPTION;
@@ -23,14 +22,14 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 public final class SwingEmailDialog implements EmailDialog {
 
     private static final String NO_CHOICE = null;
-    
-    private final ImageCollector collector;
+
+    private final Function<String, Iterable<Image>> imageCollector;
 
     private final JPanel inputPanel;
     private final JTextField subjectField;
 
-    public SwingEmailDialog(ImageCollector collector) {
-        this.collector = collector;
+    public SwingEmailDialog(Function<String, Iterable<Image>> imageCollector) {
+        this.imageCollector = imageCollector;
 
         subjectField = new JTextField("Typepad message");
 
@@ -61,7 +60,7 @@ public final class SwingEmailDialog implements EmailDialog {
     }
 
     private Icon createIcon(String name) {
-        final Iterator<Image> images = collector.getImages(name).iterator();
+        final Iterator<Image> images = imageCollector.apply(name).iterator();
         if (images.hasNext()) {
             return new ImageIcon(images.next());
         } else {

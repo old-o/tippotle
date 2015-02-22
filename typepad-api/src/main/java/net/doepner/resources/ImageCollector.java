@@ -8,4 +8,5 @@ import java.awt.Image;
 public interface ImageCollector {
 
     Iterable<Image> getImages(String name);
+
 }

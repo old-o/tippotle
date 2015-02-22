@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 
 import static net.doepner.file.MediaTypeEnum.image;
 import static net.doepner.log.Log.Level.error;
@@ -18,7 +19,7 @@ import static net.doepner.log.Log.Level.error;
 /**
  * Finds batches of images
  */
-public final class StdImageCollector implements ImageCollector {
+public final class StdImageCollector implements Function<String, Iterable<Image>> {
 
     private final List<String> folders;
     private final ResourceCollector collector;
@@ -35,7 +36,7 @@ public final class StdImageCollector implements ImageCollector {
     }
 
     @Override
-    public Iterable<Image> getImages(String name) {
+    public Iterable<Image> apply(String name) {
         final Collection<Image> images = new LinkedList<>();
         for (URL url : collector.findAll(image, name, folders)) {
             try {

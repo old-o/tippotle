@@ -9,6 +9,8 @@ import static net.doepner.text.CharConditions.IS_WORD_PART;
 
 public final class WordExtractor implements WordProvider {
 
+    private static final Character NO_CHARACTER = null;
+
     private final Log log;
     private final TextProvider textProvider;
 
@@ -32,11 +34,14 @@ public final class WordExtractor implements WordProvider {
     @Override
     public Character getCharacter(Integer position) {
         if (position == null) {
-            return null;
+            return NO_CHARACTER;
         }
         final int pos = position.intValue();
         final String text = textProvider.getText();
-        final char ch = text.length() >= pos && pos > 0 ? text.charAt(pos - 1) : ' ';
+        if (pos <= 0 || text.length() < pos) {
+            return NO_CHARACTER;
+        }
+        final char ch = text.charAt(pos - 1);
         log.as(info, "Character '{}' at position {}", ch, pos);
         return ch;
     }

@@ -6,7 +6,6 @@ import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
 import net.doepner.log.Log;
 import net.doepner.log.LogProvider;
-import net.doepner.resources.ImageCollector;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Editor;
 import net.doepner.ui.FontChooser;
@@ -31,6 +30,7 @@ import java.awt.Image;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.function.Function;
 
 import static java.awt.BorderLayout.EAST;
 import static java.awt.BorderLayout.SOUTH;
@@ -38,6 +38,7 @@ import static javax.swing.BoxLayout.LINE_AXIS;
 import static javax.swing.BoxLayout.PAGE_AXIS;
 import static net.doepner.log.Log.Level.debug;
 import static net.doepner.log.Log.Level.info;
+import static net.doepner.ui.SwingUtil.doInBackground;
 import static net.doepner.util.ComparisonUtil.bothNullOrEqual;
 import static net.doepner.util.ComparisonUtil.not;
 
@@ -55,7 +56,7 @@ public final class SwingFrame {
                       String appName, Editor editor,
                       final ChangeNotifier<Language> languageChanger,
                       final WordProvider wordProvider,
-                      final ImageCollector ic,
+                      final Function<String, Iterable<Image>> imageCollector,
                       FontChooser editorFontChooser,
                       JScrollPane editorScrollPane,
                       Dimension imageSize,
@@ -89,21 +90,17 @@ public final class SwingFrame {
         editor.addTextPositionListener(new ChangeListener<Integer>() {
             @Override
             public void handleChange(final Integer before, final Integer after) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        final Character ch = wordProvider.getCharacter(after);
-                        if (not(bothNullOrEqual(ch, wordProvider.getCharacter(before)))) {
-                            setImages(ic.getImages(String.valueOf(ch)), charImagePanels);
-
-                        }
-                        final String word = wordProvider.getWord(after);
-                        if ((word == null || word.trim().length() != 1)
-                                && not(bothNullOrEqual(word, wordProvider.getWord(before)))) {
-                            setImages(ic.getImages(word), wordImagePanels);
-                        }
+                doInBackground(() -> {
+                    final Character ch = wordProvider.getCharacter(after);
+                    if (not(bothNullOrEqual(ch, wordProvider.getCharacter(before)))) {
+                        setImages(imageCollector.apply(String.valueOf(ch)), charImagePanels);
                     }
-                }).start();
+                    final String word = wordProvider.getWord(after);
+                    if ((word == null || word.trim().length() != 1)
+                            && not(bothNullOrEqual(word, wordProvider.getWord(before)))) {
+                        setImages(imageCollector.apply(word), wordImagePanels);
+                    }
+                });
             }
         });
 

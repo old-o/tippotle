@@ -8,6 +8,10 @@ import net.doepner.log.LogProvider;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import static net.doepner.log.Log.Level.debug;
 import static net.doepner.log.Log.Level.info;
@@ -19,6 +23,9 @@ public final class ClasspathFinder implements ResourceFinder {
 
     private final String baseLocation;
     private final Log log;
+
+    private final ConcurrentMap<String, URL> map = new ConcurrentHashMap<>();
+    private final Set<String> nonExistent = new ConcurrentSkipListSet<>();
 
     public ClasspathFinder(LogProvider logProvider) {
         this(logProvider, MethodHandles.lookup().lookupClass().getPackage());
@@ -42,6 +49,24 @@ public final class ClasspathFinder implements ResourceFinder {
                 + '/' + pathPart(category)
                 + '/' + name;
 
+        if (nonExistent.contains(location)) {
+            return null;
+        }
+        final URL cachedUrl = map.get(location);
+        if (cachedUrl != null) {
+            return cachedUrl;
+        } else {
+            final URL url = getUrl(mediaType, location);
+            if (url == null) {
+                nonExistent.add(location);
+            } else {
+                map.put(location, url);
+            }
+            return url;
+        }
+    }
+
+    private URL getUrl(MediaType mediaType, String location) {
         for (FileType fileType : mediaType.getFileTypes()) {
             final String fileLocation = location + '.' + fileType.getExtension();
             final URL resource = getClass().getResource(fileLocation);
@@ -52,7 +77,6 @@ public final class ClasspathFinder implements ResourceFinder {
                 log.as(debug, "Classpath resource not found: {}", fileLocation);
             }
         }
-
         return null;
     }
 

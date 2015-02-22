@@ -29,7 +29,6 @@ import net.doepner.resources.ClasspathFinder;
 import net.doepner.resources.FileDownload;
 import net.doepner.resources.FileFinder;
 import net.doepner.resources.GoogleTranslateUrls;
-import net.doepner.resources.ImageCollector;
 import net.doepner.resources.ResourceFinder;
 import net.doepner.resources.StdImageCollector;
 import net.doepner.resources.StdResourceCollector;
@@ -55,6 +54,8 @@ import net.doepner.ui.text.AlphaNumStyler;
 import net.doepner.ui.text.DocSwitchListener;
 import net.doepner.ui.text.Documents;
 import net.doepner.ui.text.TextStyler;
+import net.doepner.ui.text.UndoManagement;
+import net.doepner.util.ConcurrentCache;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -66,6 +67,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.nio.file.Path;
@@ -73,6 +75,7 @@ import java.nio.file.Paths;
 import java.util.function.Function;
 
 import static net.doepner.log.Log.Level.error;
+import static net.doepner.ui.SwingUtil.doInBackground;
 
 /**
  * Wires up the application
@@ -120,8 +123,9 @@ public final class Application {
                 new ESpeaker(languageChanger, "robbi")
         );
 
-        final ImageCollector imageCollector = new StdImageCollector(
-                new StdResourceCollector(resourceFinder), 10, logProvider);
+        final Function<String, Iterable<Image>> imageCollector =
+                new ConcurrentCache<>(new StdImageCollector(
+                        new StdResourceCollector(resourceFinder), 10, logProvider));
 
 
         final Path configFile = pathHelper.findOrCreate("email.properties", PathType.FILE);
@@ -178,7 +182,8 @@ public final class Application {
                 new SpeakAll(documentModel, speakers),
                 new StopAudioAction(speakers));
 
-
+        final DocSwitchListener undoManagement = new UndoManagement(logProvider, textPane);
+        documentModel.addDocSwitchListener(undoManagement);
 
 /*
         // You should work with UI (including installing L&F) inside Event Dispatch Thread (EDT)
@@ -218,12 +223,9 @@ public final class Application {
         documentModel.addTextListener(new TextListener() {
             @Override
             public void handleText(final String text) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        speaker.speak(text);
-                    }
-                }).start();
+                if (text.length() == 1) {
+                    doInBackground(() -> speaker.speak(text));
+                }
             }
         });
 
