@@ -1,6 +1,6 @@
 package net.doepner.text;
 
-import net.doepner.event.ChangeListener;
+import org.guppy4j.event.ChangeListener;
 
 public interface TextCoordinates {
 

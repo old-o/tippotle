@@ -1,6 +1,6 @@
 package net.doepner.ui;
 
-import net.doepner.event.ChangeListener;
+import org.guppy4j.event.ChangeListener;
 
 import javax.swing.Action;
 import javax.swing.ActionMap;

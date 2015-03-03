@@ -1,7 +1,7 @@
 package net.doepner.file;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,8 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static net.doepner.file.PathType.DIRECTORY;
-import static net.doepner.log.Log.Level.debug;
-import static net.doepner.log.Log.Level.info;
+import static org.guppy4j.log.Log.Level.debug;
+import static org.guppy4j.log.Log.Level.info;
 
 public final class StdPathHelper implements PathHelper {
 
@@ -26,7 +26,7 @@ public final class StdPathHelper implements PathHelper {
     public StdPathHelper(String appName, Path homeDir,
                          LogProvider logProvider) {
         log = logProvider.getLog(getClass());
-        appDir = homeDir.resolve("." + appName.toLowerCase());
+        appDir = homeDir.resolve('.' + appName.toLowerCase());
         createIfNecessary(appDir, DIRECTORY);
     }
 

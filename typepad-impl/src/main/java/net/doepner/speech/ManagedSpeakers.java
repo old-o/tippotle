@@ -1,15 +1,15 @@
 package net.doepner.speech;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import javax.swing.SwingWorker;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import static net.doepner.log.Log.Level.warn;
-import static net.doepner.util.ComparisonUtil.not;
+import static org.guppy4j.BaseUtil.not;
+import static org.guppy4j.log.Log.Level.warn;
 
 /**
  * Delegates to the currently selected speaker (among the available ones)

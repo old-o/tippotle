@@ -3,18 +3,18 @@ package net.doepner.resources;
 import net.doepner.file.FileType;
 import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import java.util.Set;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
-import static net.doepner.log.Log.Level.debug;
-import static net.doepner.log.Log.Level.info;
+import static org.guppy4j.log.Log.Level.debug;
+import static org.guppy4j.log.Log.Level.info;
 
 /**
  * Finds classpath resources
@@ -25,7 +25,7 @@ public final class ClasspathFinder implements ResourceFinder {
     private final Log log;
 
     private final ConcurrentMap<String, URL> map = new ConcurrentHashMap<>();
-    private final Set<String> nonExistent = new ConcurrentSkipListSet<>();
+    private final Collection<String> nonExistent = new ConcurrentSkipListSet<>();
 
     public ClasspathFinder(LogProvider logProvider) {
         this(logProvider, MethodHandles.lookup().lookupClass().getPackage());

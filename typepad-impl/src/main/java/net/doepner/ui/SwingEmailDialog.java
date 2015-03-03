@@ -1,9 +1,10 @@
 package net.doepner.ui;
 
+import net.doepner.mail.EmailConfig;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
@@ -15,6 +16,8 @@ import static javax.swing.JOptionPane.CLOSED_OPTION;
 import static javax.swing.JOptionPane.DEFAULT_OPTION;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showOptionDialog;
 
 /**
  * Prompts user to select an email recipient
@@ -24,12 +27,15 @@ public final class SwingEmailDialog implements EmailDialog {
     private static final String NO_CHOICE = null;
 
     private final Function<String, Iterable<Image>> imageCollector;
+    private final EmailConfig config;
 
     private final JPanel inputPanel;
     private final JTextField subjectField;
 
-    public SwingEmailDialog(Function<String, Iterable<Image>> imageCollector) {
+    public SwingEmailDialog(Function<String, Iterable<Image>> imageCollector,
+                            EmailConfig config) {
         this.imageCollector = imageCollector;
+        this.config = config;
 
         subjectField = new JTextField("Typepad message");
 
@@ -39,10 +45,10 @@ public final class SwingEmailDialog implements EmailDialog {
     }
 
     @Override
-    public String chooseRecipient(String[] recipients) {
+    public String getRecipient() {
+        final String[] recipients = config.getRecipientNames();
         if (recipients == null || recipients.length == 0) {
-            JOptionPane.showMessageDialog(null, "No email recipients configured",
-                    "Error", ERROR_MESSAGE);
+            showMessageDialog(null, "No email recipients configured", "Error", ERROR_MESSAGE);
             return NO_CHOICE;
         }
 
@@ -51,8 +57,7 @@ public final class SwingEmailDialog implements EmailDialog {
             options[i] = createIcon(recipients[i]);
         }
 
-        final int choice = JOptionPane.showOptionDialog(null,
-                inputPanel, "Send email ...",
+        final int choice = showOptionDialog(null, inputPanel, "Send email ...",
                 DEFAULT_OPTION, QUESTION_MESSAGE, null,
                 options, options[0]);
 
@@ -61,11 +66,7 @@ public final class SwingEmailDialog implements EmailDialog {
 
     private Icon createIcon(String name) {
         final Iterator<Image> images = imageCollector.apply(name).iterator();
-        if (images.hasNext()) {
-            return new ImageIcon(images.next());
-        } else {
-            return new ImageIcon();
-        }
+        return images.hasNext() ? new ImageIcon(images.next()) : new ImageIcon();
     }
 
     @Override

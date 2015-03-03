@@ -29,6 +29,22 @@
             <groupId>net.doepner</groupId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>event-impl</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>core-impl</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>sound-impl</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

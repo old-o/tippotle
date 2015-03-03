@@ -3,7 +3,7 @@ package net.doepner.speech;
 import net.doepner.lang.Language;
 import net.doepner.lang.LanguageProvider;
 import net.doepner.resources.ResourceFinder;
-import net.doepner.sound.AudioPlayer;
+import org.guppy4j.sound.AudioPlayer;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;

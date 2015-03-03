@@ -1,9 +1,9 @@
 package net.doepner.mail;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
-import static net.doepner.log.Log.Level.warn;
+import static org.guppy4j.log.Log.Level.warn;
 
 /**
  * Sends no emails, just logs warnings
@@ -23,10 +23,5 @@ public final class NoEmailer implements Emailer {
     public void send(String recipient, String subject, String text) {
         log.as(warn, "Not sending email '{}' to {}. No emailer active!",
                 subject, recipient);
-    }
-
-    @Override
-    public String[] getAvailableRecipients() {
-        return EMPTY_STRING_ARRAY;
     }
 }

@@ -17,9 +17,6 @@ import net.doepner.file.TextBuffers;
 import net.doepner.file.TextFiles;
 import net.doepner.lang.CanadianDeutsch;
 import net.doepner.lang.LanguageChanger;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
-import net.doepner.log.Slf4jLogProvider;
 import net.doepner.mail.Emailer;
 import net.doepner.mail.NoEmailer;
 import net.doepner.mail.SmtpConfig;
@@ -32,10 +29,6 @@ import net.doepner.resources.GoogleTranslateUrls;
 import net.doepner.resources.ResourceFinder;
 import net.doepner.resources.StdImageCollector;
 import net.doepner.resources.StdResourceCollector;
-import net.doepner.sound.AudioPlayer;
-import net.doepner.sound.ConvertingStreamPlayer;
-import net.doepner.sound.DirectStreamPlayer;
-import net.doepner.sound.StdAudioPlayer;
 import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.IterableSpeakers;
@@ -56,6 +49,14 @@ import net.doepner.ui.text.Documents;
 import net.doepner.ui.text.TextStyler;
 import net.doepner.ui.text.UndoManagement;
 import net.doepner.util.ConcurrentCache;
+import org.guppy4j.event.ChangeSupport;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
+import org.guppy4j.log.Slf4jLogProvider;
+import org.guppy4j.sound.AudioPlayer;
+import org.guppy4j.sound.ConvertingStreamPlayer;
+import org.guppy4j.sound.DirectStreamPlayer;
+import org.guppy4j.sound.StdAudioPlayer;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -74,8 +75,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Function;
 
-import static net.doepner.log.Log.Level.error;
 import static net.doepner.ui.SwingUtil.doInBackground;
+import static org.guppy4j.log.Log.Level.error;
 
 /**
  * Wires up the application
@@ -114,7 +115,8 @@ public final class Application {
                 new DirectStreamPlayer(),
                 new ConvertingStreamPlayer(logProvider));
 
-        final LanguageChanger languageChanger = new CanadianDeutsch(logProvider);
+        final LanguageChanger languageChanger =
+                new CanadianDeutsch(logProvider, new ChangeSupport<>());
 
         final IterableSpeakers speakers = new ManagedSpeakers(
                 logProvider,
@@ -129,7 +131,11 @@ public final class Application {
 
 
         final Path configFile = pathHelper.findOrCreate("email.properties", PathType.FILE);
-        final Emailer emailer = createEmailer(logProvider, configFile);
+        final SmtpConfig emailConfig = loadEmailConfig(configFile);
+
+        final Emailer emailer = emailConfig == null
+                ? new NoEmailer(logProvider)
+                : new SmtpEmailer(emailConfig, logProvider);
 
         /* MODEL */
 
@@ -155,7 +161,7 @@ public final class Application {
 
         /* VIEW */
 
-        final EmailDialog emailDialog = new SwingEmailDialog(imageCollector);
+        final EmailDialog emailDialog = new SwingEmailDialog(imageCollector, emailConfig);
 
         final JTextPane textPane = new JTextPane();
         textPane.setFont(new Font("serif", Font.PLAIN, 40));
@@ -199,12 +205,12 @@ public final class Application {
         addListeners(speakers, textPane, documentModel);
     }
 
-    private Emailer createEmailer(LogProvider logProvider, Path configFile) {
+    private SmtpConfig loadEmailConfig(Path configFile) {
         try {
-            return new SmtpEmailer(new SmtpConfig(configFile), logProvider);
+            return new SmtpConfig(configFile);
         } catch (IOException e) {
             log.as(error, e);
-            return new NoEmailer(logProvider);
+            return null;
         }
     }
 

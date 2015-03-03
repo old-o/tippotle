@@ -1,7 +1,7 @@
 package net.doepner.ui;
 
-import net.doepner.event.ChangeListener;
 import net.doepner.lang.Language;
+import org.guppy4j.event.ChangeListener;
 
 import javax.swing.Action;
 

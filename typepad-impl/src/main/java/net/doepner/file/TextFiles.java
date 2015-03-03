@@ -1,7 +1,7 @@
 package net.doepner.file;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
 import static net.doepner.file.PathType.FILE;
-import static net.doepner.log.Log.Level.info;
+import static org.guppy4j.log.Log.Level.info;
 
 /**
  * Implements text buffers using file system storage

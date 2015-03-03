@@ -19,6 +19,23 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>static</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>event</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

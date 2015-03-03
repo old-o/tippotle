@@ -2,7 +2,9 @@ package net.doepner.ui.images;
 
 import net.doepner.ui.ImageContainer;
 
+import javax.annotation.Nullable;
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import java.awt.Graphics;
@@ -16,9 +18,12 @@ import static java.awt.RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY;
 import static java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR;
 import static java.lang.Float.valueOf;
 import static java.lang.Math.max;
+import static org.guppy4j.BaseUtil.bothNullOrEqual;
+import static org.guppy4j.BaseUtil.not;
 
 public final class ImagePanel extends JPanel implements ImageContainer {
 
+    @Nullable
     private Image image;
 
     public ImagePanel() {
@@ -27,8 +32,8 @@ public final class ImagePanel extends JPanel implements ImageContainer {
     }
 
     @Override
-    public void setImage(Image image) {
-        if (this.image != image) {
+    public void setImage(@Nullable Image image) {
+        if (not(bothNullOrEqual(this.image, image))) {
             this.image = image;
             repaint();
         }
@@ -37,35 +42,52 @@ public final class ImagePanel extends JPanel implements ImageContainer {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         if (image != null) {
-            final Insets insets = getInsets();
-
-            final int imageWidth = image.getWidth(null);
-            final int imageHeight = image.getHeight(null);
-
-            final int width = getWidth() - insets.left - insets.right;
-            final int heigth = getHeight() - insets.top - insets.bottom;
-
-            final float xScale = imageWidth > width ? (float) imageWidth / (float) width : 1.0f;
-            final float yScale = imageHeight > heigth ? (float) imageHeight / (float) heigth : 1.0f;
-
-            final float scale = max(xScale, yScale);
-
-            final int targetWidth = valueOf((float) imageWidth / scale).intValue();
-            final int targetHeight = valueOf((float) imageHeight / scale).intValue();
-
-            final int widthMargin = (width - targetWidth) / 2;
-            final int heightMargin = (heigth - targetHeight) / 2;
-
-            final int x = widthMargin + insets.left;
-            final int y = heightMargin + insets.top;
-
-            final Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR);
-            g2.setRenderingHint(KEY_ALPHA_INTERPOLATION, VALUE_ALPHA_INTERPOLATION_QUALITY);
-
-            g.drawImage(image, x, y, targetWidth, targetHeight, null);
+            drawScaledImageToFit(this, image, g);
         }
+    }
+
+    private static void drawScaledImageToFit(JComponent comp, Image img, Graphics g) {
+        setInterpolation(g);
+
+        final Insets insets = comp.getInsets();
+
+        final int imgWidth = img.getWidth(null);
+        final int imgHeight = img.getHeight(null);
+
+        final int w = withoutInsets(comp.getWidth(), insets.left, insets.right);
+        final int h = withoutInsets(comp.getHeight(), insets.top, insets.bottom);
+
+        final float scale = max(scale(imgWidth, w), scale(imgHeight, h));
+
+        final int imgW = apply(imgWidth, scale);
+        final int imgH = apply(imgHeight, scale);
+
+        final int x = pos(insets.left, w, imgW);
+        final int y = pos(insets.top, h, imgH);
+
+        g.drawImage(img, x, y, imgW, imgH, null);
+    }
+
+    private static int withoutInsets(int total, int insetFromStart, int insetFromEnd) {
+        return total - insetFromStart - insetFromEnd;
+    }
+
+    private static float scale(int original, int available) {
+        return original > available ? (float) original / (float) available : 1.0f;
+    }
+
+    private static int apply(int imgExtent, float scale) {
+        return valueOf((float) imgExtent / scale).intValue();
+    }
+
+    private static int pos(int inset, int available, int actual) {
+        return inset + (available - actual) / 2;
+    }
+
+    private static void setInterpolation(Graphics g) {
+        final Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(KEY_ALPHA_INTERPOLATION, VALUE_ALPHA_INTERPOLATION_QUALITY);
     }
 }

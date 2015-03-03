@@ -1,7 +1,7 @@
 package net.doepner.resources;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import javax.imageio.ImageIO;
 import java.awt.Image;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static net.doepner.file.MediaTypeEnum.image;
-import static net.doepner.log.Log.Level.error;
+import static org.guppy4j.log.Log.Level.error;
 
 /**
  * Finds batches of images

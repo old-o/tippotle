@@ -1,7 +1,7 @@
 package net.doepner.mail;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -9,8 +9,8 @@ import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
 import static javax.mail.Message.RecipientType.TO;
-import static net.doepner.log.Log.Level.error;
-import static net.doepner.log.Log.Level.info;
+import static org.guppy4j.log.Log.Level.error;
+import static org.guppy4j.log.Log.Level.info;
 
 /**
  * Sends simple emails by SMTP
@@ -45,10 +45,5 @@ public final class SmtpEmailer implements Emailer {
         } catch (MessagingException e) {
             log.as(error, "Sending email failed", e);
         }
-    }
-
-    @Override
-    public String[] getAvailableRecipients() {
-        return emailConfig.getRecipientNames();
     }
 }

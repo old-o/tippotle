@@ -1,7 +1,7 @@
 package net.doepner.ui.text;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -22,9 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static javax.swing.KeyStroke.getKeyStroke;
 import static javax.swing.event.DocumentEvent.EventType.CHANGE;
-import static net.doepner.log.Log.Level.error;
-import static net.doepner.log.Log.Level.info;
-import static net.doepner.util.ComparisonUtil.not;
+import static org.guppy4j.BaseUtil.not;
+import static org.guppy4j.log.Log.Level.error;
+import static org.guppy4j.log.Log.Level.info;
 
 /**
  * Manages undo/redo operation

@@ -2,8 +2,8 @@ package net.doepner.ui;
 
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -12,12 +12,14 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 
-import static net.doepner.log.Log.Level.error;
+import static org.guppy4j.log.Log.Level.error;
 
 /**
  * Simple delegating action wrapper
  */
 public final class SwingAction extends AbstractAction implements UiAction {
+
+    private static final long serialVersionUID = 1L;
 
     private final L10n<IAction, String> descriptions;
     private final IAction action;

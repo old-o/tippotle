@@ -3,8 +3,8 @@ package net.doepner.resources;
 import net.doepner.file.FileType;
 import net.doepner.file.PathHelper;
 import net.doepner.lang.Language;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.net.URLConnection;
 import java.nio.file.Path;
 import java.util.regex.Pattern;
 
-import static net.doepner.log.Log.Level.info;
+import static org.guppy4j.log.Log.Level.info;
 
 /**
  * Downloads files from URLs to the local filesystem

@@ -1,11 +1,11 @@
 package net.doepner.text;
 
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
-import static net.doepner.log.Log.Level.info;
 import static net.doepner.text.CharConditions.IS_NUMBER_PART;
 import static net.doepner.text.CharConditions.IS_WORD_PART;
+import static org.guppy4j.log.Log.Level.info;
 
 public final class WordExtractor implements WordProvider {
 

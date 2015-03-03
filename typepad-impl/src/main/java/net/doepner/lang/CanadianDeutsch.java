@@ -1,23 +1,24 @@
 package net.doepner.lang;
 
 
-import net.doepner.event.ChangeListener;
-import net.doepner.event.ChangePropagator;
-import net.doepner.event.ChangeSupport;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
+import org.guppy4j.event.ChangeListener;
+import org.guppy4j.event.ChangePropagator;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
-import static net.doepner.log.Log.Level.info;
+import static org.guppy4j.log.Log.Level.info;
 
 public final class CanadianDeutsch implements LanguageChanger {
 
     private final Log log;
 
-    private final ChangePropagator<Language> propagator = new ChangeSupport<>();
+    private final ChangePropagator<Language> propagator;
 
     private boolean deutsch;
 
-    public CanadianDeutsch(LogProvider logProvider) {
+    public CanadianDeutsch(LogProvider logProvider,
+                           ChangePropagator<Language> propagator) {
+        this.propagator = propagator;
         log = logProvider.getLog(getClass());
         deutsch = false;
     }

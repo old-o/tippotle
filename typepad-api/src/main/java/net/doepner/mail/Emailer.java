@@ -7,5 +7,4 @@ public interface Emailer {
 
     void send(String recipient, String subject, String text);
 
-    String[] getAvailableRecipients();
 }

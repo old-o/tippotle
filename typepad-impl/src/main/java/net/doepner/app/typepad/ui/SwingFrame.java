@@ -1,11 +1,7 @@
 package net.doepner.app.typepad.ui;
 
-import net.doepner.event.ChangeListener;
-import net.doepner.event.ChangeNotifier;
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;
-import net.doepner.log.Log;
-import net.doepner.log.LogProvider;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Editor;
 import net.doepner.ui.FontChooser;
@@ -14,6 +10,10 @@ import net.doepner.ui.ImageContainer;
 import net.doepner.ui.SwingAction;
 import net.doepner.ui.UiAction;
 import net.doepner.ui.images.ImagePanel;
+import org.guppy4j.event.ChangeListener;
+import org.guppy4j.event.ChangeNotifier;
+import org.guppy4j.log.Log;
+import org.guppy4j.log.LogProvider;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -36,11 +36,11 @@ import static java.awt.BorderLayout.EAST;
 import static java.awt.BorderLayout.SOUTH;
 import static javax.swing.BoxLayout.LINE_AXIS;
 import static javax.swing.BoxLayout.PAGE_AXIS;
-import static net.doepner.log.Log.Level.debug;
-import static net.doepner.log.Log.Level.info;
 import static net.doepner.ui.SwingUtil.doInBackground;
-import static net.doepner.util.ComparisonUtil.bothNullOrEqual;
-import static net.doepner.util.ComparisonUtil.not;
+import static org.guppy4j.BaseUtil.bothNullOrEqual;
+import static org.guppy4j.BaseUtil.not;
+import static org.guppy4j.log.Log.Level.debug;
+import static org.guppy4j.log.Log.Level.info;
 
 /**
  * Swing frame wrapper (for loose coupling)
@@ -120,9 +120,9 @@ public final class SwingFrame {
         }
     }
 
-    private void addImageBar(JPanel wrapper, Collection<ImagePanel> panels,
-                             int axis, String constraints,
-                             Dimension imageSize) {
+    private static void addImageBar(JPanel wrapper, Collection<ImagePanel> panels,
+                                    int axis, String constraints,
+                                    Dimension imageSize) {
         final JPanel imageBar = new JPanel();
         imageBar.setLayout(new BoxLayout(imageBar, axis));
 
