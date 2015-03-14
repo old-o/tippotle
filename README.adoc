@@ -16,7 +16,7 @@ Simplistic text editor with
 * Display sign language and braille symbol of current letter
 * All actions are available via toolbar and function keys
 
-image:http://dev.doepner.net/screenshots/typepad.png
+image:http://dev.doepner.net/screenshots/typepad.png[screenshot]
 
 == Build status
 
