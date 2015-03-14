@@ -16,14 +16,16 @@ Simplistic text editor with
 * Display sign language and braille symbol of current letter
 * All actions are available via toolbar and function keys
 
-image:http://dev.doepner.net/screenshots/typepad.png[screenshot]
-
 == Build status
 
 image:https://travis-ci.org/odoepner/typepad.svg?branch=master[
 link="https://travis-ci.org/odoepner/typepad"]
 
 http://dev.doepner.net/dist/ci-builds/typepad.zip[Download latest build]
+
+== Screenshot
+
+image:http://dev.doepner.net/screenshots/typepad.png[Sending email to Mama]
 
 == Technology
 
