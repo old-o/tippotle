@@ -3,7 +3,7 @@ package net.doepner.app.typepad.action;
 import net.doepner.lang.LanguageChanger;
 import net.doepner.ui.IAction;
 
-public class SwitchLanguage implements IAction {
+public final class SwitchLanguage implements IAction {
 
     private final LanguageChanger langChanger;
 
@@ -17,12 +17,12 @@ public class SwitchLanguage implements IAction {
     }
 
     @Override
-    public ActionEnum getId() {
+    public ActionEnum id() {
         return ActionEnum.SWITCH_LANGUAGE;
     }
 
     @Override
-    public String getIconName() {
-        return langChanger.getLanguage().getCode();
+    public String iconName() {
+        return langChanger.language().code();
     }
 }

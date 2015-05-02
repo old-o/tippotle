@@ -28,18 +28,18 @@ public final class SmtpEmailer implements Emailer {
     @Override
     public void send(String recipient, String subject, String text) {
 
-        final Session session = Session.getInstance(emailConfig.getProperties(), null);
+        final Session session = Session.getInstance(emailConfig.properties(), null);
 
         try {
             final MimeMessage msg = new MimeMessage(session);
 
-            msg.setFrom(emailConfig.getSender());
-            final String toAddress = emailConfig.getEmailAddress(recipient);
+            msg.setFrom(emailConfig.sender());
+            final String toAddress = emailConfig.emailAddress(recipient);
             msg.setRecipients(TO, toAddress);
             msg.setSubject(subject);
             msg.setText(text);
 
-            Transport.send(msg, emailConfig.getUsername(), emailConfig.getPassword());
+            Transport.send(msg, emailConfig.username(), emailConfig.password());
             log.as(info, "Sent email regarding '{}' to {}", subject, toAddress);
 
         } catch (MessagingException e) {

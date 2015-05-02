@@ -9,7 +9,7 @@ public interface MediaType {
 
     boolean isImage();
 
-    String getGroupingName();
+    String groupingName();
 
-    Iterable<FileType> getFileTypes();
+    Iterable<FileType> fileTypes();
 }

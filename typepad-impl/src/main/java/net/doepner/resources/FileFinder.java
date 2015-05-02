@@ -23,14 +23,14 @@ public final class FileFinder implements ResourceStore {
     @Override
     public URL find(MediaType mediaType, String name, Language language,
                     String category) {
-        final Path dir = getStorageDir(mediaType, language, category);
-        return getUrl(dir, name, mediaType);
+        final Path dir = storageDir(mediaType, language, category);
+        return url(dir, name, mediaType);
     }
 
     @Override
-    public Path getStorageDir(MediaType mediaType, Language language,
-                              String category) {
-        final Path mediaDir = getDirectory(mediaType);
+    public Path storageDir(MediaType mediaType, Language language,
+                           String category) {
+        final Path mediaDir = directory(mediaType);
         final Path languageDir = mediaDir.resolve(toDirName(language));
         return languageDir.resolve(toDirName(category));
     }
@@ -40,15 +40,15 @@ public final class FileFinder implements ResourceStore {
     }
 
     private static String toDirName(Language language) {
-        return language != null ? language.getCode() : "_";
+        return language != null ? language.code() : "_";
     }
 
-    private Path getDirectory(MediaType mediaType) {
-        final String dirName = mediaType.getGroupingName();
+    private Path directory(MediaType mediaType) {
+        final String dirName = mediaType.groupingName();
         return helper.findOrCreate(dirName, PathType.DIRECTORY);
     }
 
-    private URL getUrl(Path dir, String name, MediaType mediaType) {
+    private URL url(Path dir, String name, MediaType mediaType) {
         final Path file = helper.findInDir(dir, name, mediaType);
         if (file != null) {
             try {

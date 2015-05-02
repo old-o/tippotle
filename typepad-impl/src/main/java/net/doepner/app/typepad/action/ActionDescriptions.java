@@ -55,6 +55,6 @@ public final class ActionDescriptions implements L10n<IAction, String> {
 
     @Override
     public String get(IAction action, Language language) {
-        return byId.get(action.getId(), language);
+        return byId.get(action.id(), language);
     }
 }

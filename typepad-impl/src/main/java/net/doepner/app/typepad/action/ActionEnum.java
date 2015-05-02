@@ -28,7 +28,7 @@ public enum ActionEnum implements ActionId {
     }
 
     @Override
-    public String getIconName() {
+    public String iconName() {
         return iconName;
     }
 }

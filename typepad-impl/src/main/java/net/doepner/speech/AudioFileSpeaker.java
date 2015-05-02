@@ -32,7 +32,7 @@ public final class AudioFileSpeaker implements TestableSpeaker {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return speakerName;
     }
 
@@ -52,7 +52,7 @@ public final class AudioFileSpeaker implements TestableSpeaker {
     }
 
     private void speakPart(String text) {
-        final Language language = languageProvider.getLanguage();
+        final Language language = languageProvider.language();
         final URL audioFile = resourceFinder.find(audio, text, language, speakerName);
         try {
             audioPlayer.play(audioFile);

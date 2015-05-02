@@ -5,7 +5,10 @@ import net.doepner.text.TextCoordinates;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.IAction;
 
-public class SpeakWord implements IAction {
+import static net.doepner.app.typepad.action.ActionEnum.SPEAK_WORD;
+import static org.guppy4j.BaseUtil.exists;
+
+public final class SpeakWord implements IAction {
 
     private final TextCoordinates textCoordinates;
     private final WordProvider wordProvider;
@@ -21,15 +24,15 @@ public class SpeakWord implements IAction {
 
     @Override
     public void execute() {
-        final String word = wordProvider.getWord(textCoordinates.getTextPosition());
-        if (word != null && !word.isEmpty()) {
+        final String word = wordProvider.word(textCoordinates.textPosition());
+        if (exists(word)) {
             speaker.speak(word);
         }
     }
 
     @Override
-    public ActionEnum getId() {
-        return ActionEnum.SPEAK_WORD;
+    public ActionEnum id() {
+        return SPEAK_WORD;
     }
 
 }

@@ -25,12 +25,12 @@ public enum MediaTypeEnum implements MediaType {
     }
 
     @Override
-    public String getGroupingName() {
+    public String groupingName() {
         return groupingName;
     }
 
     @Override
-    public Iterable<FileType> getFileTypes() {
+    public Iterable<FileType> fileTypes() {
         return FileTypeEnum.values(this);
     }
 }

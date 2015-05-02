@@ -15,7 +15,6 @@ import org.guppy4j.event.ChangeNotifier;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,6 +33,7 @@ import java.util.function.Function;
 
 import static java.awt.BorderLayout.EAST;
 import static java.awt.BorderLayout.SOUTH;
+import static javax.swing.Box.createHorizontalGlue;
 import static javax.swing.BoxLayout.LINE_AXIS;
 import static javax.swing.BoxLayout.PAGE_AXIS;
 import static net.doepner.ui.SwingUtil.doInBackground;
@@ -49,8 +49,8 @@ public final class SwingFrame {
 
     private final JFrame frame;
 
-    private final Collection<ImagePanel> wordImagePanels = new LinkedList<>();
-    private final Collection<ImagePanel> charImagePanels = new LinkedList<>();
+    private final Iterable<ImagePanel> wordImagePanels;
+    private final Iterable<ImagePanel> charImagePanels;
 
     public SwingFrame(LogProvider logProvider,
                       String appName, Editor editor,
@@ -68,8 +68,8 @@ public final class SwingFrame {
 
         final JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.add(editorScrollPane, BorderLayout.CENTER);
-        addImageBar(wrapper, charImagePanels, PAGE_AXIS, EAST, imageSize);
-        addImageBar(wrapper, wordImagePanels, LINE_AXIS, SOUTH, imageSize);
+        charImagePanels = addImageBar(wrapper, PAGE_AXIS, EAST, imageSize);
+        wordImagePanels = addImageBar(wrapper, LINE_AXIS, SOUTH, imageSize);
 
         final JToolBar toolBar = new JToolBar();
         int i = 0;
@@ -84,20 +84,20 @@ public final class SwingFrame {
         }
         log.as(info, "All {} actions initialized", actions.length);
 
-        toolBar.add(Box.createHorizontalGlue());
+        toolBar.add(createHorizontalGlue());
         toolBar.add(editorFontChooser);
 
         editor.addTextPositionListener(new ChangeListener<Integer>() {
             @Override
             public void handleChange(final Integer before, final Integer after) {
                 doInBackground(() -> {
-                    final Character ch = wordProvider.getCharacter(after);
-                    if (not(bothNullOrEqual(ch, wordProvider.getCharacter(before)))) {
+                    final Character ch = wordProvider.character(after);
+                    if (not(bothNullOrEqual(ch, wordProvider.character(before)))) {
                         setImages(imageCollector.apply(String.valueOf(ch)), charImagePanels);
                     }
-                    final String word = wordProvider.getWord(after);
+                    final String word = wordProvider.word(after);
                     if ((word == null || word.trim().length() != 1)
-                            && not(bothNullOrEqual(word, wordProvider.getWord(before)))) {
+                            && not(bothNullOrEqual(word, wordProvider.word(before)))) {
                         setImages(imageCollector.apply(word), wordImagePanels);
                     }
                 });
@@ -120,11 +120,13 @@ public final class SwingFrame {
         }
     }
 
-    private static void addImageBar(JPanel wrapper, Collection<ImagePanel> panels,
-                                    int axis, String constraints,
-                                    Dimension imageSize) {
+    private static Iterable<ImagePanel> addImageBar(JPanel wrapper,
+                                                    int axis, String constraints,
+                                                    Dimension imageSize) {
         final JPanel imageBar = new JPanel();
         imageBar.setLayout(new BoxLayout(imageBar, axis));
+
+        final Collection<ImagePanel> panels = new LinkedList<>();
 
         for (int i = 0; i < 5; i++) {
             final ImagePanel imagePanel = new ImagePanel();
@@ -134,6 +136,7 @@ public final class SwingFrame {
             panels.add(imagePanel);
         }
         wrapper.add(imageBar, constraints);
+        return panels;
     }
 
     public void show() {

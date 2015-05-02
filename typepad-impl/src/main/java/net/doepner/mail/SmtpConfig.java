@@ -25,37 +25,37 @@ public final class SmtpConfig implements EmailConfig {
         try (InputStream stream = Files.newInputStream(propertiesFile)) {
             properties.load(stream);
         }
-        recipientNames = getRecipientNames(properties, RECIPIENT_PROPERTY_PREFIX);
+        recipientNames = recipientNames(properties, RECIPIENT_PROPERTY_PREFIX);
         props = properties;
     }
 
     @Override
-    public String getSender() {
+    public String sender() {
         return props.getProperty("mail.from");
     }
 
     @Override
-    public Properties getProperties() {
+    public Properties properties() {
         return new Properties(props);
     }
 
     @Override
-    public String getUsername() {
+    public String username() {
         return props.getProperty("mail.smtp.user");
     }
 
     @Override
-    public String getPassword() {
+    public String password() {
         return props.getProperty("mail.smtp.password");
     }
 
     @Override
-    public String[] getRecipientNames() {
+    public String[] recipientNames() {
         return copyOf(recipientNames, recipientNames.length);
     }
 
-    private static String[] getRecipientNames(Properties props,
-                                              String propertyPrefix) {
+    private static String[] recipientNames(Properties props,
+                                           String propertyPrefix) {
         final List<String> list = new LinkedList<>();
         for (String name : props.stringPropertyNames()) {
             if (name.startsWith(propertyPrefix)) {
@@ -66,7 +66,7 @@ public final class SmtpConfig implements EmailConfig {
     }
 
     @Override
-    public String getEmailAddress(String recipient) {
+    public String emailAddress(String recipient) {
         return props.getProperty(RECIPIENT_PROPERTY_PREFIX + recipient);
     }
 }

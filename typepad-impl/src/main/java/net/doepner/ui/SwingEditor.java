@@ -48,7 +48,7 @@ public final class SwingEditor implements Editor {
     }
 
     @Override
-    public int getTextPosition() {
+    public int textPosition() {
         return editor.getCaretPosition();
     }
 

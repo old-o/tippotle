@@ -3,11 +3,11 @@ package net.doepner.speech;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
 
-import javax.swing.SwingWorker;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import static net.doepner.ui.SwingUtil.doInBackground;
 import static org.guppy4j.BaseUtil.not;
 import static org.guppy4j.log.Log.Level.warn;
 
@@ -18,8 +18,8 @@ public final class ManagedSpeakers implements IterableSpeakers {
 
     private final Iterable<Speaker> speakers;
 
-    private Iterator<Speaker> speakerIter;
-    private Speaker currentSpeaker;
+    private Iterator<Speaker> iterator;
+    private Speaker current;
 
     public ManagedSpeakers(LogProvider logProvider,
                            TestableSpeaker... speakers) {
@@ -33,41 +33,33 @@ public final class ManagedSpeakers implements IterableSpeakers {
 
             } catch (IllegalStateException e) {
                 log.as(warn, "Speaker '{}' not functional. Error: {}",
-                        speaker.getName(), e.getMessage());
+                        speaker.name(), e.getMessage());
             }
         }
         this.speakers = speakerList;
-        nextSpeaker();
+        next();
     }
 
     @Override
-    public String getName() {
-        return currentSpeaker == null ? "unknown" : currentSpeaker.getName();
+    public String name() {
+        return current == null ? "unknown" : current.name();
     }
 
     @Override
     public void stopAll() {
-        for (Speaker speaker : speakers) {
-            speaker.stopAll();
-        }
+        speakers.forEach(s -> s.stopAll());
     }
 
     @Override
     public void speak(final String text) {
-        new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() {
-                currentSpeaker.speak(text);
-                return null;
-            }
-        }.execute();
+        doInBackground(() -> current.speak(text));
     }
 
     @Override
-    public void nextSpeaker() {
-        if (speakerIter == null || not(speakerIter.hasNext())) {
-            speakerIter = speakers.iterator();
+    public void next() {
+        if (iterator == null || not(iterator.hasNext())) {
+            iterator = speakers.iterator();
         }
-        currentSpeaker = speakerIter.next();
+        current = iterator.next();
     }
 }

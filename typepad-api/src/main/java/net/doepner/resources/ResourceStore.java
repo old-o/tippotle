@@ -10,5 +10,5 @@ import java.nio.file.Path;
  */
 public interface ResourceStore extends ResourceFinder {
 
-    Path getStorageDir(MediaType mediaType, Language language, String category);
+    Path storageDir(MediaType mediaType, Language language, String category);
 }

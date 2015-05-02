@@ -7,15 +7,15 @@ import java.util.Properties;
  */
 public interface EmailConfig {
 
-    Properties getProperties();
+    Properties properties();
 
-    String getSender();
+    String sender();
 
-    String getUsername();
+    String username();
 
-    String getPassword();
+    String password();
 
-    String[] getRecipientNames();
+    String[] recipientNames();
 
-    String getEmailAddress(String recipient);
+    String emailAddress(String recipient);
 }

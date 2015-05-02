@@ -4,7 +4,7 @@ import org.guppy4j.event.ChangeListener;
 
 public interface TextCoordinates {
 
-    int getTextPosition();
+    int textPosition();
 
     void addTextPositionListener(ChangeListener<Integer> tpl);
 

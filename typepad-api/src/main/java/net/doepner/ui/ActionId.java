@@ -5,5 +5,5 @@ package net.doepner.ui;
  */
 public interface ActionId {
 
-    String getIconName();
+    String iconName();
 }

@@ -45,8 +45,8 @@ public final class SwingEmailDialog implements EmailDialog {
     }
 
     @Override
-    public String getRecipient() {
-        final String[] recipients = config.getRecipientNames();
+    public String recipient() {
+        final String[] recipients = config.recipientNames();
         if (recipients == null || recipients.length == 0) {
             showMessageDialog(null, "No email recipients configured", "Error", ERROR_MESSAGE);
             return NO_CHOICE;
@@ -70,7 +70,7 @@ public final class SwingEmailDialog implements EmailDialog {
     }
 
     @Override
-    public String getSubject() {
+    public String subject() {
         return subjectField.getText();
     }
 }

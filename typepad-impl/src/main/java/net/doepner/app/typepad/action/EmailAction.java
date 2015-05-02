@@ -30,16 +30,16 @@ public final class EmailAction implements IAction {
 
     @Override
     public void execute() {
-        final String recipient = emailDialog.getRecipient();
+        final String recipient = emailDialog.recipient();
 
         if (recipient != null) {
-            emailer.send(recipient, emailDialog.getSubject(), textProvider.getText());
+            emailer.send(recipient, emailDialog.subject(), textProvider.getText());
             speaker.speak("Email was sent to " + recipient);
         }
     }
 
     @Override
-    public ActionId getId() {
+    public ActionId id() {
         return ActionEnum.EMAIL;
     }
 }

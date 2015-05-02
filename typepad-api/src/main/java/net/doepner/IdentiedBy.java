@@ -5,5 +5,5 @@ package net.doepner;
  */
 public interface IdentiedBy<T> {
 
-    T getId();
+    T id();
 }

@@ -15,7 +15,7 @@ public enum LanguageEnum implements Language {
     }
 
     @Override
-    public String getCode() {
+    public String code() {
         return code;
     }
 

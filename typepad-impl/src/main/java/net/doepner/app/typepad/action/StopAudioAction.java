@@ -4,10 +4,11 @@ import net.doepner.speech.IterableSpeakers;
 import net.doepner.ui.ActionId;
 import net.doepner.ui.IAction;
 
+import static net.doepner.app.typepad.action.ActionEnum.STOP_AUDIO;
 import static net.doepner.ui.SwingUtil.doInBackground;
 
 /**
- * TODO: Document this!
+ * Stops all current audio output
  */
 public final class StopAudioAction implements IAction {
 
@@ -23,7 +24,7 @@ public final class StopAudioAction implements IAction {
     }
 
     @Override
-    public ActionId getId() {
-        return ActionEnum.STOP_AUDIO;
+    public ActionId id() {
+        return STOP_AUDIO;
     }
 }

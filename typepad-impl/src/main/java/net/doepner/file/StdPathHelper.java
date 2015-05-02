@@ -3,17 +3,13 @@ package net.doepner.file;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static java.nio.file.Files.copy;
+import static java.nio.file.Files.exists;
 import static net.doepner.file.PathType.DIRECTORY;
 import static org.guppy4j.log.Log.Level.debug;
 import static org.guppy4j.log.Log.Level.info;
@@ -33,9 +29,9 @@ public final class StdPathHelper implements PathHelper {
     @Override
     public Path findInDir(Path dir, String name, MediaType mediaType) {
         createIfNecessary(dir, DIRECTORY);
-        for (FileType fileType : mediaType.getFileTypes()) {
-            final Path path = dir.resolve(sanitize(name) + '.' + fileType.getExtension());
-            if (Files.exists(path)) {
+        for (FileType fileType : mediaType.fileTypes()) {
+            final Path path = resolveIn(dir, name, fileType);
+            if (exists(path)) {
                 logFindResult(dir, name, mediaType, path);
                 return path;
             }
@@ -55,25 +51,24 @@ public final class StdPathHelper implements PathHelper {
     }
 
     @Override
-    public File writeFile(String name, Path targetDir,
+    public Path writeFile(String name, Path targetDir,
                           InputStream stream, FileType fileType) throws IOException {
-
-        final ReadableByteChannel rbc = Channels.newChannel(stream);
-        final File file = targetDir.resolve(sanitize(name) + '.' + fileType.getExtension()).toFile();
-
-        try (final FileOutputStream fos = new FileOutputStream(file);
-             final FileChannel channel = fos.getChannel()) {
-            channel.transferFrom(rbc, 0L, Long.MAX_VALUE);
-        }
-        return file;
+        final Path path = resolveIn(targetDir, name, fileType);
+        copy(stream, path);
+        return path;
     }
+
+    private static Path resolveIn(Path dir, String name, FileType fileType) {
+        return dir.resolve(fileType.fileName(sanitize(name)));
+    }
+
 
     private static String sanitize(String name) {
         return name.replace(" ", "_");
     }
 
     private static Path createIfNecessary(Path path, PathCreator creator) {
-        if (Files.exists(path)) {
+        if (exists(path)) {
             return path;
         }
         try {

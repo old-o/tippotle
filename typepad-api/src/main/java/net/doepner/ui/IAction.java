@@ -7,7 +7,7 @@ import net.doepner.IdentiedBy;
  * A framework-agnostic action that is identified by an action id,
  * Design Pattern: Command
  */
-public interface IAction extends IdentiedBy<ActionId> {
+public interface IAction extends IdentiedBy<ActionId>, ActionId {
 
     /**
      * Executes the action
@@ -17,7 +17,7 @@ public interface IAction extends IdentiedBy<ActionId> {
     /**
      * @return The icon name of the action
      */
-    default String getIconName() {
-        return getId().getIconName();
+    default String iconName() {
+        return id().iconName();
     }
 }

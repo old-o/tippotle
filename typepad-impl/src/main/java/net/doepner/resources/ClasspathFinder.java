@@ -32,11 +32,11 @@ public final class ClasspathFinder implements ResourceFinder {
     }
 
     public ClasspathFinder(LogProvider logProvider, Package basePackage) {
-        baseLocation = getLocation(basePackage);
+        baseLocation = location(basePackage);
         log = logProvider.getLog(getClass());
     }
 
-    private static String getLocation(Package pkg) {
+    private static String location(Package pkg) {
         return '/' + pkg.getName().replace('.', '/');
     }
 
@@ -44,7 +44,7 @@ public final class ClasspathFinder implements ResourceFinder {
     public URL find(MediaType mediaType, String name, Language language, String category) {
 
         final String location = baseLocation
-                + '/' + mediaType.getGroupingName()
+                + '/' + mediaType.groupingName()
                 + '/' + pathPart(language)
                 + '/' + pathPart(category)
                 + '/' + name;
@@ -56,7 +56,7 @@ public final class ClasspathFinder implements ResourceFinder {
         if (cachedUrl != null) {
             return cachedUrl;
         } else {
-            final URL url = getUrl(mediaType, location);
+            final URL url = url(mediaType, location);
             if (url == null) {
                 nonExistent.add(location);
             } else {
@@ -66,9 +66,9 @@ public final class ClasspathFinder implements ResourceFinder {
         }
     }
 
-    private URL getUrl(MediaType mediaType, String location) {
-        for (FileType fileType : mediaType.getFileTypes()) {
-            final String fileLocation = location + '.' + fileType.getExtension();
+    private URL url(MediaType mediaType, String location) {
+        for (FileType fileType : mediaType.fileTypes()) {
+            final String fileLocation = fileType.fileName(location);
             final URL resource = getClass().getResource(fileLocation);
             if (resource != null) {
                 log.as(info, "Found classpath resource: {}", fileLocation);
@@ -85,6 +85,6 @@ public final class ClasspathFinder implements ResourceFinder {
     }
 
     private static String pathPart(Language language) {
-        return language == null ? "_" : language.getCode();
+        return language == null ? "_" : language.code();
     }
 }

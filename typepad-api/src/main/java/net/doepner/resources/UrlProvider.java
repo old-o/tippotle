@@ -1,6 +1,6 @@
 package net.doepner.resources;
 
-import net.doepner.file.FileType;
+import net.doepner.file.FileInfo;
 import net.doepner.lang.Language;
 
 import java.net.MalformedURLException;
@@ -10,11 +10,10 @@ import java.net.URLConnection;
 /**
  * Constructs URLs for file downloads
  */
-public interface UrlProvider {
+public interface UrlProvider extends FileInfo {
 
-    URL getUrl(String s, Language language) throws MalformedURLException;
+    URL url(String s, Language language) throws MalformedURLException;
 
-    void configure(URLConnection c);
+    void prepareConnection(URLConnection c);
 
-    FileType getFileType();
 }

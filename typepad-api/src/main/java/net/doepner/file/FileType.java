@@ -5,9 +5,9 @@ package net.doepner.file;
  */
 public interface FileType {
 
-    MediaType getMediaType();
+    MediaType mediaType();
 
-    String getExtension();
+    String mimeType();
 
-    String getMimeType();
+    String fileName(String baseName);
 }

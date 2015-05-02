@@ -27,18 +27,18 @@ public enum FileTypeEnum implements FileType {
     }
 
     @Override
-    public MediaType getMediaType() {
+    public MediaType mediaType() {
         return mediaType;
     }
 
     @Override
-    public String getExtension() {
-        return name();
+    public String fileName(String baseName) {
+        return baseName + '.' + name();
     }
 
     @Override
-    public String getMimeType() {
-        return mediaType.name() + "/" + name();
+    public String mimeType() {
+        return mediaType.name() + '/' + name();
     }
 
     public static Iterable<FileType> values(MediaTypeEnum mediaTypeEnum) {

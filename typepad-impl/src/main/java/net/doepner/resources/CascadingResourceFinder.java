@@ -49,10 +49,9 @@ public final class CascadingResourceFinder implements ResourceFinder {
             return resource;
         }
 
-        if (downloader != null
-                && downloader.getFileType().getMediaType().equals(mediaType)) {
+        if (downloader != null && downloader.supports(mediaType)) {
 
-            final Path targetDir = store.getStorageDir(mediaType, language, category);
+            final Path targetDir = store.storageDir(mediaType, language, category);
             downloader.download(language, name, targetDir);
             return store.find(mediaType, name, language, category);
         }

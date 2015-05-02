@@ -1,12 +1,12 @@
 package net.doepner.resources;
 
 import net.doepner.file.FileType;
+import net.doepner.file.MediaType;
 import net.doepner.file.PathHelper;
 import net.doepner.lang.Language;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,27 +36,30 @@ public final class FileDownload implements ResourceDownloader {
     }
 
     @Override
-    public File download(Language language, String name, Path targetDir) {
+    public Path download(Language language, String name, Path targetDir) {
         final URL url;
         try {
-            url = urlProvider.getUrl(UNDERSCORE.matcher(name).replaceAll(" "), language);
+            url = urlProvider.url(UNDERSCORE.matcher(name).replaceAll(" "), language);
         } catch (MalformedURLException e) {
             throw new IllegalStateException(e);
         }
         log.as(info, "Retrieving {}", url);
         try {
             final URLConnection c = url.openConnection();
-            urlProvider.configure(c);
-            return pathHelper.writeFile(name, targetDir, c.getInputStream(), getFileType());
+            urlProvider.prepareConnection(c);
+            return pathHelper.writeFile(name, targetDir, c.getInputStream(), fileType());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }
 
     @Override
-    public FileType getFileType() {
-        return urlProvider.getFileType();
+    public FileType fileType() {
+        return urlProvider.fileType();
     }
 
-
+    @Override
+    public boolean supports(MediaType mediaType) {
+        return fileType().mediaType().equals(mediaType);
+    }
 }

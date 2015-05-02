@@ -18,7 +18,7 @@ public final class ESpeaker implements TestableSpeaker {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -50,7 +50,7 @@ public final class ESpeaker implements TestableSpeaker {
     private void doSpeak(String text) throws IOException {
         Runtime.getRuntime().exec(new String[]{
                 ESPEAK_COMMAND, "-v",
-                languageProvider.getLanguage().getCode(),
+                languageProvider.language().code(),
                 text
         });
     }

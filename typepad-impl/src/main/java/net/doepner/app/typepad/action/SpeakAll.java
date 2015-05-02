@@ -7,7 +7,7 @@ import net.doepner.ui.IAction;
 /**
  * Lets the speaker read the whole text from the model
  */
-public class SpeakAll implements IAction {
+public final class SpeakAll implements IAction {
 
     private final TextProvider textProvider;
     private final Speaker speaker;
@@ -27,7 +27,7 @@ public class SpeakAll implements IAction {
     }
 
     @Override
-    public ActionEnum getId() {
+    public ActionEnum id() {
         return ActionEnum.SPEAK_ALL;
     }
 }

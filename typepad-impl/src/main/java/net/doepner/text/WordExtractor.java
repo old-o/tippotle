@@ -20,7 +20,7 @@ public final class WordExtractor implements WordProvider {
     }
 
     @Override
-    public String getWord(Integer position) {
+    public String word(Integer position) {
         if (position == null) {
             return null;
         }
@@ -32,7 +32,7 @@ public final class WordExtractor implements WordProvider {
     }
 
     @Override
-    public Character getCharacter(Integer position) {
+    public Character character(Integer position) {
         if (position == null) {
             return NO_CHARACTER;
         }

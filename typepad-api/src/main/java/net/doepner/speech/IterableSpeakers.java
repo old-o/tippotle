@@ -8,6 +8,6 @@ public interface IterableSpeakers extends Speaker {
     /**
      * Switches to the next speaker
      */
-    void nextSpeaker();
+    void next();
 
 }

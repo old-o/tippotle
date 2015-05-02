@@ -24,15 +24,15 @@ public final class CanadianDeutsch implements LanguageChanger {
     }
 
     @Override
-    public Language getLanguage() {
+    public Language language() {
         return deutsch ? LanguageEnum.DEUTSCH : LanguageEnum.CANADIAN;
     }
 
     @Override
     public void changeLanguage() {
-        final Language before = getLanguage();
+        final Language before = language();
         deutsch = !deutsch;
-        final Language after = getLanguage();
+        final Language after = language();
         propagator.handleChange(before, after);
         log.as(info, "Language changed from {} to {}", before, after);
     }

@@ -1,9 +1,9 @@
 package net.doepner.resources;
 
 import net.doepner.file.FileType;
+import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
 
-import java.io.File;
 import java.nio.file.Path;
 
 /**
@@ -11,7 +11,9 @@ import java.nio.file.Path;
  */
 public interface ResourceDownloader {
 
-    File download(Language language, String name, Path targetDir);
+    Path download(Language language, String name, Path targetDir);
 
-    FileType getFileType();
+    FileType fileType();
+
+    boolean supports(MediaType mediaType);
 }
