@@ -53,7 +53,7 @@ public final class SwingAction extends AbstractAction implements UiAction {
     }
 
     private Icon getIcon() {
-        final String iconName = action.getIconName();
+        final String iconName = action.iconName();
         final String fileName = (iconName == null ? "unknown" : iconName) + ".png";
         final URL resource = getClass().getResource(fileName);
         if (resource == null) {

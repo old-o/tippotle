@@ -5,7 +5,7 @@ package net.doepner.ui;
  */
 public interface EmailDialog {
 
-    String getRecipient();
+    String recipient();
 
-    String getSubject();
+    String subject();
 }
