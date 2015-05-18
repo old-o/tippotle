@@ -6,11 +6,12 @@ import net.doepner.ui.CharStyler;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 import java.awt.Color;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import static javax.swing.text.StyleConstants.setForeground;
 import static net.doepner.speech.LetterTypes.ASPIRATED_PLOSIVE;
 import static net.doepner.speech.LetterTypes.FRICATIVE;
 import static net.doepner.speech.LetterTypes.NASAL;
@@ -42,9 +43,9 @@ public final class AlphaNumStyler implements CharStyler {
 
     @Override
     public AttributeSet getAttribs(char c) {
-        for (CharCondition condition : styles.keySet()) {
-            if (condition.matches(c)) {
-                return styles.get(condition);
+        for (Entry<CharCondition, AttributeSet> e : styles.entrySet()) {
+            if (e.getKey().matches(c)) {
+                return e.getValue();
             }
         }
         // otherwise
@@ -53,7 +54,7 @@ public final class AlphaNumStyler implements CharStyler {
 
     private static AttributeSet attribs(Color color) {
         final MutableAttributeSet attribs = new SimpleAttributeSet();
-        StyleConstants.setForeground(attribs, color);
+        setForeground(attribs, color);
         return attribs;
     }
 }

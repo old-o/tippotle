@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class PaintPanel extends JPanel {
 
@@ -92,8 +93,8 @@ public class PaintPanel extends JPanel {
     }
 
     public RenderedImage getImage() {
-        final BufferedImage image = new BufferedImage(getWidth(), getHeight(),
-                BufferedImage.TYPE_INT_RGB);
+        final BufferedImage image =
+                new BufferedImage(getWidth(), getHeight(), TYPE_INT_RGB);
         paint(image.getGraphics());
         return image;
     }

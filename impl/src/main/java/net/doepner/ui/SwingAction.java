@@ -15,14 +15,15 @@ public final class SwingAction extends AbstractAction implements ChangeListener<
     private static final long serialVersionUID = 1L;
 
     private final Action action;
-    private final L10n<ActionId, String> actionDescriptions;
+
+    private final L10n<ActionId, String> descriptions;
     private final Icons icons;
 
     public SwingAction(Action action,
-                       L10n<ActionId, String> actionDescriptions,
+                       L10n<ActionId, String> descriptions,
                        Icons icons) {
         this.action = action;
-        this.actionDescriptions = actionDescriptions;
+        this.descriptions = descriptions;
         this.icons = icons;
         update();
     }
@@ -35,12 +36,12 @@ public final class SwingAction extends AbstractAction implements ChangeListener<
 
     @Override
     public void handleChange(Language before, Language after) {
-        putValue(javax.swing.Action.SHORT_DESCRIPTION, actionDescriptions.get(action.id(), after));
+        putValue(SHORT_DESCRIPTION, descriptions.get(action.id(), after));
         update();
     }
 
     private void update() {
-        putValue(javax.swing.Action.LARGE_ICON_KEY, icons.get(action.iconKey()));
+        putValue(LARGE_ICON_KEY, icons.get(action.iconKey()));
         setEnabled(action.isEnabled());
     }
 }

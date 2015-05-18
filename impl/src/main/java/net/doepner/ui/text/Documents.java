@@ -21,7 +21,9 @@ public final class Documents implements DocumentModel {
 
     private final Collection<DocSwitchListener> docSwitchListeners = new ArrayList<>();
 
-    public Documents(int docCount, Function<String, Document> docInitializer, TextBuffers buffers) {
+    public Documents(int docCount,
+                     Function<String, Document> docInitializer,
+                     TextBuffers buffers) {
         docs = new Document[docCount];
         for (int i = 0; i < docCount; i++) {
             docs[i] = docInitializer.apply(buffers.load(i + 1));
@@ -72,8 +74,6 @@ public final class Documents implements DocumentModel {
     }
 
     private void notifyListeners() {
-        for (DocSwitchListener listener : docSwitchListeners) {
-            listener.docSwitched(doc());
-        }
+        docSwitchListeners.forEach(l -> l.docSwitched(doc()));
     }
 }

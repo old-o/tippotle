@@ -1,7 +1,5 @@
 package net.doepner.ui;
 
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import javax.swing.text.JTextComponent;
 import java.awt.FontMetrics;
 import java.io.Serializable;
@@ -25,12 +23,7 @@ public final class BlockCaretContext implements CaretContext, Serializable {
             throw new IllegalArgumentException("component must not be null");
         }
         this.component = component;
-        this.component.addCaretListener(new CaretListener() {
-            @Override
-            public void caretUpdate(CaretEvent e) {
-                updateCaretWidth();
-            }
-        });
+        this.component.addCaretListener(e -> updateCaretWidth());
         updateCaretWidth();
     }
 

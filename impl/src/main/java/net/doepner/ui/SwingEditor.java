@@ -8,8 +8,8 @@ import javax.swing.InputMap;
 import javax.swing.text.JTextComponent;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
 
+import static java.awt.event.KeyEvent.VK_F1;
 import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
 import static javax.swing.KeyStroke.getKeyStroke;
 
@@ -18,40 +18,46 @@ import static javax.swing.KeyStroke.getKeyStroke;
  */
 public final class SwingEditor implements Editor {
 
-    private final JTextComponent editor;
+    private static final int NUMBER_OF_FUNCTION_KEYS = 12;
 
-    public SwingEditor(JTextComponent editor,
+    private final JTextComponent component;
+
+    public SwingEditor(JTextComponent component,
                        Color caretColorMask) {
-        this.editor = editor;
-        editor.setCaret(new BlockCaret(new BlockCaretContext(editor), caretColorMask));
+        this.component = component;
+        component.setCaret(new BlockCaret(new BlockCaretContext(component), caretColorMask));
     }
 
     @Override
     public void addAction(Action action) {
-        final InputMap inputMap = editor.getInputMap(WHEN_IN_FOCUSED_WINDOW);
-        final ActionMap actionMap = editor.getActionMap();
+        final InputMap inputMap = component.getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        final ActionMap actionMap = component.getActionMap();
         final int i = actionMap.size();
-        inputMap.put(getKeyStroke(KeyEvent.VK_F1 + i, 0), i);
-        action.putValue(Action.NAME, "F" + (i + 1));
-        actionMap.put(i, action);
+        if (i < NUMBER_OF_FUNCTION_KEYS) {
+            inputMap.put(getKeyStroke(VK_F1 + i, 0), i);
+            action.putValue(Action.NAME, "F" + (i + 1));
+            actionMap.put(i, action);
+        } else {
+            throw new IllegalStateException("No more function key available for: " + action);
+        }
     }
 
     @Override
     public void addTextPositionListener(final ChangeListener<Integer> tpl) {
-        editor.addCaretListener(e -> tpl.handleChange(null, e.getDot()));
+        component.addCaretListener(e -> tpl.handleChange(null, e.getDot()));
     }
 
     @Override
     public int textPosition() {
-        return editor.getCaretPosition();
+        return component.getCaretPosition();
     }
 
     @Override
     public void resizeFont(int step) {
-        final Font f = editor.getFont();
+        final Font f = component.getFont();
         final int newSize = f.getSize() + step;
         if (newSize > 0) {
-            editor.setFont(f.deriveFont((float) newSize));
+            component.setFont(f.deriveFont((float) newSize));
         }
     }
 }

@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
-public class PaintFrame extends JFrame {
+public final class PaintFrame extends JFrame {
 
     private final PaintPanel paintPanel = new PaintPanel();
 
@@ -23,6 +23,7 @@ public class PaintFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
+                super.windowClosing(evt);
                 try {
                     ImageIO.write(paintPanel.getImage(), "png",
                             new File("/home/oliver/image.png"));
@@ -31,12 +32,14 @@ public class PaintFrame extends JFrame {
                 }
             }
         });
+    }
 
+    public void display() {
         setSize(400, 500);
         setVisible(true);
     }
 
     public static void main(String[] args) {
-        new PaintFrame();
+        new PaintFrame().display();
     }
 }
