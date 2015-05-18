@@ -1,6 +1,6 @@
 #! /bin/bash
 
-local_file="$(ls $TRAVIS_BUILD_DIR/typepad-dist/target/*.zip | head -n 1)"
+local_file="$(ls $TRAVIS_BUILD_DIR/dist/target/*.zip | head -n 1)"
 target_url='ftp://doepner.net/~/public_html/dev/dist/ci-builds/typepad.zip'
 
 if [ -z "$local_file" ]; then
