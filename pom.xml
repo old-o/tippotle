@@ -4,17 +4,36 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.doepner</groupId>
-    <artifactId>typepad</artifactId>
+    <groupId>net.doepner.typepad</groupId>
+    <artifactId>project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>typepad</name>
 
     <modules>
-        <module>typepad-parent</module>
-        <module>typepad-api</module>
-        <module>typepad-impl</module>
-        <module>typepad-files</module>
-        <module>typepad-dist</module>
+        <module>api</module>
+        <module>impl</module>
+        <module>files</module>
+        <module>dist</module>
     </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <guppy4j.version>0.0.3</guppy4j.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
