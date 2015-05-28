@@ -8,6 +8,7 @@ import java.net.URL;
 /**
  * Finds resources, like images or audio files
  */
+@FunctionalInterface
 public interface ResourceFinder {
 
     URL find(MediaType mediaType, String name, Language language, String category);

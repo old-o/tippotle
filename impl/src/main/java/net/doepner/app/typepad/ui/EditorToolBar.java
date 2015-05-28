@@ -14,7 +14,7 @@ import static org.guppy4j.log.Log.Level.debug;
 import static org.guppy4j.log.Log.Level.info;
 
 /**
- * TODO: Document this!
+ * Supplies a toolbar
  */
 public final class EditorToolBar implements Supplier<JToolBar> {
 

@@ -50,6 +50,7 @@ import net.doepner.ui.text.Documents;
 import net.doepner.ui.text.TextStyler;
 import net.doepner.ui.text.UndoManagement;
 import net.doepner.util.ConcurrentCache;
+import net.doepner.util.WordsOnly;
 import org.guppy4j.event.ChangeSupport;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
@@ -61,6 +62,7 @@ import org.guppy4j.sound.StdAudioPlayer;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.JToolBar;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
@@ -73,6 +75,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static java.lang.Runtime.getRuntime;
 import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
@@ -124,7 +127,8 @@ public final class Application {
         final ResourceFinder resourceFinder = new CascadingResourceFinder(
                 new FileFinder(applicationFiles),
                 new ClasspathFinder(logProvider),
-                new FileDownload(logProvider, applicationFiles, new GoogleTranslateUrls()));
+                new FileDownload(logProvider, applicationFiles, new GoogleTranslateUrls()),
+                new WordsOnly());
 
         final AudioPlayer audioPlayer = new StdAudioPlayer(logProvider,
                 new DirectStreamPlayer(),
@@ -196,7 +200,7 @@ public final class Application {
         };
 
 
-        final EditorToolBar toolBar = new EditorToolBar(
+        final Supplier<JToolBar> toolBar = new EditorToolBar(
                 logProvider,
                 new FontChooser(textPane),
                 new ActionConverter(editor, new ActionDescriptions(), new IconResources(), languageChanger),

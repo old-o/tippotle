@@ -2,10 +2,10 @@ package net.doepner.resources;
 
 import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
+import net.doepner.util.StringNormalizer;
 
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.regex.Pattern;
 
 /**
  * Finds files in classpath, file system or online
@@ -16,17 +16,16 @@ public final class CascadingResourceFinder implements ResourceFinder {
     private final ResourceFinder finder;
     private final ResourceDownloader downloader;
 
-    public CascadingResourceFinder(ResourceStore store,
-                                   ResourceFinder finder) {
-        this(store, finder, null);
-    }
+    private final StringNormalizer nameNormalizer;
 
     public CascadingResourceFinder(ResourceStore store,
                                    ResourceFinder finder,
-                                   ResourceDownloader downloader) {
+                                   ResourceDownloader downloader,
+                                   StringNormalizer nameNormalizer) {
         this.store = store;
         this.finder = finder;
         this.downloader = downloader;
+        this.nameNormalizer = nameNormalizer;
     }
 
     @Override
@@ -37,7 +36,7 @@ public final class CascadingResourceFinder implements ResourceFinder {
             return null;
         }
 
-        final String name = normalize(rawName);
+        final String name = nameNormalizer.normalize(rawName);
 
         final URL storedResource = store.find(mediaType, name, language, category);
         if (storedResource != null) {
@@ -50,7 +49,6 @@ public final class CascadingResourceFinder implements ResourceFinder {
         }
 
         if (downloader != null && downloader.supports(mediaType)) {
-
             final Path targetDir = store.storageDir(mediaType, language, category);
             downloader.download(language, name, targetDir);
             return store.find(mediaType, name, language, category);
@@ -58,14 +56,5 @@ public final class CascadingResourceFinder implements ResourceFinder {
 
         //otherwise
         return null;
-    }
-
-    private static final Pattern WHITESPACE = Pattern.compile("\\s+");
-    private static final Pattern NON_WORD_CHARS = Pattern.compile("\\W");
-
-    private static String normalize(String rawName) {
-        final String whitespaceCleaned =
-                WHITESPACE.matcher(rawName.toLowerCase()).replaceAll(" ");
-        return NON_WORD_CHARS.matcher(whitespaceCleaned).replaceAll("_");
     }
 }
