@@ -20,11 +20,8 @@ public final class CharConditions {
         return c -> cond1.matches(c) || cond2.matches(c);
     }
 
-    public static final CharCondition LETTER =
-            Character::isLetter;
-
-    public static final CharCondition DIGIT =
-            Character::isDigit;
+    public static final CharCondition LETTER = Character::isLetter;
+    public static final CharCondition DIGIT = Character::isDigit;
 
     public static final CharCondition IS_WORD_PART =
             atLeastOneOf(LETTER, in("-'"));

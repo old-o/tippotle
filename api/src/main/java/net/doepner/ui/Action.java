@@ -31,5 +31,4 @@ public interface Action {
         return id();
     }
 
-
 }

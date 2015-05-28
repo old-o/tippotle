@@ -1,6 +1,8 @@
 package net.doepner.speech;
 
 import net.doepner.lang.LanguageProvider;
+import net.doepner.util.ActionableItems;
+import net.doepner.util.ActionableQueue;
 
 import java.io.IOException;
 
@@ -11,6 +13,9 @@ public final class ESpeaker implements TestableSpeaker {
 
     private final LanguageProvider languageProvider;
     private final String name;
+
+    private final ActionableItems<Process> processes =
+            new ActionableQueue<>(Process::destroy);
 
     public ESpeaker(LanguageProvider languageProvider, String name) {
         this.languageProvider = languageProvider;
@@ -24,34 +29,24 @@ public final class ESpeaker implements TestableSpeaker {
 
     @Override
     public void stopAll() {
-
+        processes.actOnAll();
     }
 
     @Override
     public void speak(String text) {
-        try {
-            doSpeak(text);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+        exec(ESPEAK_COMMAND, "-v", languageProvider.language().code(), text);
     }
 
     @Override
     public void test() {
+        exec(ESPEAK_COMMAND, "-h");
+    }
+
+    private void exec(String... commandline) {
         try {
-            Runtime.getRuntime().exec(new String[]{
-                    ESPEAK_COMMAND,
-                    "-h"});
+            processes.add(new ProcessBuilder(commandline).start());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    private void doSpeak(String text) throws IOException {
-        Runtime.getRuntime().exec(new String[]{
-                ESPEAK_COMMAND, "-v",
-                languageProvider.language().code(),
-                text
-        });
     }
 }

@@ -11,7 +11,7 @@ import static org.guppy4j.BaseUtil.bothNullOrEqual;
 import static org.guppy4j.BaseUtil.not;
 
 /**
- * TODO: Document this!
+ * Test position listener that updates images
  */
 public final class TextImagesUpdater implements ChangeListener<Integer> {
 
