@@ -47,7 +47,7 @@ public final class ManagedSpeakers implements IterableSpeakers {
 
     @Override
     public void stopAll() {
-        speakers.forEach(s -> s.stopAll());
+        speakers.forEach(Speaker::stopAll);
     }
 
     @Override
