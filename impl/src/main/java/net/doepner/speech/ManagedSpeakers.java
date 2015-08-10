@@ -9,12 +9,15 @@ import java.util.LinkedList;
 
 import static net.doepner.ui.SwingUtil.doInBackground;
 import static org.guppy4j.BaseUtil.not;
+import static org.guppy4j.log.Log.Level.error;
 import static org.guppy4j.log.Log.Level.warn;
 
 /**
  * Delegates to the currently selected speaker (among the available ones)
  */
 public final class ManagedSpeakers implements IterableSpeakers {
+
+    private final Log log;
 
     private final Iterable<Speaker> speakers;
 
@@ -23,7 +26,7 @@ public final class ManagedSpeakers implements IterableSpeakers {
 
     public ManagedSpeakers(LogProvider logProvider,
                            TestableSpeaker... speakers) {
-        final Log log = logProvider.getLog(getClass());
+        log = logProvider.getLog(getClass());
 
         final Collection<Speaker> speakerList = new LinkedList<>();
         for (TestableSpeaker speaker : speakers) {
@@ -60,6 +63,11 @@ public final class ManagedSpeakers implements IterableSpeakers {
         if (iterator == null || not(iterator.hasNext())) {
             iterator = speakers.iterator();
         }
-        current = iterator.next();
+        if (iterator.hasNext()) {
+            current = iterator.next();
+        } else {
+            log.as(error, "No functional speakers available. Speech will be disabled.");
+            current = Speaker.NONE;
+        }
     }
 }
