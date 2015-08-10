@@ -17,8 +17,6 @@ import static org.guppy4j.log.Log.Level.warn;
  */
 public final class ManagedSpeakers implements IterableSpeakers {
 
-    private final Log log;
-
     private final Iterable<Speaker> speakers;
 
     private Iterator<Speaker> iterator;
@@ -26,7 +24,7 @@ public final class ManagedSpeakers implements IterableSpeakers {
 
     public ManagedSpeakers(LogProvider logProvider,
                            TestableSpeaker... speakers) {
-        log = logProvider.getLog(getClass());
+        final Log log = logProvider.getLog(getClass());
 
         final Collection<Speaker> speakerList = new LinkedList<>();
         for (TestableSpeaker speaker : speakers) {
@@ -38,6 +36,10 @@ public final class ManagedSpeakers implements IterableSpeakers {
                 log.as(warn, "Speaker '{}' not functional. Error: {}",
                         speaker.name(), e.getMessage());
             }
+        }
+        if (speakerList.isEmpty()) {
+            log.as(error, "No functional speakers available. Speech will be disabled.");
+            speakerList.add(Speaker.NONE);
         }
         this.speakers = speakerList;
         next();
@@ -63,11 +65,8 @@ public final class ManagedSpeakers implements IterableSpeakers {
         if (iterator == null || not(iterator.hasNext())) {
             iterator = speakers.iterator();
         }
-        if (iterator.hasNext()) {
-            current = iterator.next();
-        } else {
-            log.as(error, "No functional speakers available. Speech will be disabled.");
-            current = Speaker.NONE;
-        }
+        // we assume there is always at least one speaker,
+        // even if it is the Speaker.NONE
+        current = iterator.next();
     }
 }
