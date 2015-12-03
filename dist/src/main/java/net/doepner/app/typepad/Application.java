@@ -158,7 +158,7 @@ public final class Application {
         /* MODEL */
 
         final TextBuffers buffers = new TextFiles(logProvider, applicationFiles);
-        final DocumentListener textStyler = new TextStyler(new AlphaNumStyler());
+        final DocumentListener textStyler = new TextStyler(new AlphaNumStyler(), logProvider);
 
         final Function<String, Document> docInitializer = text -> {
             final Document doc = new DefaultStyledDocument();
@@ -172,7 +172,7 @@ public final class Application {
         };
 
         final DocumentModel documentModel =
-                new Documents(NUMBER_OF_TEXT_BUFFERS, docInitializer, buffers);
+                new Documents(NUMBER_OF_TEXT_BUFFERS, docInitializer, buffers, logProvider);
 
         final WordProvider wordProvider = new WordExtractor(logProvider, documentModel);
 
@@ -182,7 +182,9 @@ public final class Application {
         final int editorFontSize = 40;
         textPane.setFont(new Font("serif", Font.PLAIN, editorFontSize));
 
+        @SuppressWarnings("MagicNumber")
         final Color caretColorMask = new Color(0, 50, 50);
+
         final Editor editor = new SwingEditor(textPane, caretColorMask);
 
         final EmailDialog emailDialog = new SwingEmailDialog(imageCollector, emailConfig);

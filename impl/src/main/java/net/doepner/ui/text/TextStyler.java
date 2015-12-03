@@ -1,12 +1,12 @@
 package net.doepner.ui.text;
 
 import net.doepner.ui.CharStyler;
+import org.guppy4j.log.LogProvider;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.StyledDocument;
 
 import static javax.swing.SwingUtilities.invokeLater;
-import static net.doepner.ui.text.DocEvents.getText;
 
 /**
  * Sets text attributes (currently mainly colors)
@@ -15,12 +15,15 @@ import static net.doepner.ui.text.DocEvents.getText;
 public final class TextStyler extends DocUpdateAdapter {
 
     private final CharStyler charStyler;
+    private final LogProvider logProvider;
 
     /**
      * @param charStyler The character styler
+     * @param logProvider Log provider
      */
-    public TextStyler(CharStyler charStyler) {
+    public TextStyler(CharStyler charStyler, LogProvider logProvider) {
         this.charStyler = charStyler;
+        this.logProvider = logProvider;
     }
 
     @Override
@@ -29,7 +32,8 @@ public final class TextStyler extends DocUpdateAdapter {
         final int offset = event.getOffset();
 
         invokeLater(() -> {
-            final String text = getText(event);
+            final DocEvent docEvent = new DocEvent(logProvider, event);
+            final String text = docEvent.getText();
 
             for (int i = 0; i < text.length(); i++) {
                 doc.setCharacterAttributes(offset + i, 1,
