@@ -1,9 +1,9 @@
-package net.doepner.app.typepad.action;
+package net.doepner.app.tippotle.action;
 
 import net.doepner.speech.IterableSpeakers;
 import net.doepner.ui.Action;
 
-import static net.doepner.app.typepad.action.ActionEnum.STOP_AUDIO;
+import static net.doepner.app.tippotle.action.ActionEnum.STOP_AUDIO;
 import static net.doepner.ui.SwingUtil.doInBackground;
 
 /**

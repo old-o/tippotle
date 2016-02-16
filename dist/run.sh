@@ -2,4 +2,4 @@
 
 dir="$(dirname ""$0"")"
 
-java -cp "$dir/lib/*" net.doepner.app.typepad.Main
+java -cp "$dir/lib/*" net.doepner.app.tippotle.Main

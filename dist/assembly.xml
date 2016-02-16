@@ -38,7 +38,7 @@
 
         <dependencySet>
             <includes>
-                <include>net.doepner.typepad:impl</include>
+                <include>net.doepner.tippotle:impl</include>
             </includes>
             <unpack>true</unpack>
             <unpackOptions>

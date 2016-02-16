@@ -1,4 +1,4 @@
-package net.doepner.app.typepad.action;
+package net.doepner.app.tippotle.action;
 
 import net.doepner.lang.LanguageChanger;
 import net.doepner.ui.Action;

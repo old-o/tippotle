@@ -1,7 +1,7 @@
 #! /bin/bash
 
 local_file="$(ls $TRAVIS_BUILD_DIR/dist/target/*.zip | head -n 1)"
-target_url='ftp://doepner.net/~/public_html/dev/dist/ci-builds/typepad.zip'
+target_url='ftp://doepner.net/~/public_html/dev/dist/ci-builds/tippotle.zip'
 
 if [ -z "$local_file" ]; then
   echo "ERROR: Cannot upload. local_file is empty"

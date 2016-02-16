@@ -1,4 +1,4 @@
-package net.doepner.app.typepad.ui;
+package net.doepner.app.tippotle.ui;
 
 import net.doepner.ui.Action;
 import net.doepner.ui.FontChooser;

@@ -1,4 +1,4 @@
-= odoepner / typepad
+= odoepner / tippotle
 
 Have fun typing words and numbers (mainly for children)
 
@@ -18,14 +18,14 @@ Simplistic text editor with
 
 == Build status
 
-image:https://travis-ci.org/odoepner/typepad.svg?branch=master[
-link="https://travis-ci.org/odoepner/typepad"]
+image:https://travis-ci.org/odoepner/tippotle.svg?branch=master[
+link="https://travis-ci.org/odoepner/tippotle"]
 
-http://dev.doepner.net/dist/ci-builds/typepad.zip[Download latest build]
+http://dev.doepner.net/dist/ci-builds/tippotle.zip[Download latest build]
 
 == Screenshot
 
-image:http://dev.doepner.net/screenshots/typepad.png[Sending email to Mama]
+image:http://dev.doepner.net/screenshots/tippotle.png[Sending email to Mama]
 
 == Technology
 

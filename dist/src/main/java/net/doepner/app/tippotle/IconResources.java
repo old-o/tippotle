@@ -1,6 +1,6 @@
-package net.doepner.app.typepad;
+package net.doepner.app.tippotle;
 
-import net.doepner.app.typepad.action.ActionEnum;
+import net.doepner.app.tippotle.action.ActionEnum;
 import net.doepner.lang.LanguageEnum;
 import net.doepner.ui.Icons;
 

@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>project</artifactId>
-        <groupId>net.doepner.typepad</groupId>
+        <groupId>net.doepner.tippotle</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -20,12 +20,12 @@
     <dependencies>
         <dependency>
             <artifactId>impl</artifactId>
-            <groupId>net.doepner.typepad</groupId>
+            <groupId>net.doepner.tippotle</groupId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <artifactId>files</artifactId>
-            <groupId>net.doepner.typepad</groupId>
+            <groupId>net.doepner.tippotle</groupId>
             <version>${project.version}</version>
         </dependency>
 

@@ -1,11 +1,11 @@
-package net.doepner.app.typepad.action;
+package net.doepner.app.tippotle.action;
 
 import net.doepner.speech.Speaker;
 import net.doepner.text.TextCoordinates;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Action;
 
-import static net.doepner.app.typepad.action.ActionEnum.SPEAK_WORD;
+import static net.doepner.app.tippotle.action.ActionEnum.SPEAK_WORD;
 import static org.guppy4j.BaseUtil.exists;
 
 public final class SpeakWord implements Action {

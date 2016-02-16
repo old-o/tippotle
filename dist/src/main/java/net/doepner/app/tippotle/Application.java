@@ -1,17 +1,17 @@
-package net.doepner.app.typepad;
+package net.doepner.app.tippotle;
 
-import net.doepner.app.typepad.action.ActionDescriptions;
-import net.doepner.app.typepad.action.EmailAction;
-import net.doepner.app.typepad.action.ResizeFont;
-import net.doepner.app.typepad.action.SpeakAll;
-import net.doepner.app.typepad.action.SpeakWord;
-import net.doepner.app.typepad.action.StopAudioAction;
-import net.doepner.app.typepad.action.SwitchDocument;
-import net.doepner.app.typepad.action.SwitchLanguage;
-import net.doepner.app.typepad.action.SwitchSpeaker;
-import net.doepner.app.typepad.ui.ActionConverter;
-import net.doepner.app.typepad.ui.EditorToolBar;
-import net.doepner.app.typepad.ui.ImageBar;
+import net.doepner.app.tippotle.action.ActionDescriptions;
+import net.doepner.app.tippotle.action.EmailAction;
+import net.doepner.app.tippotle.action.ResizeFont;
+import net.doepner.app.tippotle.action.SpeakAll;
+import net.doepner.app.tippotle.action.SpeakWord;
+import net.doepner.app.tippotle.action.StopAudioAction;
+import net.doepner.app.tippotle.action.SwitchDocument;
+import net.doepner.app.tippotle.action.SwitchLanguage;
+import net.doepner.app.tippotle.action.SwitchSpeaker;
+import net.doepner.app.tippotle.ui.ActionConverter;
+import net.doepner.app.tippotle.ui.EditorToolBar;
+import net.doepner.app.tippotle.ui.ImageBar;
 import net.doepner.file.ApplicationFiles;
 import net.doepner.file.StdApplicationFiles;
 import net.doepner.file.TextBuffers;
@@ -79,8 +79,8 @@ import java.util.function.Supplier;
 
 import static java.lang.Runtime.getRuntime;
 import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
-import static org.guppy4j.io.PathType.FILE;
 import static net.doepner.ui.SwingUtil.doInBackground;
+import static org.guppy4j.io.PathType.FILE;
 import static org.guppy4j.log.Log.Level.error;
 
 /**
@@ -118,7 +118,7 @@ public final class Application {
 
         setDefaultUncaughtExceptionHandler((t, e) -> log.as(error, e));
 
-        final String appName = "Typepad";
+        final String appName = "Tippotle";
         final Path homeDir = Paths.get(System.getProperty("user.home"));
 
         final ApplicationFiles applicationFiles =

@@ -1,7 +1,7 @@
 package net.doepner.resources;
 
-import org.guppy4j.io.FileType;
 import net.doepner.lang.Language;
+import org.guppy4j.io.FileType;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -21,7 +21,7 @@ public final class GoogleTranslateUrls implements UrlProvider {
             + "Gecko/20100101 Firefox/21.0 Iceweasel/21.0";
 
     private static final String BASE_URL = "http://translate.google.com/translate_tts?"
-            + "ie=UTF-8&total=1&idx=0&client=odoepner-typepad-" + System.currentTimeMillis();
+            + "ie=UTF-8&total=1&idx=0&client=odoepner-tippotle-" + System.currentTimeMillis();
 
     @Override
     public URL url(String s, Language language) throws MalformedURLException {

@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>project</artifactId>
-        <groupId>net.doepner.typepad</groupId>
+        <groupId>net.doepner.tippotle</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 

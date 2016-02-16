@@ -1,10 +1,10 @@
-package net.doepner.app.typepad.action;
+package net.doepner.app.tippotle.action;
 
 import net.doepner.ui.Action;
 import net.doepner.ui.FontResizable;
 
-import static net.doepner.app.typepad.action.ActionEnum.BIGGER_FONT;
-import static net.doepner.app.typepad.action.ActionEnum.SMALLER_FONT;
+import static net.doepner.app.tippotle.action.ActionEnum.BIGGER_FONT;
+import static net.doepner.app.tippotle.action.ActionEnum.SMALLER_FONT;
 
 public final class ResizeFont implements Action {
 

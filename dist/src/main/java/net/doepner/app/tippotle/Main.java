@@ -1,4 +1,4 @@
-package net.doepner.app.typepad;
+package net.doepner.app.tippotle;
 
 /**
  * Main class with main method (entry point for app execution)

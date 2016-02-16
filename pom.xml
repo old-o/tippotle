@@ -4,11 +4,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.doepner.typepad</groupId>
+    <groupId>net.doepner.tippotle</groupId>
     <artifactId>project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>typepad</name>
+    <name>tippotle</name>
 
     <modules>
         <module>api</module>

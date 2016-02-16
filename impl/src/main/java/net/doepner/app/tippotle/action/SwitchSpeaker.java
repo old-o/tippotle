@@ -1,9 +1,9 @@
-package net.doepner.app.typepad.action;
+package net.doepner.app.tippotle.action;
 
 import net.doepner.speech.IterableSpeakers;
 import net.doepner.ui.Action;
 
-import static net.doepner.app.typepad.action.ActionEnum.SWITCH_SPEAKER;
+import static net.doepner.app.tippotle.action.ActionEnum.SWITCH_SPEAKER;
 
 /**
  * Switches the current speaker to the next available speaker

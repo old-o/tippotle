@@ -37,7 +37,7 @@ public final class SwingEmailDialog implements EmailDialog {
         this.imageCollector = imageCollector;
         this.config = config;
 
-        subjectField = new JTextField("Typepad message");
+        subjectField = new JTextField("Tippotle message");
 
         inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(new JLabel("Subject: "), BorderLayout.WEST);

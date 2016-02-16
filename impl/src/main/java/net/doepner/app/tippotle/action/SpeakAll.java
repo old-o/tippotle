@@ -1,4 +1,4 @@
-package net.doepner.app.typepad.action;
+package net.doepner.app.tippotle.action;
 
 import net.doepner.speech.Speaker;
 import net.doepner.text.TextProvider;

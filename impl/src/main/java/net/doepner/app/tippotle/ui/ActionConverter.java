@@ -1,4 +1,4 @@
-package net.doepner.app.typepad.ui;
+package net.doepner.app.tippotle.ui;
 
 import net.doepner.i18n.L10n;
 import net.doepner.lang.Language;

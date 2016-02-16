@@ -1,4 +1,4 @@
-package net.doepner.app.typepad.ui;
+package net.doepner.app.tippotle.ui;
 
 import net.doepner.ui.ImageContainer;
 import net.doepner.ui.ImagesContainer;
@@ -17,7 +17,7 @@ import static javax.swing.BoxLayout.LINE_AXIS;
 import static javax.swing.BoxLayout.PAGE_AXIS;
 
 /**
- * TODO: Document this!
+ * Supplies a panel with several images in vertical or horizontal arrangement
  */
 public final class ImageBar implements Supplier<JPanel>, ImagesContainer {
 
