@@ -79,7 +79,7 @@ import java.util.function.Supplier;
 
 import static java.lang.Runtime.getRuntime;
 import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
-import static net.doepner.file.PathType.FILE;
+import static org.guppy4j.io.PathType.FILE;
 import static net.doepner.ui.SwingUtil.doInBackground;
 import static org.guppy4j.log.Log.Level.error;
 

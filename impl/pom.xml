@@ -31,6 +31,11 @@
         </dependency>
         <dependency>
             <groupId>org.guppy4j</groupId>
+            <artifactId>io-impl</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.guppy4j</groupId>
             <artifactId>sound</artifactId>
             <version>${guppy4j.version}</version>
         </dependency>

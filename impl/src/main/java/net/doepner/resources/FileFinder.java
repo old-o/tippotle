@@ -1,9 +1,9 @@
 package net.doepner.resources;
 
 import net.doepner.file.ApplicationFiles;
-import net.doepner.file.MediaType;
-import net.doepner.file.PathType;
+import org.guppy4j.io.MediaType;
 import net.doepner.lang.Language;
+import org.guppy4j.io.PathType;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,7 +44,7 @@ public final class FileFinder implements ResourceStore {
     }
 
     private Path directory(MediaType mediaType) {
-        final String dirName = mediaType.groupingName();
+        final String dirName = mediaType.getGroupingName();
         return helper.findOrCreate(dirName, PathType.DIRECTORY);
     }
 

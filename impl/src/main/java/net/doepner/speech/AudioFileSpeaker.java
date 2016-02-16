@@ -9,7 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URL;
 
-import static net.doepner.file.MediaTypeEnum.audio;
+import static org.guppy4j.io.MediaTypeEnum.audio;
 
 /**
  * Speaks by playing audio files

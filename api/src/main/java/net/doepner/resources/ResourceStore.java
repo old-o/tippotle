@@ -1,7 +1,7 @@
 package net.doepner.resources;
 
-import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
+import org.guppy4j.io.MediaType;
 
 import java.nio.file.Path;
 

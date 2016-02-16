@@ -1,5 +1,8 @@
 package net.doepner.file;
 
+import org.guppy4j.io.MediaType;
+import org.guppy4j.io.FileType;
+import org.guppy4j.io.PathCreator;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
 
@@ -11,7 +14,7 @@ import java.util.regex.Pattern;
 
 import static java.nio.file.Files.copy;
 import static java.nio.file.Files.exists;
-import static net.doepner.file.PathType.DIRECTORY;
+import static org.guppy4j.io.PathType.DIRECTORY;
 import static org.guppy4j.log.Log.Level.debug;
 import static org.guppy4j.log.Log.Level.info;
 
@@ -32,7 +35,7 @@ public final class StdApplicationFiles implements ApplicationFiles {
     @Override
     public Path findInDir(Path dir, String name, MediaType mediaType) {
         createIfNecessary(dir, DIRECTORY);
-        for (FileType fileType : mediaType.fileTypes()) {
+        for (FileType fileType : mediaType.getFileTypes()) {
             final Path path = resolveIn(dir, name, fileType);
             if (exists(path)) {
                 logFindResult(dir, name, mediaType, path);

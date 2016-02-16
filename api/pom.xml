@@ -29,6 +29,11 @@
             <artifactId>event</artifactId>
             <version>${guppy4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>io</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.findbugs</groupId>

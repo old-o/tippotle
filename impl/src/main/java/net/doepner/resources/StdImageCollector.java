@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-import static net.doepner.file.MediaTypeEnum.image;
+import static org.guppy4j.io.MediaTypeEnum.image;
 import static org.guppy4j.log.Log.Level.error;
 
 /**

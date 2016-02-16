@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
-import static net.doepner.file.PathType.FILE;
+import static org.guppy4j.io.PathType.FILE;
 import static org.guppy4j.log.Log.Level.info;
 
 /**

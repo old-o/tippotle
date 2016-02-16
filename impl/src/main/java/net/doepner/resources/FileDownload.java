@@ -1,8 +1,8 @@
 package net.doepner.resources;
 
 import net.doepner.file.ApplicationFiles;
-import net.doepner.file.FileType;
-import net.doepner.file.MediaType;
+import org.guppy4j.io.FileType;
+import org.guppy4j.io.MediaType;
 import net.doepner.lang.Language;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;

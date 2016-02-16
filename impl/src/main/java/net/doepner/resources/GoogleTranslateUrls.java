@@ -1,6 +1,6 @@
 package net.doepner.resources;
 
-import net.doepner.file.FileType;
+import org.guppy4j.io.FileType;
 import net.doepner.lang.Language;
 
 import java.io.UnsupportedEncodingException;
@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import static java.net.URLEncoder.encode;
-import static net.doepner.file.FileTypeEnum.mp3;
+import static org.guppy4j.io.FileTypeEnum.mp3;
 
 /**
  * Constructs URLs for spoken word from Google Translate site,

@@ -44,6 +44,11 @@
             <artifactId>sound-impl</artifactId>
             <version>${guppy4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.guppy4j</groupId>
+            <artifactId>io-impl</artifactId>
+            <version>${guppy4j.version}</version>
+        </dependency>
 
         <!-- runtime dependencies (not required for compilation) -->
 

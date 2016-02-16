@@ -1,8 +1,8 @@
 package net.doepner.resources;
 
-import net.doepner.file.FileType;
-import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
+import org.guppy4j.io.FileType;
+import org.guppy4j.io.MediaType;
 import org.guppy4j.log.Log;
 import org.guppy4j.log.LogProvider;
 
@@ -44,7 +44,7 @@ public final class ClasspathFinder implements ResourceFinder {
     public URL find(MediaType mediaType, String name, Language language, String category) {
 
         final String location = baseLocation
-                + '/' + mediaType.groupingName()
+                + '/' + mediaType.getGroupingName()
                 + '/' + pathPart(language)
                 + '/' + pathPart(category)
                 + '/' + name;
@@ -67,7 +67,7 @@ public final class ClasspathFinder implements ResourceFinder {
     }
 
     private URL url(MediaType mediaType, String location) {
-        for (FileType fileType : mediaType.fileTypes()) {
+        for (FileType fileType : mediaType.getFileTypes()) {
             final String fileLocation = fileType.fileName(location);
             final URL resource = getClass().getResource(fileLocation);
             if (resource != null) {

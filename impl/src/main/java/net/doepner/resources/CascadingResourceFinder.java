@@ -1,8 +1,8 @@
 package net.doepner.resources;
 
-import net.doepner.file.MediaType;
 import net.doepner.lang.Language;
 import net.doepner.util.StringNormalizer;
+import org.guppy4j.io.MediaType;
 
 import java.net.URL;
 import java.nio.file.Path;

@@ -25,7 +25,8 @@ public final class SwingEditor implements Editor {
     public SwingEditor(JTextComponent component,
                        Color caretColorMask) {
         this.component = component;
-        component.setCaret(new BlockCaret(new BlockCaretContext(component), caretColorMask));
+        // disable the block caret for now since it is buggy:
+//        component.setCaret(new BlockCaret(new BlockCaretContext(component), caretColorMask));
     }
 
     @Override

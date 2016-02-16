@@ -1,5 +1,9 @@
 package net.doepner.file;
 
+import org.guppy4j.io.FileType;
+import org.guppy4j.io.MediaType;
+import org.guppy4j.io.PathCreator;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
