@@ -1,9 +1,10 @@
 language: java
 jdk: oraclejdk8
-deploy:
-  skip_cleanup: true
-  provider: bintray
-  file: ".travis/bintray-deploy.json"
-  user: "odoepner"
-  key:
-    secure: HgU8tOis15N5mPBHM+F6Ng98uZ8SHBsTgxJ1aMvkW2fDibRG+bIXUjbNCiWu0JChnoCGgQdT8M7WYdl63PI3kcBR272k0MobLCnplaa0X77e8xok4dNmV0fRyo9C0ov8hVQxboMqKHTK+Pw7uBhD5qD8AF778q9YRQv2AqKLkb8=
+
+env:
+  global:
+  - secure: [TODO:encrypt:BINTRAY_USER]
+  - secure: [TODO:encrypt:BINTRAY_API_KEY]
+
+after_success:
+  ./.travis/artifact-upload.sh
