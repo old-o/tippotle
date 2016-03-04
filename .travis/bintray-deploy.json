@@ -10,7 +10,7 @@
   },
   "files": [
     {
-      "includePattern": ".*tippotle.*zip",
+      "includePattern": "(.*)tippotle(.*).zip",
       "uploadPattern": "tippotle.zip",
       "matrixParams": { "override": 1 }
     }
