@@ -1,10 +1,8 @@
 language: java
 jdk: oraclejdk8
-
-env:
-  global:
-  - secure: L2lr/F0gIvyVUl0nJ7w9saGV7wZkL6nO61IxilDY/76iTlnhrFXn5Q8vATGbiRYdDW/tG1kyDUbKaWSkYrpV2Agm4wV/KmMg2CWRiIcQPPqwSEENx/1UZ/dBnCQGcRkkYApu5ayjGnX3Srg3ty1zvdud/O8tiKtWkkBDipJSpfY=
-  - secure: OekVM5ZyLGHpqurOUWJcq0kKBA78WKZdXaA9aylwrjjQFeVoZxyxeZTYbhLajN4Ggg4Th58QwjUHpwcgZlnsxx4heDo1wyHxXojJd0H1LWKXJwet82IXaFJbl+Yz/htr7uWSFTUF6Szx70cpMxlGe3qsIFlgViEo9UGhHHdrjdY=
-
-after_success:
-  ./.travis/artifact-upload.sh
+deploy:
+  provider: bintray
+  file: ".travis/bintray-deploy.json"
+  user: "odoepner"
+  key:
+    secure: HgU8tOis15N5mPBHM+F6Ng98uZ8SHBsTgxJ1aMvkW2fDibRG+bIXUjbNCiWu0JChnoCGgQdT8M7WYdl63PI3kcBR272k0MobLCnplaa0X77e8xok4dNmV0fRyo9C0ov8hVQxboMqKHTK+Pw7uBhD5qD8AF778q9YRQv2AqKLkb8=

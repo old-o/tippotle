@@ -1,0 +1,15 @@
+{
+  "package": {
+    "subject": "odoepner",
+    "repo": "generic",
+    "name": "tippotle",
+    "desc": "Built and uploaded by travis-ci"
+  },
+  "files": [
+    {
+      "includePattern": ".*/dist/target/.*\.zip",
+      "uploadPattern": "tippotle.zip"
+    }
+  ],
+  "publish": true
+}
