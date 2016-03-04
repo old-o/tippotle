@@ -20,22 +20,18 @@
     </fileSets>
 
     <dependencySets>
-
+            
         <dependencySet>
             <includes>
                 <include>*</include>
             </includes>
-            <excludes>
-                <exclude>junit:junit</exclude>
-                <exclude>com.google.code.findbugs:jsr305</exclude>
-            </excludes>
             <useProjectArtifact>true</useProjectArtifact>
             <outputFileNameMapping>
                 ${artifact.groupId}_${artifact.artifactId}-${artifact.version}.${artifact.extension}
             </outputFileNameMapping>
             <outputDirectory>lib</outputDirectory>
         </dependencySet>
-
+        
         <dependencySet>
             <includes>
                 <include>net.doepner.tippotle:impl</include>
@@ -51,7 +47,7 @@
             </unpackOptions>
             <outputDirectory>config</outputDirectory>
         </dependencySet>
-
+        
     </dependencySets>
 
 </assembly>
