@@ -5,6 +5,9 @@
     "name": "tippotle",
     "desc": "Built and uploaded by travis-ci"
   },
+  "version": {
+    "name": "0.0.1"
+  },
   "files": [
     {
       "includePattern": ".*/dist/target/.*\.zip",
