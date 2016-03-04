@@ -86,10 +86,10 @@ import static org.guppy4j.log.Log.Level.error;
 /**
  * Wires up the application
  * <p>
- * Object creation, constructor injection and listener registration
- * is the single responsibility of this class.
- * That's why it is the only class in the whole codebase that must be
- * "overly coupled" and has an" overly long" constructor.
+ * Object creation, constructor injection and listener registration is the
+ * single responsibility of this class. That's why it is the only class in
+ * the whole codebase that must be "overly coupled" and has an "overly long"
+ * constructor.
  * </p>
  */
 @SuppressWarnings({
