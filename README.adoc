@@ -21,7 +21,7 @@ Simplistic text editor with
 image:https://travis-ci.org/odoepner/tippotle.svg?branch=master[
 link="https://travis-ci.org/odoepner/tippotle"]
 
-http://dev.doepner.net/dist/ci-builds/tippotle.zip[Download latest build]
+https://bintray.com/artifact/download/odoepner/generic/tippotle.zip[Download latest build]
 
 == Screenshot
 
