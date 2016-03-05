@@ -29,7 +29,7 @@ image:http://dev.doepner.net/screenshots/tippotle.png[Sending email to Mama]
 
 == Technology
 
-* Requires Java 7 (uses NIO.2 for file storage)
+* Requires Java 8 (uses NIO.2 for file storage, lambdas, etc.)
 * Uses Java Swing, mainly the JTextPane.
 * Requires http://sourceforge.net/projects/espeak/[espeak] command in the PATH.
 
