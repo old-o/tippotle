@@ -19,7 +19,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <guppy4j.version>0.0.4</guppy4j.version>
+        <guppy4j.version>0.0.5</guppy4j.version>
     </properties>
 
     <build>
