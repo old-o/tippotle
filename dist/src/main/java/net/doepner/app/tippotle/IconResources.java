@@ -4,7 +4,6 @@ import net.doepner.app.tippotle.action.ActionEnum;
 import net.doepner.lang.LanguageEnum;
 import net.doepner.ui.Icons;
 
-import javax.annotation.Nonnull;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.net.URL;
@@ -43,7 +42,6 @@ public final class IconResources implements Icons {
         iconMap.put(o, getIcon(iconLocation));
     }
 
-    @Nonnull
     private Icon getIcon(String iconLocation) {
         if (iconLocation.isEmpty()) {
             throw new IllegalStateException("Icon location unspecified");

@@ -2,7 +2,6 @@ package net.doepner.ui.images;
 
 import net.doepner.ui.ImageContainer;
 
-import javax.annotation.Nullable;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -24,7 +23,6 @@ import static org.guppy4j.BaseUtil.not;
 
 public final class ImagePanel extends JPanel implements ImageContainer {
 
-    @Nullable
     private Image image;
 
     public ImagePanel(Dimension size) {
@@ -35,7 +33,7 @@ public final class ImagePanel extends JPanel implements ImageContainer {
     }
 
     @Override
-    public void setImage(@Nullable Image image) {
+    public void setImage(Image image) {
         if (not(bothNullOrEqual(this.image, image))) {
             this.image = image;
             repaint();
