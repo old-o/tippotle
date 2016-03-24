@@ -118,11 +118,13 @@ public final class Application {
 
         setDefaultUncaughtExceptionHandler((t, e) -> log.as(error, e));
 
-        final String appName = "Tippotle - Typing for kids!";
+        final String appShortName = "tippotle";
+        final String appTitle = "Tippotle - Typing for kids";
+
         final Path homeDir = Paths.get(System.getProperty("user.home"));
 
         final ApplicationFiles applicationFiles =
-                new StdApplicationFiles(logProvider, appName, homeDir);
+                new StdApplicationFiles(logProvider, appShortName, homeDir);
 
         final ResourceFinder resourceFinder = new CascadingResourceFinder(
                 new FileFinder(applicationFiles),
@@ -215,7 +217,7 @@ public final class Application {
         final int frameWidth = 800;
         final int frameHeight = 600;
 
-        frame = new SwingFrame(appName,
+        frame = new SwingFrame(appTitle,
                 new Dimension(frameWidth, frameHeight),
                 toolBar.get(), new JScrollPane(textPane),
                 charImageBar.get(),
