@@ -118,7 +118,7 @@ public final class Application {
 
         setDefaultUncaughtExceptionHandler((t, e) -> log.as(error, e));
 
-        final String appName = "Tippotle - Oh yeah!";
+        final String appName = "Tippotle - Typing for kids!";
         final Path homeDir = Paths.get(System.getProperty("user.home"));
 
         final ApplicationFiles applicationFiles =
