@@ -43,6 +43,7 @@ public final class TextImagesUpdater implements ChangeListener<Integer> {
             if ((word == null || word.trim().length() != 1)
                     && not(bothNullOrEqual(word, wordProvider.word(before)))) {
                 wordImageBar.setImages(imageCollector.apply(word));
+
             }
         });
     }

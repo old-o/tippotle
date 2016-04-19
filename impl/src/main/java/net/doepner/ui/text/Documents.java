@@ -9,13 +9,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.StyledDocument;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Function;
 
 public final class Documents implements DocumentModel {
 
-    private final Document[] docs;
+    private final StyledDocument[] docs;
     private final TextBuffers buffers;
     private final LogProvider logProvider;
 
@@ -24,11 +25,11 @@ public final class Documents implements DocumentModel {
     private final Collection<DocSwitchListener> docSwitchListeners = new ArrayList<>();
 
     public Documents(int docCount,
-                     Function<String, Document> docInitializer,
+                     Function<String, StyledDocument> docInitializer,
                      TextBuffers buffers,
                      LogProvider logProvider) {
         this.logProvider = logProvider;
-        docs = new Document[docCount];
+        docs = new StyledDocument[docCount];
         for (int i = 0; i < docCount; i++) {
             docs[i] = docInitializer.apply(buffers.load(i + 1));
         }
@@ -38,7 +39,7 @@ public final class Documents implements DocumentModel {
 
     @Override
     public String getText() {
-        final Document doc = doc();
+        final StyledDocument doc = getDoc();
         try {
             return doc.getText(0, doc.getLength());
         } catch (BadLocationException e) {
@@ -46,7 +47,7 @@ public final class Documents implements DocumentModel {
         }
     }
 
-    private Document doc() {
+    private StyledDocument getDoc() {
         return docs[index];
     }
 
@@ -68,7 +69,7 @@ public final class Documents implements DocumentModel {
     public void addDocSwitchListener(DocSwitchListener docSwitchListener) {
         docSwitchListeners.add(docSwitchListener);
         // Synthesize event so listener knows current document
-        docSwitchListener.docSwitched(doc());
+        docSwitchListener.docSwitched(getDoc());
     }
 
     @Override
@@ -79,6 +80,6 @@ public final class Documents implements DocumentModel {
     }
 
     private void notifyListeners() {
-        docSwitchListeners.forEach(l -> l.docSwitched(doc()));
+        docSwitchListeners.forEach(l -> l.docSwitched(getDoc()));
     }
 }

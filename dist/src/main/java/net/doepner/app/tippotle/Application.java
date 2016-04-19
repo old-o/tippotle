@@ -66,7 +66,7 @@ import javax.swing.JToolBar;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Document;
+import javax.swing.text.StyledDocument;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -162,8 +162,8 @@ public final class Application {
         final TextBuffers buffers = new TextFiles(logProvider, applicationFiles);
         final DocumentListener textStyler = new TextStyler(new AlphaNumStyler(), logProvider);
 
-        final Function<String, Document> docInitializer = text -> {
-            final Document doc = new DefaultStyledDocument();
+        final Function<String, StyledDocument> docInitializer = text -> {
+            final StyledDocument doc = new DefaultStyledDocument();
             doc.addDocumentListener(textStyler);
             try {
                 doc.insertString(0, text, null);

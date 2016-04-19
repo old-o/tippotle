@@ -12,13 +12,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import static javax.swing.text.StyleConstants.setForeground;
-import static net.doepner.speech.LetterTypes.ASPIRATED_PLOSIVE;
-import static net.doepner.speech.LetterTypes.FRICATIVE;
-import static net.doepner.speech.LetterTypes.NASAL;
-import static net.doepner.speech.LetterTypes.VOICED_PLOSIVE;
-import static net.doepner.speech.LetterTypes.VOWEL;
 import static net.doepner.text.CharConditions.DIGIT;
 import static net.doepner.text.CharConditions.LETTER;
+import static net.doepner.text.LetterTypes.ASPIRATED_PLOSIVE;
+import static net.doepner.text.LetterTypes.FRICATIVE;
+import static net.doepner.text.LetterTypes.NASAL;
+import static net.doepner.text.LetterTypes.VOICED_PLOSIVE;
+import static net.doepner.text.LetterTypes.VOWEL;
 
 public final class AlphaNumStyler implements CharStyler {
 

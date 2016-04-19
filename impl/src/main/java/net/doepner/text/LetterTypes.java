@@ -1,7 +1,4 @@
-package net.doepner.speech;
-
-import net.doepner.text.CharCondition;
-import net.doepner.text.CharConditions;
+package net.doepner.text;
 
 /**
  * See http://en.wikipedia.org/wiki/International_Phonetic_Alphabet#Consonants
