@@ -96,8 +96,8 @@ public final class UndoManagement implements DocSwitchListener {
                 });
 
         final InputMap inputMap = textComponent.getInputMap();
-        inputMap.put(getKeyStroke("Control Z"), UNDO);
-        inputMap.put(getKeyStroke("Control Y"), REDO);
+        inputMap.put(getKeyStroke("ctrl Z"), UNDO);
+        inputMap.put(getKeyStroke("ctrl Y"), REDO);
     }
 
     @Override
