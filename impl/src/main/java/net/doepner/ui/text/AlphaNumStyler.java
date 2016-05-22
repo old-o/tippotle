@@ -4,14 +4,11 @@ import net.doepner.text.CharCondition;
 import net.doepner.ui.CharStyler;
 
 import javax.swing.text.AttributeSet;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.SimpleAttributeSet;
 import java.awt.Color;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static javax.swing.text.StyleConstants.setForeground;
 import static net.doepner.text.CharConditions.DIGIT;
 import static net.doepner.text.CharConditions.LETTER;
 import static net.doepner.text.LetterTypes.ASPIRATED_PLOSIVE;
@@ -22,7 +19,7 @@ import static net.doepner.text.LetterTypes.VOWEL;
 
 public final class AlphaNumStyler implements CharStyler {
 
-    private static final AttributeSet DEFAULT = attribs(Color.DARK_GRAY);
+    private static final AttributeSet DEFAULT = StyleAttributes.forColor(Color.DARK_GRAY);
 
     private final Map<CharCondition, AttributeSet> styles =
             new LinkedHashMap<>();
@@ -38,7 +35,7 @@ public final class AlphaNumStyler implements CharStyler {
     }
 
     private void style(CharCondition digit, Color color) {
-        styles.put(digit, attribs(color));
+        styles.put(digit, StyleAttributes.forColor(color));
     }
 
     @Override
@@ -52,9 +49,4 @@ public final class AlphaNumStyler implements CharStyler {
         return DEFAULT;
     }
 
-    private static AttributeSet attribs(Color color) {
-        final MutableAttributeSet attribs = new SimpleAttributeSet();
-        setForeground(attribs, color);
-        return attribs;
-    }
 }

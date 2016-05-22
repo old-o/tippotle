@@ -24,7 +24,7 @@ public final class SpeakWord implements Action {
 
     @Override
     public void execute() {
-        final String word = wordProvider.word(textCoordinates.textPosition());
+        final String word = wordProvider.getWord(textCoordinates.textPosition()).getContent();
         if (exists(word)) {
             speaker.speak(word);
         }

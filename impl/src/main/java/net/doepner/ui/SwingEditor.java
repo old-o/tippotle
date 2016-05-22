@@ -43,9 +43,15 @@ public final class SwingEditor implements Editor {
         }
     }
 
+    private int lastCaretPosition = 0;
+
     @Override
     public void addTextPositionListener(final ChangeListener<Integer> tpl) {
-        component.addCaretListener(e -> tpl.handleChange(null, e.getDot()));
+        component.addCaretListener(e -> {
+            final int caretPosition = e.getDot();
+            tpl.handleChange(lastCaretPosition, caretPosition);
+            lastCaretPosition = caretPosition;
+        });
     }
 
     @Override

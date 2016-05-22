@@ -1,5 +1,6 @@
 package net.doepner.text;
 
+import net.doepner.ui.CharStyler;
 import net.doepner.ui.text.DocSwitchListener;
 
 /**
@@ -26,4 +27,12 @@ public interface DocumentModel extends TextProvider {
      * @param docSwitchListener Listener for document switching events
      */
     void addDocSwitchListener(DocSwitchListener docSwitchListener);
+
+    /**
+     * Applies a character styler to a text spam of the current document
+     *
+     * @param charStyler The character styler
+     * @param textSpan The text spam
+     */
+    void applyStyle(CharStyler charStyler, TextSpan textSpan);
 }

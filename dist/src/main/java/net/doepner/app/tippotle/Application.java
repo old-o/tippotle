@@ -34,19 +34,24 @@ import net.doepner.speech.AudioFileSpeaker;
 import net.doepner.speech.ESpeaker;
 import net.doepner.speech.IterableSpeakers;
 import net.doepner.speech.ManagedSpeakers;
+import net.doepner.text.CurrentTextTracker;
 import net.doepner.text.DocumentModel;
-import net.doepner.text.TextImagesUpdater;
+import net.doepner.text.SubStringFactory;
 import net.doepner.text.WordExtractor;
 import net.doepner.text.WordProvider;
 import net.doepner.ui.Action;
+import net.doepner.ui.CharStyler;
 import net.doepner.ui.Editor;
 import net.doepner.ui.EmailDialog;
 import net.doepner.ui.FontChooser;
 import net.doepner.ui.SwingEditor;
 import net.doepner.ui.SwingEmailDialog;
 import net.doepner.ui.SwingFrame;
+import net.doepner.ui.images.ImagesUpdater;
 import net.doepner.ui.text.AlphaNumStyler;
+import net.doepner.ui.text.ColorRotation;
 import net.doepner.ui.text.Documents;
+import net.doepner.ui.text.LoopingTextSpanStyler;
 import net.doepner.ui.text.TextStyler;
 import net.doepner.ui.text.UndoManagement;
 import net.doepner.util.ConcurrentCache;
@@ -78,6 +83,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static java.lang.Runtime.getRuntime;
+import static java.lang.String.valueOf;
 import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
 import static net.doepner.ui.SwingUtil.doInBackground;
 import static org.guppy4j.io.PathType.FILE;
@@ -176,7 +182,7 @@ public final class Application {
         final DocumentModel documentModel =
                 new Documents(NUMBER_OF_TEXT_BUFFERS, docInitializer, buffers, logProvider);
 
-        final WordProvider wordProvider = new WordExtractor(logProvider, documentModel);
+        final WordProvider wordProvider = new WordExtractor(logProvider, documentModel, new SubStringFactory());
 
         /* VIEW */
 
@@ -238,8 +244,17 @@ public final class Application {
 
         documentModel.addDocSwitchListener(textPane::setDocument);
 
-        editor.addTextPositionListener(new TextImagesUpdater(
-                wordProvider, charImageBar, wordImageBar, imageCollector));
+        final CharStyler colorRotation = new ColorRotation();
+
+        editor.addTextPositionListener(new CurrentTextTracker(wordProvider,
+                new ImagesUpdater<>(charImageBar, character -> imageCollector.apply(valueOf(character))),
+                new ImagesUpdater<>(wordImageBar, textSpan -> imageCollector.apply(textSpan.getContent())),
+                new LoopingTextSpanStyler(documentModel, colorRotation, 100)
+        ));
+
+
+        // on every word change, apply certain style attributes to current word
+
 
     }
 

@@ -1,8 +1,8 @@
 package net.doepner.app.tippotle.ui;
 
-import net.doepner.ui.ImageContainer;
-import net.doepner.ui.ImagesContainer;
+import net.doepner.ui.images.ImageContainer;
 import net.doepner.ui.images.ImagePanel;
+import net.doepner.ui.images.ImagesContainer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;

@@ -32,8 +32,7 @@ public final class TextStyler extends DocUpdateAdapter {
         final int offset = event.getOffset();
 
         invokeLater(() -> {
-            final DocEvent docEvent = new DocEvent(logProvider, event);
-            final String text = docEvent.getText();
+            final String text = new DocEvent(logProvider, event).getText();
 
             for (int i = 0; i < text.length(); i++) {
                 doc.setCharacterAttributes(offset + i, 1,

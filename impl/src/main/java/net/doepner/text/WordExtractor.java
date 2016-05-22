@@ -13,26 +13,29 @@ public final class WordExtractor implements WordProvider {
 
     private final Log log;
     private final TextProvider textProvider;
+    private final TextSpanFactory textSpanFactory;
 
-    public WordExtractor(LogProvider logProvider, TextProvider textProvider) {
+    public WordExtractor(LogProvider logProvider, TextProvider textProvider,
+                         TextSpanFactory textSpanFactory) {
         log = logProvider.getLog(getClass());
         this.textProvider = textProvider;
+        this.textSpanFactory = textSpanFactory;
     }
 
     @Override
-    public String word(Integer position) {
+    public TextSpan getWord(Integer position) {
         if (position == null) {
             return null;
         }
         final int pos = position.intValue();
-        final String word = findSequence(IS_WORD_PART, pos);
-        final String result = word.isEmpty() ? findSequence(IS_NUMBER_PART, pos) : word;
+        final TextSpan word = findSequence(IS_WORD_PART, pos);
+        final TextSpan result = word.toString().isEmpty() ? findSequence(IS_NUMBER_PART, pos) : word;
         log.as(info, "Word '{}' at position {}", result, pos);
         return result;
     }
 
     @Override
-    public Character character(Integer position) {
+    public Character getCharacter(Integer position) {
         if (position == null) {
             return NO_CHARACTER;
         }
@@ -46,11 +49,10 @@ public final class WordExtractor implements WordProvider {
         return ch;
     }
 
-    private String findSequence(CharCondition cond, int position) {
+    private TextSpan findSequence(CharCondition cond, int position) {
         final int start = getStart(cond, position);
         final int end = getEnd(cond, position - 1);
-
-        return start < end ? textProvider.getText().substring(start, end) : "";
+        return textSpanFactory.extractFrom(textProvider.getText(), start, end);
     }
 
     private int getStart(CharCondition cond, int position) {

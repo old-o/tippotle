@@ -3,10 +3,13 @@ package net.doepner.ui.text;
 import net.doepner.file.TextBuffers;
 import net.doepner.text.DocumentModel;
 import net.doepner.text.TextListener;
+import net.doepner.text.TextSpan;
+import net.doepner.ui.CharStyler;
 import org.guppy4j.log.LogProvider;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.StyledDocument;
@@ -70,6 +73,12 @@ public final class Documents implements DocumentModel {
         docSwitchListeners.add(docSwitchListener);
         // Synthesize event so listener knows current document
         docSwitchListener.docSwitched(getDoc());
+    }
+
+    @Override
+    public void applyStyle(CharStyler charStyler, TextSpan textSpan) {
+        final AttributeSet attribs = charStyler.getAttribs(' ');
+        getDoc().setCharacterAttributes(textSpan.getStart(), textSpan.getContent().length(), attribs, true);
     }
 
     @Override

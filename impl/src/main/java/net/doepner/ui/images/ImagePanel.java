@@ -1,7 +1,5 @@
 package net.doepner.ui.images;
 
-import net.doepner.ui.ImageContainer;
-
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
