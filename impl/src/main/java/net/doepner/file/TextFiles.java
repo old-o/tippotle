@@ -27,30 +27,36 @@ public final class TextFiles implements TextBuffers {
 
     @Override
     public void save(String text, int i) {
-        final Path buffer = getBuffer(i);
-        final byte[] bytes = text.getBytes();
-        try {
-            write(buffer, bytes);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-        log.as(info, "Saved buffer {}", buffer);
+        final Path path = getBufferPath(i);
+        writeString(text, path);
+        log.as(info, "Saved buffer {}", path);
     }
 
     @Override
     public String load(int i) {
-        final Path buffer = getBuffer(i);
-        final byte[] bytes;
+        final Path path = getBufferPath(i);
+        final String content = readAsString(path);
+        log.as(info, "Loaded buffer {}", path);
+        return content;
+    }
+
+    private static void writeString(String text, Path path) {
         try {
-            bytes = readAllBytes(buffer);
+            write(path, text.getBytes());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
-        log.as(info, "Loaded buffer {}", buffer);
-        return new String(bytes);
     }
 
-    private Path getBuffer(int i) {
+    private static String readAsString(Path buffer) {
+        try {
+            return new String(readAllBytes(buffer));
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private Path getBufferPath(int i) {
         return applicationFiles.findOrCreate(i + ".txt", FILE);
     }
 }
