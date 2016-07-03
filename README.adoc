@@ -5,8 +5,8 @@ Have fun typing words and numbers (mainly for children)
 Simplistic text editor with
 
 [%hardbreaks]
--> Color-coded characters (letters, numbers, etc.)
--> As typed speaks (spells out) letters/numbers in the currently selected language
+->  Color-coded characters (letters, numbers, etc.)
+->  As typed speaks (spells out) letters/numbers in the currently selected language
 -> Switch between speaker languages (currently English and German)
 -> Switch between 5 buffers (auto-saved to disk)
 -> Unlimited font zooming in/out
