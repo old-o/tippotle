@@ -4,6 +4,7 @@ Have fun typing words and numbers (mainly for children)
 
 Simplistic text editor with
 
+[%hardbreaks]
 -> Color-coded characters (letters, numbers, etc.)
 -> As typed speaks (spells out) letters/numbers in the currently selected language
 -> Switch between speaker languages (currently English and German)
