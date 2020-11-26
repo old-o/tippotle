@@ -1,0 +1,53 @@
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2
+                            http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <id>assembly</id>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <includes>
+                <include>run.*</include>
+            </includes>
+            <fileMode>0544</fileMode>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+            
+        <dependencySet>
+            <includes>
+                <include>*</include>
+            </includes>
+            <useProjectArtifact>true</useProjectArtifact>
+            <outputFileNameMapping>
+                ${artifact.groupId}_${artifact.artifactId}-${artifact.version}.${artifact.extension}
+            </outputFileNameMapping>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+        
+        <dependencySet>
+            <includes>
+                <include>org.oldo:tippotle-impl</include>
+            </includes>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+                <excludes>
+                    <exclude>META-INF/**/*</exclude>
+                </excludes>
+            </unpackOptions>
+            <outputDirectory>config</outputDirectory>
+        </dependencySet>
+        
+    </dependencySets>
+
+</assembly>

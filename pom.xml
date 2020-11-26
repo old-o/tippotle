@@ -4,17 +4,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.doepner.tippotle</groupId>
-    <artifactId>project</artifactId>
+    <groupId>org.oldo</groupId>
+    <artifactId>tippotle</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>tippotle</name>
 
     <modules>
-        <module>api</module>
-        <module>impl</module>
-        <module>files</module>
-        <module>dist</module>
+        <module>tippotle-api</module>
+        <module>tippotle-impl</module>
+        <module>tippotle-files</module>
+        <module>tippotle-dist</module>
     </modules>
 
     <properties>
